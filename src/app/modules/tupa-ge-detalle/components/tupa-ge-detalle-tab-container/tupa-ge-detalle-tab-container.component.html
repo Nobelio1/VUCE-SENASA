@@ -1,0 +1,8 @@
+<app-tupa-ge-detalle-tab-header [tabs]="this.tabs" (eventSelected)="this.onSelect($event)"/>
+<div class="text-white mt-5">
+  <app-tupa-ge-detalle-servicios *ngIf="this.currentTabKey === tabs[0].id"/>
+  <app-tupa-ge-detalle-tipo-adicional *ngIf="this.currentTabKey === tabs[1].id"/>
+  <app-tupa-ge-detalle-otro-usuario *ngIf="this.currentTabKey === tabs[2].id"/>
+  <app-tupa-ge-detalle-concepto-pago *ngIf="this.currentTabKey === tabs[3].id"/>
+</div>
+

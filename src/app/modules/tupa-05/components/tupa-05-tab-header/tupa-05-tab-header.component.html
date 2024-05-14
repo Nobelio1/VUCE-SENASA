@@ -1,0 +1,5 @@
+<div class="border-b border-gray-200 dark:border-gray-700">
+  <ul class="mb-px flex flex-wrap text-center text-sm font-medium text-gray-500 dark:text-gray-400">
+    <app-tupa-05-tab-item *ngFor="let item of this.tabs" [item]="item" (eventClick)="this.onSelected(item)"/>
+  </ul>
+</div>

@@ -1,0 +1,53 @@
+<div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
+  <div class="mb-4 flex flex-col items-center justify-between">
+    <div class="flex-col self-start">
+      <h3 class="text-md font-bold text-foreground">Servicios</h3>
+    </div>
+    <div class="self-end">
+      <button
+        class="w-full rounded-lg border border-primary bg-transparent px-5 py-2.5 text-center text-sm font-medium text-primary text-white ring-primary/50 focus:outline-none focus:ring-4 hover:bg-primary hover:text-white sm:w-auto md:top-7">
+        Buscar
+      </button>
+      <button
+        class="mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white ring-primary/50 focus:outline-none focus:ring-4 sm:w-auto md:top-7 md:mt-0 md:ml-2">
+        Agregar
+      </button>
+    </div>
+  </div>
+
+  <!-- TODO: AGREGAR BOTONES INSERTAR - ELIMINAR -->
+
+  <div class="relative mb-4 overflow-x-auto">
+    <table class="w-full table-auto">
+      <!--Table head-->
+      <thead class="text-xs uppercase text-muted-foreground">
+        <tr>
+          <th class="py-3 text-left">Concepto</th>
+          <th class="py-3 text-right">Cantidad</th>
+          <th class="py-3 text-right">Costo</th>
+        </tr>
+      </thead>
+      <!--end Table head-->
+      <!--Table body-->
+      <tbody>
+        <tr
+          *ngFor="let auction of activeServicio"
+          [servicio]="auction"
+          tupa-ge-detalle-table-item
+          class="border-b border-dashed border-border hover:bg-card"></tr>
+      </tbody>
+      <!--end::Table body-->
+    </table>
+  </div>
+</div>
+<div class="mb-6 grid gap-6 px-8 py-4 md:grid-cols-1">
+  <div class="flex items-center">
+    <label class="col-span-2 mb-2 mr-4 block text-sm font-medium text-gray-900 dark:text-white"
+      ><b>Pago a nombre de otro usuario: </b></label
+    >
+    <input type="radio" class="mr-2 mb-2 inline" />
+    <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">Si</label>
+    <input type="radio" class="ml-10 mr-2 mb-2 inline" />
+    <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">No</label>
+  </div>
+</div>

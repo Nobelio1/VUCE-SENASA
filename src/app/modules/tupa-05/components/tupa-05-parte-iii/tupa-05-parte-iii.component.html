@@ -1,0 +1,81 @@
+<form>
+  <!-- header -->
+  <h6 class="mb-7 border-b border-dashed border-b-gray-600 pb-2 text-lg font-bold text-gray-900 dark:text-white">
+    Importación
+  </h6>
+
+  <!-- level 1 -->
+  <div class="mb-6 grid gap-6 md:grid-cols-2">
+    <div>
+      <input type="radio" class="mr-2 inline" />
+      <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">Nro de Permiso</label>
+    </div>
+
+    <div>
+      <input
+        type="text"
+        class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+    </div>
+
+    <!-- level 2 -->
+    <div>
+      <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        >País Origen <b class="text-red-600">*</b></label
+      >
+      <select
+        class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+        <option value="NDE">.- valor 1</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        >País Procedencia <b class="text-red-600">*</b></label
+      >
+      <select
+        class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+        <option value="NDE">.- valor 1</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- level 3 -->
+  <h6 class="mb-6 border-b border-dashed border-b-gray-600 pb-2 text-lg font-bold text-gray-900 dark:text-white">
+    Exportación
+  </h6>
+
+  <!-- level 4 -->
+  <div class="mb-6 grid gap-6 md:grid-cols-2">
+    <div>
+      <input type="radio" class="mr-2 inline" />
+      <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">País de Destino</label>
+    </div>
+
+    <div>
+      <select
+        class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+        <option value="NDE">.- valor 1</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- level 5 -->
+  <h6 class="mb-6 border-b border-dashed border-b-gray-600 pb-2 text-lg font-bold text-gray-900 dark:text-white">
+    Tránsito Interno
+  </h6>
+
+  <!-- level 6 -->
+  <div class="mb-6 grid gap-6 md:grid-cols-2">
+    <div>
+      <input type="radio" class="mr-2 inline" />
+      <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">Lugar</label>
+    </div>
+
+    <div>
+      <textarea
+        type="text"
+        class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+      </textarea>
+    </div>
+  </div>
+</form>

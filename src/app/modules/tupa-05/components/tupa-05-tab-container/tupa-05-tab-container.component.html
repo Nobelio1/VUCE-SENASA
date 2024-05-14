@@ -1,0 +1,8 @@
+<app-tupa-05-tab-header [tabs]="this.tabs" (eventSelected)="this.onSelect($event)"/>
+<div class="text-white mt-10">
+  <app-tupa-05-parte-i *ngIf="this.currentTabKey === tabs[0].id"/>
+  <app-tupa-05-parte-ii *ngIf="this.currentTabKey === tabs[1].id"/>
+  <app-tupa-05-parte-iii *ngIf="this.currentTabKey === tabs[2].id"/>
+  <app-tupa-05-parte-iv *ngIf="this.currentTabKey === tabs[3].id"/>
+  <app-tupa-05-parte-v *ngIf="this.currentTabKey === tabs[4].id"/>
+</div>
