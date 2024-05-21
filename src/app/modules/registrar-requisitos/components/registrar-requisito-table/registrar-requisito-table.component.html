@@ -1,0 +1,47 @@
+<div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
+  <div class="relative mb-4 overflow-x-auto">
+    <table class="w-full table-auto">
+      <!--Table head-->
+      <thead class="text-xs uppercase text-muted-foreground">
+        <tr>
+          <th class="py-3 text-left">Obligatorio</th>
+          <th class="py-3 text-right">Registros TUPA</th>
+        </tr>
+      </thead>
+      <!--end Table head-->
+      <!--Table body-->
+      <tbody>
+        <tr
+          *ngFor="let auction of activeRequisito"
+          [requisitos]="auction"
+          registrar-requisito-table-item
+          class="border-b border-dashed border-border hover:bg-card"></tr>
+      </tbody>
+      <!--end::Table body-->
+    </table>
+  </div>
+</div>
+<div class="mb-6 grid gap-6 px-8 py-4 md:grid-cols-1">
+  <div class="flex items-center">
+    <label class="col-span-2 mb-2 mr-4 block text-sm font-medium text-gray-900 dark:text-white"
+      ><b>¿Cumplio con requisitos TUPA?: </b></label
+    >
+    <input type="radio" class="mr-2 mb-2 inline" />
+  </div>
+</div>
+<div class="mb-6 grid gap-6 md:grid-cols-3">
+  <div>
+    <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">¿Confidencial?:</label>
+    <select
+      class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+      <option value="NDE">Si</option>
+      <option value="NDE">No</option>
+    </select>
+  </div>
+  <div>
+    <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Numero de folios</label>
+    <input
+      type="text"
+      class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+  </div>
+</div>
