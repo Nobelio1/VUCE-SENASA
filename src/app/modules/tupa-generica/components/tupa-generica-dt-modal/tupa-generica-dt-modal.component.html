@@ -1,0 +1,225 @@
+<div
+  *ngIf="showModal"
+  class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
+  <div class="relative top-24 my-6 mx-auto w-[1200px]">
+    <!--content-->
+    <div
+      class="relative flex w-full flex-col rounded-lg border-0 bg-neutral-900 px-4 shadow-lg outline-none focus:outline-none">
+      <!--header-->
+      <h6
+        class="mb-2 border-b border-dashed border-b-gray-600 px-2 py-4 text-lg font-bold text-gray-900 dark:text-white">
+        Persona
+      </h6>
+      <!--body-->
+      <div class="pt-5">
+        <!-- row-1 -->
+        <div class="mb-6 grid gap-6 md:grid-cols-4">
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">RUC:</label>
+            <input
+              type="text"
+              id="first_name"
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          </div>
+          <div>
+            <button
+              class="relative mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white ring-primary/50 focus:outline-none focus:ring-4 sm:w-auto md:top-7 md:mt-0 md:ml-2">
+              Validación SUNAT
+            </button>
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">DNI:</label>
+            <input
+              type="text"
+              id="first_name"
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          </div>
+          <div>
+            <button
+              class="relative mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white ring-primary/50 focus:outline-none focus:ring-4 sm:w-auto md:top-7 md:mt-0 md:ml-2">
+              Validación RENIEC
+            </button>
+          </div>
+        </div>
+        <!-- row-2 -->
+        <div class="mb-6 grid gap-6 md:grid-cols-4">
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Tipo de persona:</label>
+            <select
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+              <option value="NDE">Persona 1</option>
+              <option value="NDE">Persona 2</option>
+              <option value="NDE">Persona 3</option>
+            </select>
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Tipo de documento</label>
+            <select
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+              <option value="NDE">DNI</option>
+              <option value="NDE">RUC</option>
+              <option value="NDE">C4</option>
+            </select>
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Número de documento: </label>
+            <input
+              type="text"
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">RUC:</label>
+            <input
+              type="text"
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          </div>
+        </div>
+        <!-- row-3 -->
+        <div class="mb-6">
+          <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            >Razón social/Nombre:</label
+          >
+          <input
+            type="text"
+            id="first_name"
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+        </div>
+        <!-- row-4 -->
+        <div class="mb-6 grid gap-6 md:grid-cols-3">
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Nombre:</label>
+            <input
+              type="text"
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Apellido Paterno:</label>
+            <input
+              type="text"
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Apellido Materno:</label>
+            <input
+              type="text"
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          </div>
+        </div>
+        <!-- row-5 -->
+        <div class="mb-6 grid gap-6 md:grid-cols-3">
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Departamento:</label>
+            <select
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+              <option value="NDE">Persona 1</option>
+              <option value="NDE">Persona 2</option>
+              <option value="NDE">Persona 3</option>
+            </select>
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Provincia:</label>
+            <select
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+              <option value="NDE">Persona 1</option>
+              <option value="NDE">Persona 2</option>
+              <option value="NDE">Persona 3</option>
+            </select>
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Distrito:</label>
+            <select
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+              <option value="NDE">DNI</option>
+              <option value="NDE">RUC</option>
+              <option value="NDE">C4</option>
+            </select>
+          </div>
+        </div>
+        <!-- row-6 -->
+        <div class="mb-6 grid gap-6 md:grid-cols-3">
+          <div>
+            <label class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Poblado:</label>
+            <input
+              type="text"
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          </div>
+        </div>
+        <!-- row-7 -->
+        <div class="mb-6 grid gap-6">
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Dirección:</label>
+            <input
+              type="text"
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          </div>
+        </div>
+        <!-- row-8 -->
+        <div class="mb-6">
+          <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Referencia: </label>
+          <textarea
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+          </textarea>
+        </div>
+        <!-- row-9 -->
+        <div class="mb-6 grid gap-6 md:grid-cols-3">
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Teléfono</label>
+            <input
+              type="text"
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Teléfono Movil</label>
+            <input
+              type="text"
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Correo Electrónico</label>
+            <input
+              type="text"
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          </div>
+        </div>
+        <!-- row-10 -->
+        <div class="mb-6 grid gap-6 md:grid-cols-3">
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Estado Natural:</label>
+            <select
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+              <option value="NDE">Persona 1</option>
+              <option value="NDE">Persona 2</option>
+              <option value="NDE">Persona 3</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Estado juridico:</label>
+            <select
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+              <option value="NDE">DNI</option>
+              <option value="NDE">RUC</option>
+              <option value="NDE">C4</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!--footer-->
+      <div class="flex items-center justify-end rounded-b pb-4">
+        <button
+          class="mt-2 mr-2 w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white ring-primary/50 focus:outline-none focus:ring-4 sm:w-auto md:top-7 md:mt-0 md:ml-2"
+          type="button"
+          (click)="changeModal()">
+          Guardar
+        </button>
+        <button
+          class="w-full rounded-lg border border-primary bg-transparent px-5 py-2.5 text-center text-sm font-medium text-primary text-white ring-primary/50 focus:outline-none focus:ring-4 hover:bg-primary hover:text-white sm:w-auto md:top-7"
+          type="button"
+          (click)="changeModal()">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showModal" class="fixed inset-0 z-40 bg-black opacity-25"></div>

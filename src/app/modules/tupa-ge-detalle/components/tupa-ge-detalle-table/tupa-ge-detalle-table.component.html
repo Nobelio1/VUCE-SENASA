@@ -32,6 +32,7 @@
       <tbody>
         <tr
           *ngFor="let auction of activeServicio"
+          [tipo]="1"
           [servicio]="auction"
           tupa-ge-detalle-table-item
           class="border-b border-dashed border-border hover:bg-card"></tr>

@@ -1,9 +1,29 @@
-<td class="py-2 pr-2">
-  <span class="text-xs font-semibold text-muted-foreground">{{ servicio.concepto }}</span>
-</td>
-<td class="py-2 pl-2 text-right">
-  <span class="text-sm font-semibold text-muted-foreground">{{ servicio.cantidad }}</span>
-</td>
-<td class="py-2 pl-2 text-right">
-  <span class="text-sm font-semibold text-muted-foreground">{{ servicio.costo }}</span>
-</td>
+<ng-container *ngIf="tipo === 1">
+  <td class="py-2 pr-2">
+    <span class="text-xs font-semibold text-muted-foreground">{{ servicio.concepto }}</span>
+  </td>
+  <td class="py-2 pl-2 text-right">
+    <span class="text-sm font-semibold text-muted-foreground">{{ servicio.cantidad }}</span>
+  </td>
+  <td class="py-2 pl-2 text-right">
+    <span class="text-sm font-semibold text-muted-foreground">{{ servicio.costo }}</span>
+  </td>
+</ng-container>
+
+<ng-container *ngIf="tipo === 2">
+  <td class="py-2 pr-2">
+    <span class="text-xs font-semibold text-muted-foreground">{{ cptPago.tipoPago }}</span>
+  </td>
+  <td class="py-2 pl-2 text-right">
+    <span class="text-sm font-semibold text-muted-foreground">{{ cptPago.banco }}</span>
+  </td>
+  <td class="py-2 pl-2 text-right">
+    <span class="text-sm font-semibold text-muted-foreground">{{ cptPago.nroOperacion }}</span>
+  </td>
+  <td class="py-2 pl-2 text-right">
+    <span class="text-sm font-semibold text-muted-foreground">{{ cptPago.fecha }}</span>
+  </td>
+  <td class="py-2 pl-2 text-right">
+    <span class="text-sm font-semibold text-muted-foreground">S/. {{ cptPago.monto }}</span>
+  </td>
+</ng-container>

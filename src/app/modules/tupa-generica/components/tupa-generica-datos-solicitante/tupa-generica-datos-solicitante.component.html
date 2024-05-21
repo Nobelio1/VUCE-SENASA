@@ -45,11 +45,14 @@
     <div class="mb-6 grid justify-center border-b border-dashed border-b-gray-600 pb-6">
       <div>
         <button
-          class="w-full rounded-lg border border-primary bg-transparent px-5 py-2.5 text-center text-sm font-medium text-primary text-white ring-primary/50 focus:outline-none focus:ring-4 hover:bg-primary hover:text-white sm:w-auto">
+          class="w-full rounded-lg border border-primary bg-transparent px-5 py-2.5 text-center text-sm font-medium text-primary text-white ring-primary/50 focus:outline-none focus:ring-4 hover:bg-primary hover:text-white sm:w-auto"
+          type="button"
+          (click)="toggleModal()">
           Buscar
         </button>
         <button
-          class="mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white ring-primary/50 focus:outline-none focus:ring-4 sm:w-auto md:mt-0 md:ml-2">
+          class="mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white ring-primary/50 focus:outline-none focus:ring-4 sm:w-auto md:mt-0 md:ml-2"
+          type="button">
           Agregar
         </button>
       </div>
@@ -134,4 +137,7 @@
       <option value="NDE">Nombre 2</option>
     </select>
   </div>
+
+  <!-- Modal -->
+  <app-tupa-generica-dt-modal [showModal]="showModal" (eventModal)="closeModal($event)"></app-tupa-generica-dt-modal>
 </form>

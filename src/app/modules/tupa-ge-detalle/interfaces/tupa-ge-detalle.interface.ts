@@ -17,3 +17,12 @@ export interface Servicio {
   cantidad: number;
   costo: number;
 }
+
+export interface CptPago {
+  id: number;
+  tipoPago: string;
+  banco: string;
+  nroOperacion: string;
+  fecha: string;
+  monto: number;
+}
