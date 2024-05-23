@@ -7,6 +7,7 @@
         </div>
         <div>
           <button
+            (click)="toggleModal()"
             class="w-full rounded-lg border border-primary bg-transparent px-5 py-2.5 text-center text-sm font-medium text-primary text-white ring-primary/50 focus:outline-none focus:ring-4 hover:bg-primary hover:text-white sm:w-auto md:top-7">
             Insertar
           </button>
@@ -44,6 +45,10 @@
           <!--end::Table body-->
         </table>
       </div>
+
+      <app-tupa-ge-detalle-cp-modal
+        [showModal]="showModal"
+        (eventModal)="closeModal($event)"></app-tupa-ge-detalle-cp-modal>
     </div>
   </div>
 </div>

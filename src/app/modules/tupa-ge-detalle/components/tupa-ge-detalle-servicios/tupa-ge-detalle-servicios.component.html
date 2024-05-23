@@ -13,8 +13,14 @@
       <div>
         <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"> Área </label>
         <select
+          [(ngModel)]="selectedArea"
+          (ngModelChange)="onAreaChange($event)"
+          name="area"
           class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
-          <option value="NDE">.- valor 1</option>
+          <option value="">-- Seleccione --</option>
+          <option *ngFor="let area of areas" value="{{ area.codigo_Area_Gestion }}">
+            {{ area.descripcion_Area_Gestion }}
+          </option>
         </select>
       </div>
     </div>
@@ -23,7 +29,10 @@
         <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"> Procedimiento </label>
         <select
           class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
-          <option value="NDE">.- valor 1</option>
+          <option value="NDE">-- Seleccione --</option>
+          <option *ngFor="let subArea of subAreas" value="{{ subArea.codigo_Procedimiento_Tupa }}">
+            {{ subArea.descripcion_Procedimieto_Tupa }}
+          </option>
         </select>
       </div>
     </div>

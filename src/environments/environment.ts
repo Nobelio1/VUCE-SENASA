@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+
+  API_MASTER: 'http://srvvldsoabpm.senasa.gob.pe:7051/api',
 };
 
 /*

@@ -1,0 +1,88 @@
+<div
+  *ngIf="showModal"
+  class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
+  <div class="relative my-6 mx-auto w-[500px]">
+    <!--content-->
+    <div
+      class="relative flex w-full flex-col rounded-lg border-0 bg-slate-100 px-4 shadow-lg outline-none focus:outline-none dark:bg-neutral-900">
+      <!--header-->
+      <h6
+        class="mb-2 border-b border-dashed border-b-gray-600 px-2 py-4 text-lg font-bold text-gray-900 dark:text-white">
+        Pagos
+      </h6>
+      <!--body-->
+      <!-- row-1 -->
+      <div class="mb-6">
+        <div>
+          <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Tipo de Pago:</label>
+          <select
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+            <option value="NDE">EFECTIVO</option>
+            <option value="NDE">DEPOSITO</option>
+            <option value="NDE">YAPE</option>
+          </select>
+        </div>
+      </div>
+      <!-- row-2 -->
+      <div class="mb-6">
+        <div>
+          <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Banco:</label>
+          <select
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+            <option value="NDE">BCP</option>
+            <option value="NDE">BBVA</option>
+            <option value="NDE">INTERBANK</option>
+          </select>
+        </div>
+      </div>
+      <!-- row-3 -->
+      <div class="mb-6">
+        <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">N° cuenta:</label>
+        <input
+          type="text"
+          id="first_name"
+          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+      </div>
+      <!-- row-4 -->
+      <div class="mb-6">
+        <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">N° de operación:</label>
+        <input
+          type="text"
+          id="first_name"
+          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+      </div>
+      <!-- row-5 -->
+      <div class="mb-6">
+        <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Fecha depósito:</label>
+        <input
+          type="date"
+          id="first_name"
+          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+      </div>
+      <!-- row-6 -->
+      <div class="mb-6">
+        <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Monto(S/.):</label>
+        <input
+          type="text"
+          id="first_name"
+          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+      </div>
+      <!--footer-->
+      <div class="flex items-center justify-end rounded-b pb-4">
+        <button
+          class="mt-2 mr-2 w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white ring-primary/50 focus:outline-none focus:ring-4 sm:w-auto md:top-7 md:mt-0 md:ml-2"
+          type="button"
+          (click)="changeModal()">
+          Aceptar
+        </button>
+        <button
+          class="w-full rounded-lg border border-primary bg-transparent px-5 py-2.5 text-center text-sm font-medium text-primary text-white ring-primary/50 focus:outline-none focus:ring-4 hover:bg-primary hover:text-white sm:w-auto md:top-7"
+          type="button"
+          (click)="changeModal()">
+          Cerrars
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showModal" class="fixed inset-0 z-40 bg-black opacity-25"></div>

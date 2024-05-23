@@ -22,9 +22,10 @@
         <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Tipo documento:</label>
         <select
           class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary md:w-4/5">
-          <option value="NDE">DNI</option>
-          <option value="NDE">RUC</option>
-          <option value="NDE">C4</option>
+          <option value="">-- Selecione --</option>
+          <option *ngFor="let tipo of tipoDocumentos" value="{{ tipo.codigdocumento }}">
+            {{ tipo.descripcionCompleta }}
+          </option>
         </select>
       </div>
       <div>
