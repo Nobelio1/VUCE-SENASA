@@ -37,7 +37,7 @@ export class Menu {
           icon: 'assets/icons/heroicons/outline/chart-pie.svg',
           label: 'Registrar Solicitud TUPA',
           route: '/dashboard',
-          children: [{ label: 'Tupa Génerico', route: '/dashboard/tupa-generica' }],
+          children: [{ label: 'Servicio a Registrar', route: '/registrar-servicio/servicios' }],
         },
       ],
     },

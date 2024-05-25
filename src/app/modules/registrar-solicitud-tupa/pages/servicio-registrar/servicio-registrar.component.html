@@ -1,0 +1,69 @@
+<div class="mx-auto px-4 py-4 sm:px-8 lg:container">
+  <app-re-so-tupa-header title="SELECCIONE EL SERVICIO A REGISTRAR"></app-re-so-tupa-header>
+  <div class="mb-10 mt-4">
+    <h6 class="mb-2 border-b border-dashed border-b-gray-600 pb-2 text-lg font-bold text-gray-900 dark:text-white">
+      Tupa Generico
+    </h6>
+    <div class="pt-1 pl-4">
+      <a
+        *ngFor="let solicitud of tupaGenerico"
+        [routerLink]="['/dashboard/tupa-generica']"
+        routerLinkActive="router-link-active"
+        class="mt-2 list-item underline hover:text-primary dark:text-white"
+        >{{ solicitud.name }}</a
+      >
+    </div>
+  </div>
+  <div class="mb-10 mt-4">
+    <h6 class="mb-2 border-b border-dashed border-b-gray-600 pb-2 text-lg font-bold text-gray-900 dark:text-white">
+      Cuarentena Vegetal
+    </h6>
+    <div class="pt-1 pl-4">
+      <a
+        *ngFor="let solicitud of cuarentenaVegetal"
+        href=""
+        class="mt-2 list-item underline hover:text-primary dark:text-white"
+        >{{ solicitud.name }}</a
+      >
+    </div>
+  </div>
+  <div class="mb-10 mt-4">
+    <h6 class="mb-2 border-b border-dashed border-b-gray-600 pb-2 text-lg font-bold text-gray-900 dark:text-white">
+      Cuarentena Animal
+    </h6>
+    <div class="pt-1 pl-4">
+      <a
+        *ngFor="let solicitud of cuarentenaAnimal"
+        href=""
+        class="mt-2 list-item underline hover:text-primary dark:text-white"
+        >{{ solicitud.name }}</a
+      >
+    </div>
+  </div>
+  <div class="mb-10 mt-4">
+    <h6 class="mb-2 border-b border-dashed border-b-gray-600 pb-2 text-lg font-bold text-gray-900 dark:text-white">
+      Insumos Pecuarios
+    </h6>
+    <div class="pt-1 pl-4">
+      <a
+        *ngFor="let solicitud of insumosPecuarios"
+        href=""
+        class="mt-2 list-item underline hover:text-primary dark:text-white"
+        >{{ solicitud.name }}</a
+      >
+    </div>
+  </div>
+  <div class="mb-10 mt-4">
+    <h6 class="mb-2 border-b border-dashed border-b-gray-600 pb-2 text-lg font-bold text-gray-900 dark:text-white">
+      Insumos Agricolas
+    </h6>
+    <div class="pt-1 pl-4">
+      <a
+        *ngFor="let solicitud of insumosAgricolas"
+        href=""
+        class="mt-2 list-item underline hover:text-primary dark:text-white"
+        >{{ solicitud.name }}</a
+      >
+    </div>
+  </div>
+</div>
