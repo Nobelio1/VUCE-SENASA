@@ -5,12 +5,13 @@
     </div>
     <div class="self-end">
       <button
+        (click)="toggleModal()"
         class="w-full rounded-lg border border-primary bg-transparent px-5 py-2.5 text-center text-sm font-medium text-primary text-white ring-primary/50 focus:outline-none focus:ring-4 hover:bg-primary hover:text-white sm:w-auto md:top-7">
-        Buscar
+        Insertar
       </button>
       <button
         class="mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white ring-primary/50 focus:outline-none focus:ring-4 sm:w-auto md:top-7 md:mt-0 md:ml-2">
-        Agregar
+        Eliminar
       </button>
     </div>
   </div>
@@ -52,3 +53,7 @@
     <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">No</label>
   </div>
 </div>
+
+<app-tupa-ge-detalle-ser-modal
+  [showModal]="showModal"
+  (eventModal)="closeModal($event)"></app-tupa-ge-detalle-ser-modal>

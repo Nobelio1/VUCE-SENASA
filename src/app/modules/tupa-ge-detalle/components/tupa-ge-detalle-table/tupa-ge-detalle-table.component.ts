@@ -2,14 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Servicio } from '../../interfaces/tupa-ge-detalle.interface';
 import { NgFor } from '@angular/common';
 import { TupaGeDetalleTableItemComponent } from '../tupa-ge-detalle-table-item/tupa-ge-detalle-table-item.component';
+import { TupaGeDetalleSerModalComponent } from '../tupa-ge-detalle-ser-modal/tupa-ge-detalle-ser-modal.component';
 
 @Component({
   selector: '[tupa-ge-detalle-table]',
   templateUrl: './tupa-ge-detalle-table.component.html',
   standalone: true,
-  imports: [NgFor, TupaGeDetalleTableItemComponent],
+  imports: [NgFor, TupaGeDetalleTableItemComponent, TupaGeDetalleSerModalComponent],
 })
 export class TupaGeDetalleTableComponent implements OnInit {
+  public showModal: boolean = false;
   public activeServicio: Servicio[] = [];
 
   constructor() {
@@ -30,4 +32,12 @@ export class TupaGeDetalleTableComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  toggleModal() {
+    this.showModal = !this.showModal;
+  }
+
+  closeModal(event: boolean) {
+    this.showModal = event;
+  }
 }

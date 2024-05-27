@@ -10,6 +10,7 @@ import {
 } from '../../interfaces/tupa-ge-detalle.interface';
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TupaGeDetalleSerModalComponent } from '../tupa-ge-detalle-ser-modal/tupa-ge-detalle-ser-modal.component';
 
 @Component({
   selector: 'app-tupa-ge-detalle-servicios',
@@ -18,10 +19,10 @@ import { FormsModule } from '@angular/forms';
   imports: [TupaGeDetalleTableComponent, NgFor, FormsModule],
 })
 export class TupaGeDetalleServiciosComponent implements OnInit {
-  areas: Area[] = [];
-  selectedArea: string = '';
+  public areas: Area[] = [];
+  public selectedArea: string = '';
 
-  subAreas: ProcedimientoArea[] = [];
+  public subAreas: ProcedimientoArea[] = [];
 
   constructor(private tupaGeDetalleService: TupaGeDetalleService) {}
 

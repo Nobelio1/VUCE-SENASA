@@ -12,8 +12,8 @@ import { ListarTipoDocumentos, TipoDocumentos } from '../../interfaces/tupa-gene
   imports: [ButtonComponent, NgIf, TupaGenericaDtModalComponent, NgFor],
 })
 export class TupaGenericaDatosSolicitanteComponent implements OnInit {
-  showModal = false;
-  tipoDocumentos: TipoDocumentos[] = [];
+  public showModal = false;
+  public tipoDocumentos: TipoDocumentos[] = [];
 
   constructor(private tupaGenericaService: TupaGenericaService) {}
 

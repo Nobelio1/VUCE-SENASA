@@ -1,20 +1,20 @@
 <div
   *ngIf="showModal"
   class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
-  <div class="relative my-6 mx-auto w-[500px]">
+  <div class="relative my-6 mx-auto w-[1000px]">
     <!--content-->
     <div
       class="relative flex w-full flex-col rounded-lg border-0 bg-slate-100 px-4 shadow-lg outline-none focus:outline-none dark:bg-neutral-900">
       <!--header-->
       <h6
         class="mb-2 border-b border-dashed border-b-gray-600 px-2 py-4 text-lg font-bold text-gray-900 dark:text-white">
-        Pagos
+        Conceptos
       </h6>
       <!--body-->
       <!-- row-1 -->
       <div class="mb-6">
         <div>
-          <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Tipo de Pago:</label>
+          <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Servicio:</label>
           <select
             class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
             <option value="NDE">EFECTIVO</option>
@@ -23,21 +23,9 @@
           </select>
         </div>
       </div>
-      <!-- row-2 -->
-      <div class="mb-6">
-        <div>
-          <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Banco:</label>
-          <select
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
-            <option value="NDE">BCP</option>
-            <option value="NDE">BBVA</option>
-            <option value="NDE">INTERBANK</option>
-          </select>
-        </div>
-      </div>
       <!-- row-3 -->
       <div class="mb-6">
-        <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">N° cuenta:</label>
+        <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Cantidad:</label>
         <input
           type="text"
           id="first_name"
@@ -45,23 +33,7 @@
       </div>
       <!-- row-4 -->
       <div class="mb-6">
-        <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">N° de operación:</label>
-        <input
-          type="text"
-          id="first_name"
-          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
-      </div>
-      <!-- row-5 -->
-      <div class="mb-6">
-        <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Fecha depósito:</label>
-        <input
-          type="date"
-          id="first_name"
-          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
-      </div>
-      <!-- row-6 -->
-      <div class="mb-6">
-        <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Monto(S/.):</label>
+        <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Costo(S/.):</label>
         <input
           type="text"
           id="first_name"
