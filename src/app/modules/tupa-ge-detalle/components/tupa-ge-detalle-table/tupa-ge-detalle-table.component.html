@@ -47,13 +47,14 @@
     <label class="col-span-2 mb-2 mr-4 block text-sm font-medium text-gray-900 dark:text-white"
       ><b>Pago a nombre de otro usuario: </b></label
     >
-    <input type="radio" class="mr-2 mb-2 inline" />
+    <input type="radio" class="mr-2 mb-2 inline" name="otro-usuario" />
     <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">Si</label>
-    <input type="radio" class="ml-10 mr-2 mb-2 inline" />
+    <input type="radio" class="ml-10 mr-2 mb-2 inline" name="otro-usuario" />
     <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">No</label>
   </div>
 </div>
 
 <app-tupa-ge-detalle-ser-modal
   [showModal]="showModal"
+  [servicio]="servicoSelect"
   (eventModal)="closeModal($event)"></app-tupa-ge-detalle-ser-modal>

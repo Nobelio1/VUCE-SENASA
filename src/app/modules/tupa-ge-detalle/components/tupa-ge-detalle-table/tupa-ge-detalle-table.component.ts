@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Servicio } from '../../interfaces/tupa-ge-detalle.interface';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ProcedimientoArea, Servicio } from '../../interfaces/tupa-ge-detalle.interface';
 import { NgFor } from '@angular/common';
 import { TupaGeDetalleTableItemComponent } from '../tupa-ge-detalle-table-item/tupa-ge-detalle-table-item.component';
 import { TupaGeDetalleSerModalComponent } from '../tupa-ge-detalle-ser-modal/tupa-ge-detalle-ser-modal.component';
@@ -10,7 +10,11 @@ import { TupaGeDetalleSerModalComponent } from '../tupa-ge-detalle-ser-modal/tup
   standalone: true,
   imports: [NgFor, TupaGeDetalleTableItemComponent, TupaGeDetalleSerModalComponent],
 })
-export class TupaGeDetalleTableComponent implements OnInit {
+export class TupaGeDetalleTableComponent implements OnInit, OnChanges {
+  @Input() servicio: ProcedimientoArea = {} as ProcedimientoArea;
+
+  public servicoSelect: string = '';
+
   public showModal: boolean = false;
   public activeServicio: Servicio[] = [];
 
@@ -29,6 +33,10 @@ export class TupaGeDetalleTableComponent implements OnInit {
         costo: 1234.5,
       },
     ];
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.servicoSelect = changes['servicio'].currentValue.descripcion_Procedimieto_Tupa;
   }
 
   ngOnInit(): void {}

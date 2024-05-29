@@ -9,29 +9,40 @@ import {
   ProcedimientoArea,
 } from '../../interfaces/tupa-ge-detalle.interface';
 import { NgFor } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { TupaGeDetalleSerModalComponent } from '../tupa-ge-detalle-ser-modal/tupa-ge-detalle-ser-modal.component';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tupa-ge-detalle-servicios',
   templateUrl: './tupa-ge-detalle-servicios.component.html',
   standalone: true,
-  imports: [TupaGeDetalleTableComponent, NgFor, FormsModule],
+  imports: [TupaGeDetalleTableComponent, NgFor, FormsModule, ReactiveFormsModule],
 })
 export class TupaGeDetalleServiciosComponent implements OnInit {
   public areas: Area[] = [];
   public selectedArea: string = '';
 
+  public servicio: ProcedimientoArea = {} as ProcedimientoArea;
+
+  public form!: FormGroup;
+
   public subAreas: ProcedimientoArea[] = [];
 
-  constructor(private tupaGeDetalleService: TupaGeDetalleService) {}
+  constructor(private tupaGeDetalleService: TupaGeDetalleService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      oficina: ['SENASA-CENTRAL'],
+      area: [''],
+      procedimiento: [''],
+    });
+
+    this.form.controls['oficina'].disable();
+
     this.listarArea();
   }
 
-  onAreaChange(areaValue: string) {
-    this.listSubArea(areaValue);
+  onAreaChange() {
+    this.listSubArea(this.form.controls['area'].value);
   }
 
   listarArea() {
@@ -41,6 +52,12 @@ export class TupaGeDetalleServiciosComponent implements OnInit {
       }
       this.areas = data.data;
     });
+  }
+
+  selectedService() {
+    this.servicio = this.subAreas.find(
+      (area) => area.codigo_Procedimiento_Tupa === this.form.controls['procedimiento'].value,
+    )!;
   }
 
   listSubArea(id: string) {

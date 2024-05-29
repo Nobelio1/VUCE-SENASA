@@ -1,5 +1,5 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { JsonPipe, NgFor, NgIf } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output, Pipe } from '@angular/core';
 import { TupaGeDetalleService } from '../../services/tupa-ge-detalle.service';
 import { Bancos, ListarBancos } from '../../interfaces/tupa-ge-detalle.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   selector: 'app-tupa-ge-detalle-cp-modal',
   templateUrl: './tupa-ge-detalle-cp-modal.component.html',
   standalone: true,
-  imports: [NgIf, NgFor, ReactiveFormsModule],
+  imports: [NgIf, NgFor, ReactiveFormsModule, JsonPipe],
 })
 export class TupaGeDetalleCpModalComponent implements OnInit {
   @Input() showModal = false;
@@ -25,7 +25,7 @@ export class TupaGeDetalleCpModalComponent implements OnInit {
       tipoPago: ['', [Validators.required]],
       banco: ['', [Validators.required]],
       nroCuenta: ['', [Validators.required]],
-      nroOperacion: ['', [Validators.required]],
+      nroOperacion: ['', [Validators.required, Validators.minLength(8)]],
       fechaDeposito: ['', [Validators.required]],
       monto: ['', [Validators.required]],
     });
@@ -36,8 +36,8 @@ export class TupaGeDetalleCpModalComponent implements OnInit {
   }
 
   sendPayment() {
-    console.log(this.form.value);
     if (this.form.invalid) return;
+    console.log(this.form.value);
     this.eventModal.emit(false);
   }
 

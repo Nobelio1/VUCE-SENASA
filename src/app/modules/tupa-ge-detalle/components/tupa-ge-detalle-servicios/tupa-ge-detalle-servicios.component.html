@@ -1,43 +1,48 @@
 <form>
   <!-- form -->
   <div class="pt-5">
-    <div class="mb-6">
-      <div>
-        <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Oficina</label>
-        <input
-          type="text"
-          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+    <form [formGroup]="form">
+      <div class="mb-6">
+        <div>
+          <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Oficina</label>
+          <input
+            formControlName="oficina"
+            type="text"
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+        </div>
       </div>
-    </div>
-    <div class="mb-6">
-      <div>
-        <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"> Área </label>
-        <select
-          [(ngModel)]="selectedArea"
-          (ngModelChange)="onAreaChange($event)"
-          name="area"
-          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
-          <option value="">-- Seleccione --</option>
-          <option *ngFor="let area of areas" value="{{ area.codigo_Area_Gestion }}">
-            {{ area.descripcion_Area_Gestion }}
-          </option>
-        </select>
+      <div class="mb-6">
+        <div>
+          <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"> Área </label>
+          <select
+            formControlName="area"
+            (change)="onAreaChange()"
+            name="area"
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+            <option value="">-- Seleccione --</option>
+            <option *ngFor="let area of areas" value="{{ area.codigo_Area_Gestion }}">
+              {{ area.descripcion_Area_Gestion }}
+            </option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="mb-6">
-      <div>
-        <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"> Procedimiento </label>
-        <select
-          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
-          <option value="NDE">-- Seleccione --</option>
-          <option *ngFor="let subArea of subAreas" value="{{ subArea.codigo_Procedimiento_Tupa }}">
-            {{ subArea.descripcion_Procedimieto_Tupa }}
-          </option>
-        </select>
+      <div class="mb-6">
+        <div>
+          <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"> Procedimiento </label>
+          <select
+            formControlName="procedimiento"
+            (change)="selectedService()"
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+            <option value="">-- Seleccione --</option>
+            <option *ngFor="let subArea of subAreas" value="{{ subArea.codigo_Procedimiento_Tupa }}">
+              {{ subArea.descripcion_Procedimieto_Tupa }}
+            </option>
+          </select>
+        </div>
       </div>
-    </div>
+    </form>
     <div class="mb-6">
-      <div tupa-ge-detalle-table class="md:col-span-2 xl:col-span-3"></div>
+      <div tupa-ge-detalle-table [servicio]="servicio" class="md:col-span-2 xl:col-span-3"></div>
     </div>
   </div>
 </form>
