@@ -4,6 +4,7 @@ import { ButtonComponent } from 'src/app/shared/components/button/button.compone
 import { TupaGenericaDtModalComponent } from '../tupa-generica-dt-modal/tupa-generica-dt-modal.component';
 import { TupaGenericaService } from '../../services/tupa-generica.service';
 import { ListarTipoDocumentos, TipoDocumentos } from '../../interfaces/tupa-generica.interface';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-tupa-generica-datos-solicitante',
@@ -12,12 +13,17 @@ import { ListarTipoDocumentos, TipoDocumentos } from '../../interfaces/tupa-gene
   imports: [ButtonComponent, NgIf, TupaGenericaDtModalComponent, NgFor],
 })
 export class TupaGenericaDatosSolicitanteComponent implements OnInit {
+  public form!: FormGroup;
+  public form2!: FormGroup;
+
   public showModal = false;
   public tipoDocumentos: TipoDocumentos[] = [];
 
-  constructor(private tupaGenericaService: TupaGenericaService) {}
+  constructor(private tupaGenericaService: TupaGenericaService, private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
+    this.form = this.formBuilder.group({});
+
     this.listDocumentos();
   }
 

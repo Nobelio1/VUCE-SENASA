@@ -59,6 +59,8 @@ export interface ListarBancos extends Result {
 }
 
 export interface Bancos {
-  codigo_Banco: string;
+  codigo_Cta_Cte: string;
   nombre_Banco: string;
+  numero_Cta: string;
+  nombre: string;
 }

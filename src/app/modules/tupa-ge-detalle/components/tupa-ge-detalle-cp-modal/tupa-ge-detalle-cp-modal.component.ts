@@ -1,19 +1,58 @@
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TupaGeDetalleService } from '../../services/tupa-ge-detalle.service';
+import { Bancos, ListarBancos } from '../../interfaces/tupa-ge-detalle.interface';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tupa-ge-detalle-cp-modal',
   templateUrl: './tupa-ge-detalle-cp-modal.component.html',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, NgFor, ReactiveFormsModule],
 })
 export class TupaGeDetalleCpModalComponent implements OnInit {
   @Input() showModal = false;
   @Output() eventModal = new EventEmitter<boolean>();
 
-  ngOnInit(): void {}
+  public bancos: Bancos[] = [];
 
-  changeModal() {
+  public form!: FormGroup;
+
+  constructor(private tupaGeDetalleService: TupaGeDetalleService, private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      tipoPago: ['', [Validators.required]],
+      banco: ['', [Validators.required]],
+      nroCuenta: ['', [Validators.required]],
+      nroOperacion: ['', [Validators.required]],
+      fechaDeposito: ['', [Validators.required]],
+      monto: ['', [Validators.required]],
+    });
+
+    this.form.controls['nroCuenta'].disable();
+
+    this.listarBancos();
+  }
+
+  sendPayment() {
+    console.log(this.form.value);
+    if (this.form.invalid) return;
     this.eventModal.emit(false);
+  }
+
+  closeModal() {
+    this.eventModal.emit(false);
+  }
+
+  bancoSeleccionado(banco: any) {
+    this.form.controls['nroCuenta'].setValue(banco.target.value);
+  }
+
+  listarBancos() {
+    this.tupaGeDetalleService.listBancos().subscribe((data: ListarBancos) => {
+      if (data.code !== '000') throw new Error('Error al traer los bancos');
+      this.bancos = data.data;
+    });
   }
 }
