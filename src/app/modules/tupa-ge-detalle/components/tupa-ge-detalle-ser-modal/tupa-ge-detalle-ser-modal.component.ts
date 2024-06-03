@@ -1,6 +1,8 @@
 import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { TupaGeDetalleServiciosService } from '../../services/tupa-ge-detalle-servicios.service';
+import { Servicio } from '../../interfaces/tupa-ge-detalle.interface';
 
 @Component({
   selector: 'app-tupa-ge-detalle-ser-modal',
@@ -15,16 +17,16 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
 
   public form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private tupaGeDetalleServicioService: TupaGeDetalleServiciosService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      serv: [''],
+      concepto: [''],
       cantidad: [''],
       costo: [''],
     });
 
-    this.form.controls['serv'].disable();
+    this.form.controls['concepto'].disable();
     this.setFormValue();
   }
 
@@ -35,9 +37,27 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
   private setFormValue() {
     if (this.servicio) {
       this.form.patchValue({
-        serv: this.servicio,
+        concepto: this.servicio,
       });
     }
+  }
+
+  agregarLista() {
+    const servicio: Servicio = {
+      concepto: this.form.controls['concepto'].value,
+      cantidad: +this.form.controls['cantidad'].value,
+      costo: +this.form.controls['costo'].value,
+    };
+
+    if (this.form.invalid) {
+      console.log('Falta campos por agregar');
+      return;
+    }
+
+    const listaActual = this.tupaGeDetalleServicioService.obtenerLista();
+    listaActual.push(servicio);
+    this.tupaGeDetalleServicioService.actualizarServicio(listaActual);
+    this.eventModal.emit(false);
   }
 
   changeModal() {

@@ -40,7 +40,7 @@
           <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Tipo documento:</label>
           <select
             formControlName="tipoDocumento"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary md:w-4/5">
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary md:w-4/5">
             <option value="">-- Selecione --</option>
             <option *ngFor="let tipo of tipoDocumentos" value="{{ tipo.codigdocumento }}">
               {{ tipo.descripcionCompleta }}
@@ -52,18 +52,18 @@
           <input
             formControlName="nroDocumento"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
       </div>
       <!-- level 3 -->
       <div class="mb-6">
-        <label class="mb-2 block text-sm font-medium text-gray-900 disabled:bg-gray-200 dark:text-white"
+        <label class="mb-2 block text-sm font-medium text-gray-900 disabled:opacity-50 dark:text-white"
           >Razón social/nombre</label
         >
         <input
           formControlName="nroRazon"
           type="text"
-          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
       </div>
       <!-- level 4 -->
       <div class="mb-6 grid justify-center border-b border-dashed border-b-gray-600 pb-6">
@@ -91,7 +91,7 @@
           <input
             formControlName="nroRazon"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
       </div>
       <div class="mb-6 grid gap-6 md:grid-cols-3">
@@ -100,21 +100,21 @@
           <input
             formControlName="departamento"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
         <div>
           <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Provincia</label>
           <input
             formControlName="provincia"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
         <div>
           <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Distrito</label>
           <input
             formControlName="distrito"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
       </div>
       <div class="mb-6">
@@ -123,7 +123,7 @@
           <input
             formControlName="domicilioLegal"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
       </div>
       <div class="mb-6 grid gap-6 md:grid-cols-3">
@@ -132,21 +132,21 @@
           <input
             formControlName="telefono"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
         <div>
           <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Celular</label>
           <input
             formControlName="celular"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
         <div>
           <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Fax</label>
           <input
             formControlName="fax"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
       </div>
       <div class="mb-6">
@@ -155,7 +155,7 @@
           <input
             formControlName="email"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
       </div>
     </form>
@@ -171,7 +171,7 @@
       <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Representante Legal</label>
       <select
         formControlName="repreLegal"
-        class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+        class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
         <option value="">-- Selecione --</option>
         <option value="NDE">Nombre 1</option>
         <option value="NDE">Nombre 2</option>

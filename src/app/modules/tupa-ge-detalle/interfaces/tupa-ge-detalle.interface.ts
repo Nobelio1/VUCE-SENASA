@@ -14,7 +14,6 @@ export interface TupaGeDetalleInterface {
 }
 
 export interface Servicio {
-  id: number;
   concepto: string;
   cantidad: number;
   costo: number;
