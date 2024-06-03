@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TupaGeDetalleServiciosService } from '../../services/tupa-ge-detalle-servicios.service';
 import { Servicio } from '../../interfaces/tupa-ge-detalle.interface';
 
@@ -21,9 +21,9 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      concepto: [''],
-      cantidad: [''],
-      costo: [''],
+      concepto: ['', [Validators.required]],
+      cantidad: ['', [Validators.required]],
+      costo: ['', [Validators.required]],
     });
 
     this.form.controls['concepto'].disable();
@@ -54,9 +54,21 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
       return;
     }
 
+    if (!Number.isFinite(servicio.costo)) {
+      console.log('El valor ingresado no es un numero');
+      return;
+    }
+
     const listaActual = this.tupaGeDetalleServicioService.obtenerLista();
     listaActual.push(servicio);
-    this.tupaGeDetalleServicioService.actualizarServicio(listaActual);
+
+    const nuevaLista: Servicio[] = [];
+    nuevaLista.push(servicio);
+    this.tupaGeDetalleServicioService.actualizarServicio(nuevaLista);
+
+    this.form.controls['cantidad'].setValue('');
+    this.form.controls['costo'].setValue('');
+
     this.eventModal.emit(false);
   }
 

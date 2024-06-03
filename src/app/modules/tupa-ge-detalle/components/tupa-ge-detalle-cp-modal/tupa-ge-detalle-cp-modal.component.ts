@@ -1,8 +1,9 @@
 import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, Pipe } from '@angular/core';
 import { TupaGeDetalleService } from '../../services/tupa-ge-detalle.service';
-import { Bancos, ListarBancos } from '../../interfaces/tupa-ge-detalle.interface';
+import { Bancos, CptPago, ListarBancos } from '../../interfaces/tupa-ge-detalle.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TupaGeDetalleConceptoPagoService } from '../../services/tupa-ge-detalle-concepto-pago.service';
 
 @Component({
   selector: 'app-tupa-ge-detalle-cp-modal',
@@ -18,7 +19,11 @@ export class TupaGeDetalleCpModalComponent implements OnInit {
 
   public form!: FormGroup;
 
-  constructor(private tupaGeDetalleService: TupaGeDetalleService, private fb: FormBuilder) {}
+  constructor(
+    private tupaGeDetalleConceptoPagoService: TupaGeDetalleConceptoPagoService,
+    private tupaGeDetalleService: TupaGeDetalleService,
+    private fb: FormBuilder,
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -37,8 +42,25 @@ export class TupaGeDetalleCpModalComponent implements OnInit {
 
   sendPayment() {
     if (this.form.invalid) return;
-    console.log(this.form.value);
+
+    const pago: CptPago = {
+      tipoPago: this.form.controls['tipoPago'].value,
+      banco: this.form.controls['banco'].value,
+      nroCuenta: this.form.controls['nroCuenta'].value,
+      nroOperacion: this.form.controls['nroOperacion'].value,
+      fecha: this.form.controls['fechaDeposito'].value,
+      monto: +this.form.controls['monto'].value,
+    };
+
+    const listaActual = this.tupaGeDetalleConceptoPagoService.obtenerLista();
+    listaActual.push(pago);
+    this.tupaGeDetalleConceptoPagoService.actualizarListaPagos(listaActual);
     this.eventModal.emit(false);
+    this.limpiarForm();
+  }
+
+  limpiarForm() {
+    this.form.reset('');
   }
 
   closeModal() {

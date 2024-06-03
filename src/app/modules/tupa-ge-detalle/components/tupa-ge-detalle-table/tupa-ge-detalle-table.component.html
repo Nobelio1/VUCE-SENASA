@@ -10,6 +10,7 @@
         Insertar
       </button>
       <button
+        (click)="eliminarServicio()"
         class="mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white ring-primary/50 focus:outline-none focus:ring-4 sm:w-auto md:top-7 md:mt-0 md:ml-2">
         Eliminar
       </button>
@@ -47,10 +48,23 @@
     <label class="col-span-2 mb-2 mr-4 block text-sm font-medium text-gray-900 dark:text-white"
       ><b>Pago a nombre de otro usuario: </b></label
     >
-    <input type="radio" class="mr-2 mb-2 inline" name="otro-usuario" />
-    <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">Si</label>
-    <input type="radio" class="ml-10 mr-2 mb-2 inline" name="otro-usuario" />
-    <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">No</label>
+
+    <form [formGroup]="form">
+      <input
+        type="radio"
+        class="mr-2 mb-2 inline"
+        formControlName="otroUsuario"
+        value="0"
+        (click)="habilitarOtroUsuario()" />
+      <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">Si</label>
+      <input
+        type="radio"
+        class="ml-10 mr-2 mb-2 inline"
+        formControlName="otroUsuario"
+        value="1"
+        (click)="habilitarOtroUsuario()" />
+      <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">No</label>
+    </form>
   </div>
 </div>
 

@@ -5,12 +5,14 @@ import { TupaGeDetalleTableItemComponent } from '../tupa-ge-detalle-table-item/t
 import { TupaGeDetalleSerModalComponent } from '../tupa-ge-detalle-ser-modal/tupa-ge-detalle-ser-modal.component';
 import { TupaGeDetalleServiciosService } from '../../services/tupa-ge-detalle-servicios.service';
 import { Subscription } from 'rxjs';
+import { TupaGeDetalleOtroUsuarioService } from '../../services/tupa-ge-detalle-otro-usuario.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: '[tupa-ge-detalle-table]',
   templateUrl: './tupa-ge-detalle-table.component.html',
   standalone: true,
-  imports: [NgFor, TupaGeDetalleTableItemComponent, TupaGeDetalleSerModalComponent],
+  imports: [NgFor, TupaGeDetalleTableItemComponent, TupaGeDetalleSerModalComponent, ReactiveFormsModule],
 })
 export class TupaGeDetalleTableComponent implements OnInit, OnChanges {
   @Input() servicio: ProcedimientoArea = {} as ProcedimientoArea;
@@ -18,34 +20,51 @@ export class TupaGeDetalleTableComponent implements OnInit, OnChanges {
   public servicoSelect: string = '';
   public showModal: boolean = false;
 
+  public form!: FormGroup;
+
   public listaSub!: Subscription;
   public activeServicio: Servicio[] = [];
 
-  constructor(private tupaGeDetalleServicioService: TupaGeDetalleServiciosService) {
-    // this.activeServicio = [
-    //   {
-    //     concepto: 'Autorizacion sanitaria de fabricante/productor de uso agricola',
-    //     cantidad: 1,
-    //     costo: 491.5,
-    //   },
-    //   {
-    //     concepto: 'Autorizacion solo productor de uso agricola',
-    //     cantidad: 3,
-    //     costo: 1234.5,
-    //   },
-    // ];
-  }
+  constructor(
+    private tupaGeDetalleServicioService: TupaGeDetalleServiciosService,
+    private tupaGeDetalleOtroUsuarioService: TupaGeDetalleOtroUsuarioService,
+    private fb: FormBuilder,
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.servicoSelect = changes['servicio'].currentValue.descripcion_Procedimieto_Tupa;
   }
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      otroUsuario: ['1'],
+    });
+
+    if (this.tupaGeDetalleOtroUsuarioService.obtenerEstado()) {
+      this.form.controls['otroUsuario'].setValue('1');
+    } else {
+      this.form.controls['otroUsuario'].setValue('0');
+    }
+
     this.cargarLista();
   }
 
   ngOnDestroy(): void {
     this.listaSub.unsubscribe();
+  }
+
+  eliminarServicio() {
+    const lista: Servicio[] = [];
+    this.tupaGeDetalleServicioService.actualizarServicio(lista);
+  }
+
+  habilitarOtroUsuario() {
+    if (this.form.controls['otroUsuario'].value === '1') {
+      this.tupaGeDetalleOtroUsuarioService.actualizarEstado(false);
+    }
+    if (this.form.controls['otroUsuario'].value === '0') {
+      this.tupaGeDetalleOtroUsuarioService.actualizarEstado(true);
+    }
   }
 
   cargarLista() {

@@ -1,8 +1,10 @@
+import { TupaGeDetalleConceptoPagoService } from './../../services/tupa-ge-detalle-concepto-pago.service';
 import { NgFor } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TupaGeDetalleTableItemComponent } from '../tupa-ge-detalle-table-item/tupa-ge-detalle-table-item.component';
 import { CptPago } from '../../interfaces/tupa-ge-detalle.interface';
 import { TupaGeDetalleCpModalComponent } from '../tupa-ge-detalle-cp-modal/tupa-ge-detalle-cp-modal.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tupa-ge-detalle-concepto-pago',
@@ -10,52 +12,26 @@ import { TupaGeDetalleCpModalComponent } from '../tupa-ge-detalle-cp-modal/tupa-
   standalone: true,
   imports: [NgFor, TupaGeDetalleTableItemComponent, TupaGeDetalleCpModalComponent],
 })
-export class TupaGeDetalleConceptoPagoComponent implements OnInit {
+export class TupaGeDetalleConceptoPagoComponent implements OnInit, OnDestroy {
   public conceptoPago: CptPago[] = [];
   public montos: number[] = [];
   public montoTotal: number = 0;
 
   public showModal = false;
 
-  constructor() {
-    this.conceptoPago = [
-      {
-        id: 1231312,
-        tipoPago: 'EFECTIVO',
-        banco: 'BANCO DE LA NACION / 00000-22231',
-        nroOperacion: '123519234813',
-        fecha: '08/05/2024',
-        monto: 123.21,
-      },
-      {
-        id: 3513123,
-        tipoPago: 'EFECTIVO',
-        banco: 'BANCO DE LA NACION / 00000-2241322',
-        nroOperacion: '42112312331223',
-        fecha: '01/01/2024',
-        monto: 543.21,
-      },
-      {
-        id: 8563524,
-        tipoPago: 'DEPOSITO',
-        banco: 'INTERBANK / 00000-1112313',
-        nroOperacion: '6442341412312',
-        fecha: '02/04/2024',
-        monto: 452.1,
-      },
-      {
-        id: 6546354,
-        tipoPago: 'DEPOSITO',
-        banco: 'BBVA / 02000-123123',
-        nroOperacion: '231251234543',
-        fecha: '15/03/2024',
-        monto: 23.21,
-      },
-    ];
-  }
+  public listaSub!: Subscription;
+
+  constructor(private tupaGeDetalleConceptoPagoService: TupaGeDetalleConceptoPagoService) {}
 
   ngOnInit(): void {
-    this.sumaMontos();
+    this.listaSub = this.tupaGeDetalleConceptoPagoService.getLista.subscribe((lista: CptPago[]) => {
+      this.conceptoPago = lista;
+      this.sumaMontos();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.listaSub.unsubscribe();
   }
 
   sumaMontos() {

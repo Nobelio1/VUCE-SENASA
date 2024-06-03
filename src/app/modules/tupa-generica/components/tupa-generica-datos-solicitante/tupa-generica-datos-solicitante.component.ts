@@ -44,6 +44,8 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit {
       nroRazon: ['', [Validators.required]],
     });
 
+    //!------Volver perseverante, el formulario
+
     this.form2 = this.fb.group({
       nroRazon: [''],
       departamento: [''],
@@ -86,7 +88,7 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit {
         return;
       }
       this.tupaGenericaService.getSolicitantePorNombre(nroRazon).subscribe((data: Solicitante[]) => {
-        //!! FALTA PAGINACION -----------------------
+        //!!----------------------- FALTA PAGINACION
         this.personas = data.slice(1, 15);
       });
       this.form3.enable();
@@ -126,6 +128,8 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit {
   }
 
   toggleModal() {
+    //!---- FALTA LA FUNCIONALIDAD DE AGREGAR
+
     this.showModalAgregar = !this.showModalAgregar;
   }
 

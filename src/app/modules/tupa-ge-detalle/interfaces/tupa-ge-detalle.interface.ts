@@ -20,9 +20,9 @@ export interface Servicio {
 }
 
 export interface CptPago {
-  id: number;
   tipoPago: string;
   banco: string;
+  nroCuenta: string;
   nroOperacion: string;
   fecha: string;
   monto: number;
