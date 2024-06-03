@@ -1,0 +1,56 @@
+<div
+  *ngIf="showModal"
+  class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
+  <div class="relative top-14 my-6 mx-auto max-h-[800px] w-[1200px]">
+    <!--content-->
+    <div
+      class="relative mb-4 flex w-full flex-col rounded-lg border-0 bg-slate-100 px-4 shadow-lg outline-none focus:outline-none dark:bg-neutral-900">
+      <!--header-->
+      <h6
+        class="mb-2 border-b border-dashed border-b-gray-600 px-2 py-4 text-lg font-bold text-gray-900 dark:text-white">
+        Personas
+      </h6>
+      <!--body-->
+      <div class="mb-6">
+        <div class="md:col-span-2 xl:col-span-3">
+          <div class="flex-col rounded-lg bg-background px-8 py-8 sm:flex-row">
+            <div class="relative mb-4 overflow-x-auto">
+              <table class="w-full table-auto">
+                <!--Table head-->
+                <thead class="text-xs uppercase text-muted-foreground">
+                  <tr>
+                    <th class="text-md py-3 text-left">Nombre/Razon Social</th>
+                    <th class="text-md py-3 text-right">Tipo Doc</th>
+                    <th class="text-md py-3 text-right">N° Doc</th>
+                    <th class="text-md py-3 text-right">Direccion</th>
+                  </tr>
+                </thead>
+                <!--end Table head-->
+                <!--Table body-->
+                <tbody class="overflow-x-scrol">
+                  <tr *ngFor="let persona of personas" class="hover:bg-gray-100" (click)="seleccionarPersona(persona)">
+                    <td class="text-left text-gray-700 dark:text-white">{{ persona.nombreRazonSocial }}</td>
+                    <td class="text-right text-gray-700 dark:text-white">{{ persona.documentType.name }}</td>
+                    <td class="text-right text-gray-700 dark:text-white">{{ persona.documentNumber }}</td>
+                    <td class="text-right text-gray-700 dark:text-white">{{ persona.address }}</td>
+                  </tr>
+                </tbody>
+                <!--end::Table body-->
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--footer-->
+      <div class="flex items-center justify-end rounded-b pb-4">
+        <button
+          class="w-full rounded-lg border border-primary bg-transparent px-5 py-2.5 text-center text-sm font-medium text-primary text-white ring-primary/50 focus:outline-none focus:ring-4 hover:bg-primary hover:text-white sm:w-auto md:top-7"
+          type="button"
+          (click)="closeModal()">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showModal" class="fixed inset-0 z-40 bg-black opacity-25"></div>

@@ -11,12 +11,24 @@
           <label class="col-span-2 mb-2 mr-4 block text-sm font-medium text-gray-900 dark:text-white"
             ><b>Buscar por:</b></label
           >
-          <input formControlName="busqueda" type="radio" id="por-documentos" value="id1" class="mr-2 mb-2 inline" />
+          <input
+            formControlName="busqueda"
+            type="radio"
+            id="por-documentos"
+            value="id1"
+            class="mr-2 mb-2 inline"
+            (change)="changeSearh()" />
           <label for="por-documentos" class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >Por documentos</label
           >
 
-          <input formControlName="busqueda" type="radio" id="por-nombres" value="id2" class="ml-10 mr-2 mb-2 inline" />
+          <input
+            (change)="changeSearh()"
+            formControlName="busqueda"
+            type="radio"
+            id="por-nombres"
+            value="id2"
+            class="ml-10 mr-2 mb-2 inline" />
           <label for="por-nombres" class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >Por nombres</label
           >
@@ -28,7 +40,7 @@
           <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Tipo documento:</label>
           <select
             formControlName="tipoDocumento"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary md:w-4/5">
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary md:w-4/5">
             <option value="">-- Selecione --</option>
             <option *ngFor="let tipo of tipoDocumentos" value="{{ tipo.codigdocumento }}">
               {{ tipo.descripcionCompleta }}
@@ -40,16 +52,18 @@
           <input
             formControlName="nroDocumento"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
       </div>
       <!-- level 3 -->
       <div class="mb-6">
-        <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Razón social/nombre</label>
+        <label class="mb-2 block text-sm font-medium text-gray-900 disabled:bg-gray-200 dark:text-white"
+          >Razón social/nombre</label
+        >
         <input
           formControlName="nroRazon"
           type="text"
-          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
       </div>
       <!-- level 4 -->
       <div class="mb-6 grid justify-center border-b border-dashed border-b-gray-600 pb-6">
@@ -57,7 +71,7 @@
           <button
             class="w-full rounded-lg border border-primary bg-transparent px-5 py-2.5 text-center text-sm font-medium text-primary text-white ring-primary/50 focus:outline-none focus:ring-4 hover:bg-primary hover:text-white sm:w-auto"
             type="button"
-            (click)="sendDatosSolicitante()">
+            (click)="openModal()">
             Buscar
           </button>
           <button
@@ -77,7 +91,7 @@
           <input
             formControlName="nroRazon"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
       </div>
       <div class="mb-6 grid gap-6 md:grid-cols-3">
@@ -86,21 +100,21 @@
           <input
             formControlName="departamento"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
         <div>
           <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Provincia</label>
           <input
             formControlName="provincia"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
         <div>
           <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Distrito</label>
           <input
             formControlName="distrito"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
       </div>
       <div class="mb-6">
@@ -109,7 +123,7 @@
           <input
             formControlName="domicilioLegal"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
       </div>
       <div class="mb-6 grid gap-6 md:grid-cols-3">
@@ -118,21 +132,21 @@
           <input
             formControlName="telefono"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
         <div>
           <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Celular</label>
           <input
             formControlName="celular"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
         <div>
           <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Fax</label>
           <input
             formControlName="fax"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
       </div>
       <div class="mb-6">
@@ -141,7 +155,7 @@
           <input
             formControlName="email"
             type="text"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
       </div>
     </form>
@@ -157,7 +171,7 @@
       <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Representante Legal</label>
       <select
         formControlName="repreLegal"
-        class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+        class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
         <option value="">-- Selecione --</option>
         <option value="NDE">Nombre 1</option>
         <option value="NDE">Nombre 2</option>
@@ -166,5 +180,11 @@
   </form>
 
   <!-- Modal -->
-  <app-tupa-generica-dt-modal [showModal]="showModal" (eventModal)="closeModal($event)"></app-tupa-generica-dt-modal>
+  <app-tupa-generica-dt-modal
+    [showModal]="showModalAgregar"
+    (eventModal)="closeModal($event)"></app-tupa-generica-dt-modal>
+  <app-tupa-generica-busca-persona-modal
+    [showModal]="showModalBuscar"
+    (eventModal)="closeModalBuscar($event)"
+    [personas]="personas"></app-tupa-generica-busca-persona-modal>
 </div>
