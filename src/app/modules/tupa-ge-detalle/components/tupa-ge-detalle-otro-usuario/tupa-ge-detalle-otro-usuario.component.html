@@ -1,4 +1,4 @@
-<form class="mt-10">
+<div class="mt-10">
   <!-- header -->
   <h6 class="mb-2 border-b border-dashed border-b-gray-600 pb-2 text-lg font-bold text-gray-900 dark:text-white">
     Pago a nombre de otro usuario
@@ -7,12 +7,40 @@
   <div class="pt-5">
     <!-- level 2 -->
     <form [formGroup]="form">
+      <div class="mb-6 grid gap-6 md:grid-cols-1">
+        <div class="flex items-center">
+          <label class="col-span-2 mb-2 mr-4 block text-sm font-medium text-gray-900 dark:text-white"
+            ><b>Buscar por:</b></label
+          >
+          <input
+            formControlName="busqueda"
+            type="radio"
+            id="por-documentos"
+            value="id1"
+            class="mr-2 mb-2 inline"
+            (change)="changeSearh()" />
+          <label for="por-documentos" class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Por documentos</label
+          >
+
+          <input
+            (change)="changeSearh()"
+            formControlName="busqueda"
+            type="radio"
+            id="por-nombres"
+            value="id2"
+            class="ml-10 mr-2 mb-2 inline" />
+          <label for="por-nombres" class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Por nombres</label
+          >
+        </div>
+      </div>
       <div class="mb-6 grid gap-6 md:grid-cols-2">
         <div>
           <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Tipo documento:</label>
           <select
             formControlName="tipoDoc"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary md:w-4/5">
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary md:w-4/5">
             <option value="">-- Selecione --</option>
             <option *ngFor="let id of tipoDocumentos" value="{{ id.codigdocumento }}">
               {{ id.descripcionCompleta }}
@@ -25,16 +53,17 @@
             <input
               formControlName="nroDoc"
               type="text"
-              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+              class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
           </div>
           <div class="self-end">
             <button
+              (click)="openModal()"
               type="button"
               class="w-full rounded-lg border border-primary bg-transparent px-5 py-2.5 text-center text-sm font-medium text-primary text-white ring-primary/50 focus:outline-none focus:ring-4 hover:bg-primary hover:text-white sm:w-auto md:top-7">
               Buscar
             </button>
             <button
-              (click)="toggleModal()"
+              (click)="toggleModalAgregar()"
               class="mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white ring-primary/50 focus:outline-none focus:ring-4 sm:w-auto md:top-7 md:mt-0 md:ml-2">
               Agregar
             </button>
@@ -47,7 +76,7 @@
         <input
           formControlName="razonSocial"
           type="text"
-          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+          class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
       </div>
     </form>
 
@@ -72,4 +101,14 @@
       </div>
     </form>
   </div>
-</form>
+
+  <!-- Modales -->
+  <app-tupa-generica-busca-persona-modal
+    [showModal]="showModalBuscar"
+    (eventModal)="setDataBuscar($event)"
+    [personas]="personas">
+  </app-tupa-generica-busca-persona-modal>
+  <app-tupa-generica-dt-modal
+    [showModal]="showModalAgregar"
+    (eventModal)="setDataAgregar($event)"></app-tupa-generica-dt-modal>
+</div>

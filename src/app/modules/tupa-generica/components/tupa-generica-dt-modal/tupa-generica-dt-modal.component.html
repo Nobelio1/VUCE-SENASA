@@ -122,21 +122,25 @@
             <div>
               <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Departamento:</label>
               <select
+                (change)="cambioUbigeo('DEP')"
                 formControlName="departamento"
                 class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
-                <option value="NDE">Persona 1</option>
-                <option value="NDE">Persona 2</option>
-                <option value="NDE">Persona 3</option>
+                <option value="">--Seleccione</option>
+                <option *ngFor="let departamento of departamentos" value="{{ departamento.id }}">
+                  {{ departamento.name }}
+                </option>
               </select>
             </div>
             <div>
               <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Provincia:</label>
               <select
+                (change)="cambioUbigeo('PROV')"
                 formControlName="provincia"
                 class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
-                <option value="NDE">Persona 1</option>
-                <option value="NDE">Persona 2</option>
-                <option value="NDE">Persona 3</option>
+                <option value="">--Seleccione</option>
+                <option *ngFor="let provincia of provincias" value="{{ provincia.id }}">
+                  {{ provincia.name }}
+                </option>
               </select>
             </div>
             <div>
@@ -144,9 +148,10 @@
               <select
                 formControlName="distrito"
                 class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
-                <option value="NDE">DNI</option>
-                <option value="NDE">RUC</option>
-                <option value="NDE">C4</option>
+                <option value="">--Seleccione</option>
+                <option *ngFor="let distrito of distritos" value="{{ distrito.id }}">
+                  {{ distrito.name }}
+                </option>
               </select>
             </div>
           </div>

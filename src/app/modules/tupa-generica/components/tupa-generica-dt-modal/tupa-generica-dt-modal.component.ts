@@ -1,8 +1,9 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ListarTipoDocumentos, TipoDocumentos } from '../../interfaces/tupa-generica.interface';
+import { ListarTipoDocumentos, TipoDocumentos, Ubigeo } from '../../interfaces/tupa-generica.interface';
 import { TupaGenericaService } from '../../services/tupa-generica.service';
+import { TupaGenericaDatosSoService } from '../../services/tupa-generica-datos-so.service';
 
 @Component({
   selector: 'app-tupa-generica-dt-modal',
@@ -18,7 +19,19 @@ export class TupaGenericaDtModalComponent implements OnInit {
 
   public tipoDocumentos: TipoDocumentos[] = [];
 
-  constructor(private tupaGenericaService: TupaGenericaService, private fb: FormBuilder) {}
+  public departamentos: Ubigeo[] = [];
+  public provincias: Ubigeo[] = [];
+  public distritos: Ubigeo[] = [];
+
+  public selectedDep: string = '';
+  public selectedPro: string = '';
+  public selectedDis: string = '';
+
+  constructor(
+    private tupaGenericaService: TupaGenericaService,
+    private tupaGenericaDatosSoService: TupaGenericaDatosSoService,
+    private fb: FormBuilder,
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -46,6 +59,7 @@ export class TupaGenericaDtModalComponent implements OnInit {
     });
 
     this.listDocumentos();
+    this.listarDep();
   }
 
   listDocumentos() {
@@ -55,6 +69,40 @@ export class TupaGenericaDtModalComponent implements OnInit {
       }
 
       this.tipoDocumentos = data.data;
+    });
+  }
+
+  cambioUbigeo(tipo: string) {
+    //Optimizar flujo
+
+    const codDep: string = this.form.controls['departamento'].value;
+    const codPro: string = this.form.controls['provincia'].value;
+    const codDis: string = this.form.controls['distrito'].value;
+
+    switch (tipo) {
+      case 'DEP':
+        this.listarProv(codDep);
+        break;
+      case 'PROV':
+        this.listarDis(codDep, codPro);
+    }
+  }
+
+  listarDep() {
+    this.tupaGenericaDatosSoService.listaDep().subscribe((data: Ubigeo[]) => {
+      this.departamentos = data;
+    });
+  }
+
+  listarProv(dep: string) {
+    this.tupaGenericaDatosSoService.listaPro(dep).subscribe((data: Ubigeo[]) => {
+      this.provincias = data;
+    });
+  }
+
+  listarDis(dep: string, prov: string) {
+    this.tupaGenericaDatosSoService.listaDis(dep, prov).subscribe((data: Ubigeo[]) => {
+      this.distritos = data;
     });
   }
 

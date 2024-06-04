@@ -32,7 +32,7 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit {
   public showModalBuscar = false;
   public tipoDocumentos: TipoDocumentos[] = [];
   public personas: Solicitante[] = [];
-  public personas2: Solicitante[] = [];
+  public personas2: Solicitante[] = []; // NO SE UTILIZA
 
   constructor(private tupaGenericaService: TupaGenericaService, private fb: FormBuilder) {}
 
@@ -79,7 +79,8 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit {
         return;
       }
       this.tupaGenericaService.listarSolicitantePorId(nroDoc, tipoDoc).subscribe((data: Solicitante) => {
-        this.personas = [...this.personas, data];
+        this.personas = [];
+        this.personas.push(data);
       });
       this.form3.disable();
     } else {

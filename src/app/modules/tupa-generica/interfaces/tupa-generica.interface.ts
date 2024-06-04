@@ -79,11 +79,6 @@ export interface DocumentType {
 export interface Ubigeo {
   id: null;
   name: string;
-  departamentoId: string;
-  provinciaId: string;
-  distritoId: string;
-  departamentoName: string;
-  provinciaName: string;
-  distritoName: string;
-  ubigeoId: string;
+  departamentoId?: string;
+  provinciaId?: string;
 }
