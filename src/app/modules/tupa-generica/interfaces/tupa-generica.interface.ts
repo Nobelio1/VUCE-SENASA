@@ -82,3 +82,35 @@ export interface Ubigeo {
   departamentoId?: string;
   provinciaId?: string;
 }
+
+export interface RegistroUsuario {
+  apellidoMaterno: string;
+  apellidoPaterno: string;
+  centroPoblado: null;
+  correoElectronico: null;
+  direccion: string;
+  documentoNumero: string;
+  documentoTipo: null;
+  estadoJuridico: string;
+  estadoNatural: string;
+  fechaAlta: null;
+  fechaBaja: null;
+  fechaNacimiento: null;
+  id: null;
+  nombreComercial: null;
+  nombreRazonSocial: string;
+  nombres: string;
+  pais: null;
+  personaTipo: null;
+  departamentoId: string;
+  provinciaId: string;
+  distritoId: string;
+  departamento: string;
+  provincia: string;
+  distrito: string;
+  referenciaDireccion: string;
+  ruc: null;
+  telefono: null;
+  telefonoMovil: null;
+  representantes: any[];
+}

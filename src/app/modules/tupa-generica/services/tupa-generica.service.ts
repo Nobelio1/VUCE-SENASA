@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ListarTipoDocumentos, Solicitante } from '../interfaces/tupa-generica.interface';
+import { ListarTipoDocumentos, RegistroUsuario, Solicitante } from '../interfaces/tupa-generica.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,8 @@ export class TupaGenericaService {
 
   public urlAPI = `${this.urlService}/datosSolicitante`;
   public urlCOM = `${this.urlServic2}/senasa/tupaserver/api/people`;
+  public urlCOM2 = `${this.urlServic2}/senasa/tupaserver/api/reniec`;
+
   constructor(private http: HttpClient) {}
 
   listTipoDocumento() {
@@ -28,5 +30,13 @@ export class TupaGenericaService {
 
   getSolicitantePorNombre(name: string) {
     return this.http.get<Solicitante[]>(`${this.urlCOM}/${name}/searchNames`);
+  }
+
+  getRegistroReniec(dni: string) {
+    return this.http.get<RegistroUsuario>(`${this.urlCOM2}/searchByDni/${dni}`);
+  }
+
+  getRegistrosSunat(ruc: string) {
+    return this.http.get<RegistroUsuario>(`${this.urlCOM2}/searchByRuc/${ruc}`);
   }
 }

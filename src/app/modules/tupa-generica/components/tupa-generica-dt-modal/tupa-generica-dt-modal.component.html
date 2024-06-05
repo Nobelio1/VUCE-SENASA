@@ -25,6 +25,7 @@
             </div>
             <div>
               <button
+                (click)="buscarSunat()"
                 class="relative mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white ring-primary/50 focus:outline-none focus:ring-4 sm:w-auto md:top-7 md:mt-0 md:ml-2">
                 Validación SUNAT
               </button>
@@ -33,12 +34,14 @@
               <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">DNI:</label>
               <input
                 formControlName="nroDni"
+                autocomplete="false"
                 type="text"
                 id="first_name"
                 class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
             </div>
             <div>
               <button
+                (click)="buscarReniec()"
                 class="relative mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white ring-primary/50 focus:outline-none focus:ring-4 sm:w-auto md:top-7 md:mt-0 md:ml-2">
                 Validación RENIEC
               </button>
@@ -51,9 +54,8 @@
               <select
                 formControlName="tipoPersona"
                 class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
-                <option value="NDE">Persona 1</option>
-                <option value="NDE">Persona 2</option>
-                <option value="NDE">Persona 3</option>
+                <option value="00">Natural</option>
+                <option value="01">Juridica</option>
               </select>
             </div>
             <div>
@@ -224,9 +226,8 @@
               <select
                 formControlName="estadoJuridico"
                 class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
-                <option value="NDE">DNI</option>
-                <option value="NDE">RUC</option>
-                <option value="NDE">C4</option>
+                <option value="00">Inactivo</option>
+                <option value="01">Activo</option>
               </select>
             </div>
           </div>

@@ -1,7 +1,12 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ListarTipoDocumentos, TipoDocumentos, Ubigeo } from '../../interfaces/tupa-generica.interface';
+import {
+  ListarTipoDocumentos,
+  RegistroUsuario,
+  TipoDocumentos,
+  Ubigeo,
+} from '../../interfaces/tupa-generica.interface';
 import { TupaGenericaService } from '../../services/tupa-generica.service';
 import { TupaGenericaDatosSoService } from '../../services/tupa-generica-datos-so.service';
 
@@ -104,6 +109,58 @@ export class TupaGenericaDtModalComponent implements OnInit {
     this.tupaGenericaDatosSoService.listaDis(dep, prov).subscribe((data: Ubigeo[]) => {
       this.distritos = data;
     });
+  }
+
+  buscarSunat() {
+    const ruc: string = this.form.controls['nroRuc'].value;
+
+    if (ruc === '') {
+      return console.log('El numero ruc esta vacio o no es valido');
+    }
+
+    this.tupaGenericaService.getRegistrosSunat(ruc).subscribe((data: RegistroUsuario) => {
+      this.setForm(data, '04');
+    });
+  }
+
+  buscarReniec() {
+    const dni: string = this.form.controls['nroDni'].value;
+
+    if (dni === '') {
+      return console.log('El numero ruc esta vacio o no es valido');
+    }
+
+    this.tupaGenericaService.getRegistroReniec(dni).subscribe((data: RegistroUsuario) => {
+      this.setForm(data, '01');
+    });
+  }
+
+  //dni: 01
+  //ruc: 04
+
+  setForm(data: RegistroUsuario, tipo: string) {
+    this.listarProv(data.departamentoId);
+    this.listarDis(data.departamentoId, data.provinciaId);
+
+    this.form.controls['tipoPersona'].setValue(tipo == '01' ? '00' : '01');
+    this.form.controls['tipoDocumento'].setValue(tipo);
+    this.form.controls['nroId'].setValue(data.documentoNumero || '');
+    this.form.controls['ruc'].setValue(data.ruc || '');
+    this.form.controls['razonSocial'].setValue(data.nombreRazonSocial || '');
+    this.form.controls['nombre'].setValue(data.nombres || '');
+    this.form.controls['apePaterno'].setValue(data.apellidoPaterno || '');
+    this.form.controls['apeMaterno'].setValue(data.apellidoMaterno || '');
+    this.form.controls['departamento'].setValue(data.departamentoId || '');
+    this.form.controls['provincia'].setValue(data.provinciaId || '');
+    this.form.controls['distrito'].setValue(data.distritoId || '');
+    this.form.controls['poblado'].setValue(data.referenciaDireccion || '');
+    this.form.controls['direccion'].setValue(data.direccion || '');
+    this.form.controls['referencia'].setValue(data.referenciaDireccion || '');
+    this.form.controls['nroCelular'].setValue(data.telefonoMovil || '');
+    this.form.controls['nroTelefono'].setValue(data.telefono || '');
+    this.form.controls['email'].setValue(data.correoElectronico || '');
+    this.form.controls['estadoNatural'].setValue(data.estadoNatural === 'ACTIVO' ? '01' : '00' || '');
+    this.form.controls['estadoJuridico'].setValue(data.estadoNatural === 'ACTIVO' ? '01' : '00' || '');
   }
 
   addPerson() {
