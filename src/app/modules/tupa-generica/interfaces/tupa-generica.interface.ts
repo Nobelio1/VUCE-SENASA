@@ -114,3 +114,38 @@ export interface RegistroUsuario {
   telefonoMovil: null;
   representantes: any[];
 }
+
+export interface RepresentateOut extends Result {
+  data: Representante[];
+}
+
+export interface Representante {
+  representante_Id: number;
+  nombre_Razon_Social: string;
+  persona_Tipo: string;
+  documento_Tipo: string;
+  documento_Numero: string;
+  apellido_Paterno: string;
+  apellido_Materno: string;
+  nombres: null;
+  direccion: null;
+  departamento_Id: null;
+  nomb_Dpto_Dpt: null;
+  provincia_Id: null;
+  nomb_Prov_Tpr: null;
+  distrito_Id: null;
+  dodi_Dist_Tdi: null;
+  telefono: null;
+  centro_Poblado_Id: null;
+  telefono_Movil: null;
+  correo_Electronico: null;
+  referencia: null;
+  pais_Id: null;
+  fecha_Nacimiento: null;
+  nombre_Razsoc_Comp: null;
+  estado: null;
+  estado_1: null;
+  cargo: string;
+  fecha_Desde: null;
+  persona_Id: null;
+}

@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ListarTipoDocumentos, RegistroUsuario, Solicitante } from '../interfaces/tupa-generica.interface';
+import {
+  ListarTipoDocumentos,
+  RegistroUsuario,
+  RepresentateOut,
+  Solicitante,
+} from '../interfaces/tupa-generica.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -38,5 +43,9 @@ export class TupaGenericaService {
 
   getRegistrosSunat(ruc: string) {
     return this.http.get<RegistroUsuario>(`${this.urlCOM2}/searchByRuc/${ruc}`);
+  }
+
+  getRepresentanteLegal(id: string) {
+    return this.http.get<RepresentateOut>(`${this.urlAPI}/datos/${id}`);
   }
 }

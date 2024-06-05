@@ -3,7 +3,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ButtonComponent } from 'src/app/shared/components/button/button.component';
 import { TupaGenericaDtModalComponent } from '../tupa-generica-dt-modal/tupa-generica-dt-modal.component';
 import { TupaGenericaService } from '../../services/tupa-generica.service';
-import { ListarTipoDocumentos, Solicitante, TipoDocumentos } from '../../interfaces/tupa-generica.interface';
+import {
+  ListarTipoDocumentos,
+  Representante,
+  RepresentateOut,
+  Solicitante,
+  TipoDocumentos,
+} from '../../interfaces/tupa-generica.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   PersonaSelect,
@@ -34,6 +40,7 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
   public showModalBuscar = false;
   public tipoDocumentos: TipoDocumentos[] = [];
   public personas: Solicitante[] = [];
+  public representantes: Representante[] = [];
 
   public datosSub!: Subscription;
   public datosActivo: Solicitante = {} as Solicitante;
@@ -164,6 +171,8 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
       ubigeoArray = ubigeoArray.filter((ubi) => ubi !== '');
     }
 
+    this.listarRepresentantes(datos.id);
+
     this.form2.controls['nroRazon'].setValue(datos.nombreRazonSocial);
     this.form2.controls['departamento'].setValue(ubigeoArray[0]);
     this.form2.controls['provincia'].setValue(ubigeoArray[1]);
@@ -173,6 +182,17 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
     this.form2.controls['celular'].setValue(datos.cellphone);
     this.form2.controls['fax'].setValue('');
     this.form2.controls['email'].setValue(datos.email);
+  }
+
+  listarRepresentantes(id: string) {
+    this.tupaGenericaService.getRepresentanteLegal(id).subscribe((data: RepresentateOut) => {
+      if (data.code !== '000') {
+        console.log('Hubo un error al traer a los representantes');
+        return;
+      }
+
+      this.representantes = data.data;
+    });
   }
 
   closeModalBuscar(event: boolean) {
