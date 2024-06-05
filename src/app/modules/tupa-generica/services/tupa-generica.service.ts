@@ -6,6 +6,8 @@ import {
   RegistroUsuario,
   RepresentateOut,
   Solicitante,
+  SolicitanteIn,
+  SolicitanteOut,
 } from '../interfaces/tupa-generica.interface';
 
 @Injectable({
@@ -23,6 +25,10 @@ export class TupaGenericaService {
 
   listTipoDocumento() {
     return this.http.get<ListarTipoDocumentos>(`${this.urlAPI}/listarTipoDocumento`);
+  }
+
+  listarSoliciante(solicitante: SolicitanteIn) {
+    return this.http.post<SolicitanteOut>(`${this.urlService}/infoSolicitante/obtenerPersonaDocVUCE`, solicitante);
   }
 
   listarSolicitantePorId(documentNumber: string, documentTypeId: string) {

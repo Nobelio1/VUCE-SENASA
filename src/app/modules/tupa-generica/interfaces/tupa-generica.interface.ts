@@ -65,6 +65,42 @@ export interface Solicitante {
   ubigeoPobladoId: null;
 }
 
+export interface SolicitanteIn {
+  ptidodoc?: string;
+  pnumdoc?: string;
+  pnombre?: string;
+}
+
+export interface SolicitanteOut extends Result {
+  data: Solicitante2[];
+}
+
+export interface Solicitante2 {
+  persona_Id: string;
+  nombre_Razon_Social: string;
+  persona_Tipo: string;
+  documento_Tipo: string;
+  apellido_Paterno: null;
+  apellido_Materno: null;
+  nombres: null;
+  direccion: string;
+  departamento_Id: string;
+  nomb_Dpto_Dpt: string;
+  provincia_Id: string;
+  nomb_Prov_Tpr: string;
+  distrito_Id: string;
+  nomb_Dist_Tdi: string;
+  telefono: string;
+  centro_Poblado_Id: null;
+  telefono_Movil: string;
+  referencia_Direccion: string;
+  estado: string;
+  pais_Id: null;
+  fecha_Nacimiento: null;
+  nombre_Razsoc_Comp: null;
+  regi_Padr_Emp: null;
+}
+
 export interface DocumentType {
   id: string;
   name: string;
