@@ -11,6 +11,10 @@
 </ng-container>
 
 <ng-container *ngIf="tipo === 2">
+  <td class="py-2 pl-2 text-right">
+    <input type="checkbox" class="mr-2 mb-2 inline" (change)="listaEliminar($event)" />
+    >
+  </td>
   <td class="py-2 pr-2">
     <span class="text-xs font-semibold text-muted-foreground">{{
       cptPago.tipoPago === '1' ? 'EFECTIVO' : 'DEPOSITO'

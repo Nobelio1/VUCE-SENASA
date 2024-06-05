@@ -71,6 +71,7 @@ export class TupaGeDetalleServiciosComponent implements OnInit {
         throw new Error('Error en la respuesta');
       }
       this.subAreas = data.data;
+      console.log(this.subAreas);
     });
   }
 }

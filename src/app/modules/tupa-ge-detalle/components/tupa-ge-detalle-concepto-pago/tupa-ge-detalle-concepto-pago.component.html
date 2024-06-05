@@ -12,6 +12,7 @@
             Insertar
           </button>
           <button
+            (click)="eliminarElementos()"
             class="mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-white ring-primary/50 focus:outline-none focus:ring-4 sm:w-auto md:top-7 md:mt-0 md:ml-2">
             Eliminar
           </button>
@@ -25,6 +26,7 @@
           <!--Table head-->
           <thead class="text-xs uppercase text-muted-foreground">
             <tr>
+              <th class="py-3 text-left"></th>
               <th class="py-3 text-left">Tipo de Pago</th>
               <th class="py-3 text-right">Banco Cuenta Corriente</th>
               <th class="py-3 text-right">Número de operación</th>
@@ -36,8 +38,9 @@
           <!--Table body-->
           <tbody>
             <tr
-              *ngFor="let concepto of conceptoPago"
+              *ngFor="let concepto of conceptoPago; let i = index"
               [tipo]="2"
+              [index]="i"
               [cptPago]="concepto"
               tupa-ge-detalle-table-item
               class="border-b border-dashed border-border hover:bg-card"></tr>

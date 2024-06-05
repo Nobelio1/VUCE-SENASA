@@ -30,11 +30,16 @@ export class TupaGeDetalleConceptoPagoComponent implements OnInit, OnDestroy {
     });
   }
 
+  eliminarElementos() {
+    this.tupaGeDetalleConceptoPagoService.eliminarPagos();
+  }
+
   ngOnDestroy(): void {
     this.listaSub.unsubscribe();
   }
 
   sumaMontos() {
+    this.montos = [];
     this.conceptoPago.forEach((concepto) => {
       this.montos.push(concepto.monto);
     });

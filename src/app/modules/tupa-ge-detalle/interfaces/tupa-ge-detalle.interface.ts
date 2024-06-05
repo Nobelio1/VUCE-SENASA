@@ -63,3 +63,11 @@ export interface Bancos {
   numero_Cta: string;
   nombre: string;
 }
+
+export interface MontoIn {
+  pcodservicio: string;
+  pcantidad: string;
+  ptramaproductos?: string;
+  ptramavacunas?: string;
+  ptramaanalisis?: string;
+}
