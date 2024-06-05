@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   PersonaSelect,
@@ -12,6 +12,8 @@ import {
   TipoDocumentos,
 } from 'src/app/modules/tupa-generica/interfaces/tupa-generica.interface';
 import { TupaGenericaService } from 'src/app/modules/tupa-generica/services/tupa-generica.service';
+import { TupaGeDetalleOtroUsuarioService } from '../../services/tupa-ge-detalle-otro-usuario.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tupa-ge-detalle-otro-usuario',
@@ -19,17 +21,23 @@ import { TupaGenericaService } from 'src/app/modules/tupa-generica/services/tupa
   standalone: true,
   imports: [NgIf, NgFor, ReactiveFormsModule, TupaGenericaDtModalComponent, TupaGenericaBuscaPersonaModalComponent],
 })
-export class TupaGeDetalleOtroUsuarioComponent implements OnInit {
-  public showModalAgregar = false;
-  public showModalBuscar = false;
-
-  public tipoDocumentos: TipoDocumentos[] = [];
-  public personas: Solicitante[] = [];
-
+export class TupaGeDetalleOtroUsuarioComponent implements OnInit, OnDestroy {
   public form!: FormGroup;
   public form2!: FormGroup;
 
-  constructor(private tupaGenericaService: TupaGenericaService, private fb: FormBuilder) {}
+  public showModalAgregar = false;
+  public showModalBuscar = false;
+  public tipoDocumentos: TipoDocumentos[] = [];
+  public personas: Solicitante[] = [];
+
+  public datosSub!: Subscription;
+  public datosActivo: Solicitante = {} as Solicitante;
+
+  constructor(
+    private tupaGenericaService: TupaGenericaService,
+    private fb: FormBuilder,
+    private tupaGeDetalleOtroUsuarioService: TupaGeDetalleOtroUsuarioService,
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -47,6 +55,11 @@ export class TupaGeDetalleOtroUsuarioComponent implements OnInit {
     this.form2.disable();
     this.listDocumentos();
     this.changeSearh();
+    this.cargarDatos();
+  }
+
+  ngOnDestroy(): void {
+    this.datosSub.unsubscribe();
   }
 
   listDocumentos() {
@@ -113,11 +126,20 @@ export class TupaGeDetalleOtroUsuarioComponent implements OnInit {
     this.showModalAgregar = !this.showModalAgregar;
   }
 
-  setDataBuscar(event: PersonaSelect) {
-    this.form2.controls['domicilioLegal'].setValue(event.data.address);
-    this.form2.controls['razonSocial'].setValue(event.data.nombreRazonSocial);
+  cargarDatos() {
+    this.datosSub = this.tupaGeDetalleOtroUsuarioService.getDatos.subscribe((datos: Solicitante) => {
+      this.datosActivo = datos;
+      this.setForm(this.datosActivo);
+    });
+  }
 
-    this.showModalBuscar = event.modal;
+  setForm(datos: Solicitante) {
+    this.form2.controls['domicilioLegal'].setValue(datos.address);
+    this.form2.controls['razonSocial'].setValue(datos.nombreRazonSocial);
+  }
+
+  setDataBuscar(event: boolean) {
+    this.showModalBuscar = event;
   }
 
   setDataAgregar(event: boolean) {

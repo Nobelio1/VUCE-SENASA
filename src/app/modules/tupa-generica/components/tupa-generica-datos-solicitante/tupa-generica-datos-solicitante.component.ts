@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ButtonComponent } from 'src/app/shared/components/button/button.component';
 import { TupaGenericaDtModalComponent } from '../tupa-generica-dt-modal/tupa-generica-dt-modal.component';
 import { TupaGenericaService } from '../../services/tupa-generica.service';
@@ -9,6 +9,8 @@ import {
   PersonaSelect,
   TupaGenericaBuscaPersonaModalComponent,
 } from '../tupa-generica-busca-persona-modal/tupa-generica-busca-persona-modal.component';
+import { TupaGenericaDatosSoService } from '../../services/tupa-generica-datos-so.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tupa-generica-datos-solicitante',
@@ -23,7 +25,7 @@ import {
     TupaGenericaBuscaPersonaModalComponent,
   ],
 })
-export class TupaGenericaDatosSolicitanteComponent implements OnInit {
+export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy {
   public form!: FormGroup;
   public form2!: FormGroup;
   public form3!: FormGroup;
@@ -32,9 +34,15 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit {
   public showModalBuscar = false;
   public tipoDocumentos: TipoDocumentos[] = [];
   public personas: Solicitante[] = [];
-  public personas2: Solicitante[] = []; // NO SE UTILIZA
 
-  constructor(private tupaGenericaService: TupaGenericaService, private fb: FormBuilder) {}
+  public datosSub!: Subscription;
+  public datosActivo: Solicitante = {} as Solicitante;
+
+  constructor(
+    private tupaGenericaService: TupaGenericaService,
+    private fb: FormBuilder,
+    private tupaGenericaDatosSoService: TupaGenericaDatosSoService,
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -65,6 +73,13 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit {
     this.form2.disable();
     this.listDocumentos();
     this.changeSearh();
+
+    //reactivo
+    this.cargarDatos();
+  }
+
+  ngOnDestroy(): void {
+    this.datosSub.unsubscribe();
   }
 
   buscarSolicitantePorTipo() {
@@ -130,29 +145,38 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit {
 
   toggleModal() {
     //!---- FALTA LA FUNCIONALIDAD DE AGREGAR
-
     this.showModalAgregar = !this.showModalAgregar;
   }
 
-  closeModalBuscar(event: PersonaSelect) {
+  cargarDatos() {
+    this.datosSub = this.tupaGenericaDatosSoService.getDatos.subscribe((datos: Solicitante) => {
+      this.datosActivo = datos;
+      this.setForm(this.datosActivo);
+    });
+  }
+
+  setForm(datos: Solicitante) {
     let ubigeoArray: string[] = [];
 
-    if (event.data.ubigeo) {
-      ubigeoArray = event.data.ubigeo.name.split(' ');
+    if (datos.ubigeo) {
+      ubigeoArray = datos.ubigeo.name.split(' ');
       ubigeoArray = ubigeoArray.map((item) => item.replace('/', ''));
       ubigeoArray = ubigeoArray.filter((ubi) => ubi !== '');
     }
 
-    this.form2.controls['nroRazon'].setValue(event.data.nombreRazonSocial);
+    this.form2.controls['nroRazon'].setValue(datos.nombreRazonSocial);
     this.form2.controls['departamento'].setValue(ubigeoArray[0]);
     this.form2.controls['provincia'].setValue(ubigeoArray[1]);
     this.form2.controls['distrito'].setValue(ubigeoArray[2]);
-    this.form2.controls['domicilioLegal'].setValue(event.data.address);
-    this.form2.controls['telefono'].setValue(event.data.phone);
-    this.form2.controls['celular'].setValue(event.data.cellphone);
+    this.form2.controls['domicilioLegal'].setValue(datos.address);
+    this.form2.controls['telefono'].setValue(datos.phone);
+    this.form2.controls['celular'].setValue(datos.cellphone);
     this.form2.controls['fax'].setValue('');
-    this.form2.controls['email'].setValue(event.data.email);
-    this.showModalBuscar = event.modal;
+    this.form2.controls['email'].setValue(datos.email);
+  }
+
+  closeModalBuscar(event: boolean) {
+    this.showModalBuscar = event;
   }
 
   closeModal(event: boolean) {
