@@ -29,10 +29,12 @@
                 <!--Table body-->
                 <tbody class="overflow-x-scrol">
                   <tr *ngFor="let persona of personas" class="hover:bg-gray-100" (click)="seleccionarPersona(persona)">
-                    <td class="text-left text-gray-700 dark:text-white">{{ persona.nombreRazonSocial }}</td>
-                    <td class="text-right text-gray-700 dark:text-white">{{ persona.documentType.name }}</td>
-                    <td class="text-right text-gray-700 dark:text-white">{{ persona.documentNumber }}</td>
-                    <td class="text-right text-gray-700 dark:text-white">{{ persona.address }}</td>
+                    <td class="text-left text-gray-700 dark:text-white">{{ persona.nombre_Razon_Social }}</td>
+                    <td class="text-right text-gray-700 dark:text-white">
+                      {{ tipoDocumento(persona.documento_Tipo) }}
+                    </td>
+                    <td class="text-right text-gray-700 dark:text-white">{{ persona.documento_numero }}</td>
+                    <td class="text-right text-gray-700 dark:text-white">{{ persona.correo_electronico }}</td>
                   </tr>
                 </tbody>
                 <!--end::Table body-->

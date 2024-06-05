@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Solicitante, Ubigeo } from '../interfaces/tupa-generica.interface';
+import { Solicitante, Solicitante2, Ubigeo } from '../interfaces/tupa-generica.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TupaGenericaDatosSoService {
-  private datosSolicitante: BehaviorSubject<Solicitante> = new BehaviorSubject({} as Solicitante);
-  public getDatos: Observable<Solicitante> = this.datosSolicitante.asObservable();
+  private datosSolicitante: BehaviorSubject<Solicitante2> = new BehaviorSubject({} as Solicitante2);
+  public getDatos: Observable<Solicitante2> = this.datosSolicitante.asObservable();
 
   private urlServic2 = environment.API_MASTER2;
   public urlCOM = `${this.urlServic2}/senasa/tupaserver/api/ubigeos`;
@@ -18,11 +18,11 @@ export class TupaGenericaDatosSoService {
 
   //?METODOS ------------------------------------------------------------
 
-  actualizarDatos(datosSo: Solicitante) {
+  actualizarDatos(datosSo: Solicitante2) {
     this.datosSolicitante.next(datosSo);
   }
 
-  obtenerLista(): Solicitante {
+  obtenerLista(): Solicitante2 {
     return this.datosSolicitante.getValue();
   }
 

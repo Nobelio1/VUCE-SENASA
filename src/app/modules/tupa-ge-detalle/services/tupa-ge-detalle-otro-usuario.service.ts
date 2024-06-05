@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Solicitante } from '../../tupa-generica/interfaces/tupa-generica.interface';
+import { Solicitante, Solicitante2 } from '../../tupa-generica/interfaces/tupa-generica.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +9,8 @@ export class TupaGeDetalleOtroUsuarioService {
   private stateOtroUsario: BehaviorSubject<boolean> = new BehaviorSubject(true);
   public getState: Observable<boolean> = this.stateOtroUsario.asObservable();
 
-  private datosOtroSolicitante: BehaviorSubject<Solicitante> = new BehaviorSubject({} as Solicitante);
-  public getDatos: Observable<Solicitante> = this.datosOtroSolicitante.asObservable();
+  private datosOtroSolicitante: BehaviorSubject<Solicitante2> = new BehaviorSubject({} as Solicitante2);
+  public getDatos: Observable<Solicitante2> = this.datosOtroSolicitante.asObservable();
 
   constructor() {}
 
@@ -22,11 +22,11 @@ export class TupaGeDetalleOtroUsuarioService {
     return this.stateOtroUsario.getValue();
   }
 
-  actualizarDatos(datosSo: Solicitante) {
+  actualizarDatos(datosSo: Solicitante2) {
     this.datosOtroSolicitante.next(datosSo);
   }
 
-  obtenerLista(): Solicitante {
+  obtenerLista(): Solicitante2 {
     return this.datosOtroSolicitante.getValue();
   }
 }

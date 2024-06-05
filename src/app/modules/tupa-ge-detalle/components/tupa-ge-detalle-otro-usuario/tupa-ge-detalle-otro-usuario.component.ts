@@ -9,6 +9,9 @@ import { TupaGenericaDtModalComponent } from 'src/app/modules/tupa-generica/comp
 import {
   ListarTipoDocumentos,
   Solicitante,
+  Solicitante2,
+  SolicitanteIn,
+  SolicitanteOut,
   TipoDocumentos,
 } from 'src/app/modules/tupa-generica/interfaces/tupa-generica.interface';
 import { TupaGenericaService } from 'src/app/modules/tupa-generica/services/tupa-generica.service';
@@ -28,10 +31,10 @@ export class TupaGeDetalleOtroUsuarioComponent implements OnInit, OnDestroy {
   public showModalAgregar = false;
   public showModalBuscar = false;
   public tipoDocumentos: TipoDocumentos[] = [];
-  public personas: Solicitante[] = [];
+  public personas: Solicitante2[] = [];
 
   public datosSub!: Subscription;
-  public datosActivo: Solicitante = {} as Solicitante;
+  public datosActivo: Solicitante2 = {} as Solicitante2;
 
   constructor(
     private tupaGenericaService: TupaGenericaService,
@@ -83,18 +86,35 @@ export class TupaGeDetalleOtroUsuarioComponent implements OnInit, OnDestroy {
         console.log('falta completar data');
         return;
       }
-      this.tupaGenericaService.listarSolicitantePorId(nroDoc, tipoDoc).subscribe((data: Solicitante) => {
-        this.personas = [];
-        this.personas.push(data);
+
+      const req: SolicitanteIn = {
+        ptidodoc: tipoDoc,
+        pnumdoc: nroDoc,
+      };
+
+      this.tupaGenericaService.listarSoliciante(req).subscribe((data: SolicitanteOut) => {
+        if (data.code !== '000') {
+          console.log('Se produjo error al traer la data por tipoDocumento');
+          return;
+        }
+        this.personas = data.data;
       });
     } else {
       if (!nroRazon) {
         console.log('falta completar data');
         return;
       }
-      this.tupaGenericaService.getSolicitantePorNombre(nroRazon).subscribe((data: Solicitante[]) => {
-        //!!----------------------- FALTA PAGINACION
-        this.personas = data.slice(1, 15);
+
+      const req: SolicitanteIn = {
+        pnombre: nroRazon,
+      };
+
+      this.tupaGenericaService.listarSoliciante(req).subscribe((data: SolicitanteOut) => {
+        if (data.code !== '000') {
+          console.log('Se produjo error al traer la data por tipoDocumento');
+          return;
+        }
+        this.personas = data.data;
       });
     }
   }
@@ -127,15 +147,15 @@ export class TupaGeDetalleOtroUsuarioComponent implements OnInit, OnDestroy {
   }
 
   cargarDatos() {
-    this.datosSub = this.tupaGeDetalleOtroUsuarioService.getDatos.subscribe((datos: Solicitante) => {
+    this.datosSub = this.tupaGeDetalleOtroUsuarioService.getDatos.subscribe((datos: Solicitante2) => {
       this.datosActivo = datos;
       this.setForm(this.datosActivo);
     });
   }
 
-  setForm(datos: Solicitante) {
-    this.form2.controls['domicilioLegal'].setValue(datos.address);
-    this.form2.controls['razonSocial'].setValue(datos.nombreRazonSocial);
+  setForm(datos: Solicitante2) {
+    this.form2.controls['domicilioLegal'].setValue(datos.direccion);
+    this.form2.controls['razonSocial'].setValue(datos.nombre_Razon_Social);
   }
 
   setDataBuscar(event: boolean) {

@@ -80,9 +80,10 @@ export interface Solicitante2 {
   nombre_Razon_Social: string;
   persona_Tipo: string;
   documento_Tipo: string;
-  apellido_Paterno: null;
-  apellido_Materno: null;
-  nombres: null;
+  documento_numero: string;
+  apellido_Paterno: string;
+  apellido_Materno: string;
+  nombres: string;
   direccion: string;
   departamento_Id: string;
   nomb_Dpto_Dpt: string;
@@ -91,14 +92,15 @@ export interface Solicitante2 {
   distrito_Id: string;
   nomb_Dist_Tdi: string;
   telefono: string;
-  centro_Poblado_Id: null;
+  centro_Poblado_Id: string;
   telefono_Movil: string;
+  correo_electronico: string;
   referencia_Direccion: string;
   estado: string;
-  pais_Id: null;
-  fecha_Nacimiento: null;
-  nombre_Razsoc_Comp: null;
-  regi_Padr_Emp: null;
+  pais_Id: string;
+  fecha_Nacimiento: string;
+  nombre_Razsoc_Comp: string;
+  regi_Padr_Emp: string;
 }
 
 export interface DocumentType {

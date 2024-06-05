@@ -8,6 +8,9 @@ import {
   Representante,
   RepresentateOut,
   Solicitante,
+  Solicitante2,
+  SolicitanteIn,
+  SolicitanteOut,
   TipoDocumentos,
 } from '../../interfaces/tupa-generica.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -39,11 +42,11 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
   public showModalAgregar = false;
   public showModalBuscar = false;
   public tipoDocumentos: TipoDocumentos[] = [];
-  public personas: Solicitante[] = [];
+  public personas: Solicitante2[] = [];
   public representantes: Representante[] = [];
 
   public datosSub!: Subscription;
-  public datosActivo: Solicitante = {} as Solicitante;
+  public datosActivo: Solicitante2 = {} as Solicitante2;
 
   constructor(
     private tupaGenericaService: TupaGenericaService,
@@ -100,19 +103,44 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
         console.log('falta completar data');
         return;
       }
-      this.tupaGenericaService.listarSolicitantePorId(nroDoc, tipoDoc).subscribe((data: Solicitante) => {
-        this.personas = [];
-        this.personas.push(data);
+
+      const req: SolicitanteIn = {
+        ptidodoc: tipoDoc,
+        pnumdoc: nroDoc,
+      };
+
+      this.tupaGenericaService.listarSoliciante(req).subscribe((data: SolicitanteOut) => {
+        if (data.code !== '000') {
+          console.log('Se produjo error al traer la data por tipoDocumento');
+          return;
+        }
+        this.personas = data.data;
       });
+
+      // this.tupaGenericaService.listarSolicitantePorId(nroDoc, tipoDoc).subscribe((data: Solicitante) => {
+      //   this.personas = [];
+      //   this.personas.push(data);
+      // });
       this.form3.disable();
     } else {
       if (!nroRazon) {
         console.log('falta completar data');
         return;
       }
-      this.tupaGenericaService.getSolicitantePorNombre(nroRazon).subscribe((data: Solicitante[]) => {
-        //!!----------------------- FALTA PAGINACION
-        this.personas = data.slice(1, 15);
+
+      const req: SolicitanteIn = {
+        pnombre: nroRazon,
+      };
+      // this.tupaGenericaService.getSolicitantePorNombre(nroRazon).subscribe((data: Solicitante[]) => {
+      //   this.personas = data.slice(1, 15);
+      // });
+
+      this.tupaGenericaService.listarSoliciante(req).subscribe((data: SolicitanteOut) => {
+        if (data.code !== '000') {
+          console.log('Se produjo error al traer la data por tipoDocumento');
+          return;
+        }
+        this.personas = data.data;
       });
       this.form3.enable();
     }
@@ -156,32 +184,32 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
   }
 
   cargarDatos() {
-    this.datosSub = this.tupaGenericaDatosSoService.getDatos.subscribe((datos: Solicitante) => {
+    this.datosSub = this.tupaGenericaDatosSoService.getDatos.subscribe((datos: Solicitante2) => {
       this.datosActivo = datos;
       this.setForm(this.datosActivo);
     });
   }
 
-  setForm(datos: Solicitante) {
-    let ubigeoArray: string[] = [];
+  setForm(datos: Solicitante2) {
+    // let ubigeoArray: string[] = [];
 
-    if (datos.ubigeo) {
-      ubigeoArray = datos.ubigeo.name.split(' ');
-      ubigeoArray = ubigeoArray.map((item) => item.replace('/', ''));
-      ubigeoArray = ubigeoArray.filter((ubi) => ubi !== '');
-    }
+    // if (datos.ubigeo) {
+    //   ubigeoArray = datos.ubigeo.name.split(' ');
+    //   ubigeoArray = ubigeoArray.map((item) => item.replace('/', ''));
+    //   ubigeoArray = ubigeoArray.filter((ubi) => ubi !== '');
+    // }
 
-    this.listarRepresentantes(datos.id);
+    this.listarRepresentantes(datos.persona_Id);
 
-    this.form2.controls['nroRazon'].setValue(datos.nombreRazonSocial);
-    this.form2.controls['departamento'].setValue(ubigeoArray[0]);
-    this.form2.controls['provincia'].setValue(ubigeoArray[1]);
-    this.form2.controls['distrito'].setValue(ubigeoArray[2]);
-    this.form2.controls['domicilioLegal'].setValue(datos.address);
-    this.form2.controls['telefono'].setValue(datos.phone);
-    this.form2.controls['celular'].setValue(datos.cellphone);
+    this.form2.controls['nroRazon'].setValue(datos.nombre_Razon_Social);
+    this.form2.controls['departamento'].setValue(datos.nomb_Dpto_Dpt);
+    this.form2.controls['provincia'].setValue(datos.nomb_Prov_Tpr);
+    this.form2.controls['distrito'].setValue(datos.nomb_Dist_Tdi);
+    this.form2.controls['domicilioLegal'].setValue(datos.direccion);
+    this.form2.controls['telefono'].setValue(datos.telefono);
+    this.form2.controls['celular'].setValue(datos.telefono_Movil);
     this.form2.controls['fax'].setValue('');
-    this.form2.controls['email'].setValue(datos.email);
+    this.form2.controls['email'].setValue(datos.correo_electronico);
   }
 
   listarRepresentantes(id: string) {
