@@ -10,6 +10,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 if (environment.production) {
   enableProdMode();
+  //EcfcapGi
   //show this warning only on prod mode
   if (window) {
     selfXSSWarning();

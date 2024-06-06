@@ -1,3 +1,4 @@
+//EcfcapGi
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ButtonComponent } from 'src/app/shared/components/button/button.component';
@@ -190,7 +191,7 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
     this.form2.controls['telefono'].setValue(datos.telefono);
     this.form2.controls['celular'].setValue(datos.telefono_Movil);
     this.form2.controls['fax'].setValue('');
-    this.form2.controls['email'].setValue(datos.correo_electronico);
+    this.form2.controls['email'].setValue(datos.correo_Electronico);
   }
 
   listarRepresentantes(id: string) {

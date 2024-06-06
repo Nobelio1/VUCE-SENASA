@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; // EcfcapGi
 import { ThemeService } from './core/services/theme.service';
 import { RouterOutlet } from '@angular/router';
 import { NgClass } from '@angular/common';

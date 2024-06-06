@@ -27,7 +27,7 @@ export class TupaGenericaService {
   }
 
   listarSoliciante(solicitante: SolicitanteIn) {
-    return this.http.post<SolicitanteOut>(`${this.urlService}/infoSolicitante/obtenerPersonaDocVUCE`, solicitante);
+    return this.http.post<SolicitanteOut>(`${this.urlService}/infoSolicitante/obtenerPersonaPorDocumento`, solicitante);
   }
 
   getRegistroReniec(dni: string) {

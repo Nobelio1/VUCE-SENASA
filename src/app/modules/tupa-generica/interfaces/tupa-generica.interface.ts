@@ -37,7 +37,7 @@ export interface Solicitante2 {
   nombre_Razon_Social: string;
   persona_Tipo: string;
   documento_Tipo: string;
-  documento_numero: string;
+  documento_Numero: string;
   apellido_Paterno: string;
   apellido_Materno: string;
   nombres: string;
@@ -51,7 +51,7 @@ export interface Solicitante2 {
   telefono: string;
   centro_Poblado_Id: string;
   telefono_Movil: string;
-  correo_electronico: string;
+  correo_Electronico: string;
   referencia_Direccion: string;
   estado: string;
   pais_Id: string;
