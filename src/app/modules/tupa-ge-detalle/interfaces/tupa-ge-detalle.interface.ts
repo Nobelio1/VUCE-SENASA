@@ -67,7 +67,27 @@ export interface Bancos {
 export interface MontoIn {
   pcodservicio: string;
   pcantidad: string;
-  ptramaproductos?: string;
-  ptramavacunas?: string;
-  ptramaanalisis?: string;
+  ptramaproductos: string;
+  ptramavacunas: string;
+  ptramaanalisis: string;
+}
+
+export interface MontoOut extends Result {
+  data: string;
+}
+
+export interface ListaServicioIn {
+  p_Cod_Servicio: string;
+  pproctupa: string;
+}
+
+export interface ListarServicioOut extends Result {
+  data: ServiciosProc[];
+}
+
+export interface ServiciosProc {
+  codigo_Servicio_Tupa: string;
+  descripcion_Servicio: string;
+  indicador_Otro: null;
+  tipo_Servicio: string;
 }

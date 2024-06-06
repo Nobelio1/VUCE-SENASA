@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ProcedimientoArea, Servicio } from '../../interfaces/tupa-ge-detalle.interface';
+import { ListaServicioIn, ProcedimientoArea, Servicio } from '../../interfaces/tupa-ge-detalle.interface';
 import { NgFor } from '@angular/common';
 import { TupaGeDetalleTableItemComponent } from '../tupa-ge-detalle-table-item/tupa-ge-detalle-table-item.component';
 import { TupaGeDetalleSerModalComponent } from '../tupa-ge-detalle-ser-modal/tupa-ge-detalle-ser-modal.component';
@@ -15,9 +15,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
   imports: [NgFor, TupaGeDetalleTableItemComponent, TupaGeDetalleSerModalComponent, ReactiveFormsModule],
 })
 export class TupaGeDetalleTableComponent implements OnInit, OnChanges {
-  @Input() servicio: ProcedimientoArea = {} as ProcedimientoArea;
+  @Input() servicio: ListaServicioIn = {} as ListaServicioIn;
 
-  public servicoSelect: string = '';
+  public servicoSelect: ListaServicioIn = {} as ListaServicioIn;
   public showModal: boolean = false;
 
   public form!: FormGroup;
@@ -32,7 +32,7 @@ export class TupaGeDetalleTableComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.servicoSelect = changes['servicio'].currentValue.descripcion_Procedimieto_Tupa;
+    this.servicoSelect = changes['servicio'].currentValue;
   }
 
   ngOnInit(): void {
@@ -72,6 +72,7 @@ export class TupaGeDetalleTableComponent implements OnInit, OnChanges {
       this.activeServicio = lista;
     });
   }
+
   toggleModal() {
     this.showModal = !this.showModal;
   }

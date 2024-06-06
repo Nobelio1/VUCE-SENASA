@@ -1,19 +1,29 @@
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TupaGeDetalleServiciosService } from '../../services/tupa-ge-detalle-servicios.service';
-import { Servicio } from '../../interfaces/tupa-ge-detalle.interface';
+import {
+  ListarServicioOut,
+  ListaServicioIn,
+  MontoIn,
+  MontoOut,
+  Servicio,
+  ServiciosProc,
+} from '../../interfaces/tupa-ge-detalle.interface';
 
 @Component({
   selector: 'app-tupa-ge-detalle-ser-modal',
   templateUrl: './tupa-ge-detalle-ser-modal.component.html',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule],
+  imports: [NgIf, ReactiveFormsModule, NgFor],
 })
 export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
   @Input() showModal = false;
-  @Input() servicio: string = '';
+  @Input() servicio: ListaServicioIn = {} as ListaServicioIn;
   @Output() eventModal = new EventEmitter<boolean>();
+
+  public servicios: ServiciosProc[] = [];
+  public servicioSelected: ServiciosProc = {} as ServiciosProc;
 
   public form!: FormGroup;
 
@@ -22,11 +32,11 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.form = this.fb.group({
       concepto: ['', [Validators.required]],
-      cantidad: ['', [Validators.required]],
+      cantidad: ['1', [Validators.required]],
       costo: ['', [Validators.required]],
     });
 
-    this.form.controls['concepto'].disable();
+    this.form.controls['costo'].disable();
     this.setFormValue();
   }
 
@@ -35,16 +45,44 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
   }
 
   private setFormValue() {
-    if (this.servicio) {
-      this.form.patchValue({
-        concepto: this.servicio,
+    if (this.servicio.p_Cod_Servicio !== '' && this.servicio.pproctupa !== '') {
+      this.tupaGeDetalleServicioService.listarSerivicioModal(this.servicio).subscribe((data: ListarServicioOut) => {
+        if (data.code !== '000') {
+          console.log('Algo salio mal al traer los servicio');
+          return;
+        }
+
+        this.servicios = data.data;
       });
     }
   }
 
+  selectServicio() {
+    this.servicioSelected = this.servicios.find((servicio) => {
+      return servicio.codigo_Servicio_Tupa === this.form.controls['concepto'].value;
+    })!;
+
+    const req: MontoIn = {
+      pcodservicio: this.form.controls['concepto'].value,
+      pcantidad: this.form.controls['cantidad'].value,
+      ptramaproductos: '',
+      ptramavacunas: '',
+      ptramaanalisis: '',
+    };
+
+    this.tupaGeDetalleServicioService.calcularMonto(req).subscribe((data: MontoOut) => {
+      if (data.code !== '000') {
+        console.log('Se produjo un error al traer el monto');
+        return;
+      }
+
+      this.form.controls['costo'].setValue(data.data);
+    });
+  }
+
   agregarLista() {
     const servicio: Servicio = {
-      concepto: this.form.controls['concepto'].value,
+      concepto: this.servicioSelected.descripcion_Servicio,
       cantidad: +this.form.controls['cantidad'].value,
       costo: +this.form.controls['costo'].value,
     };

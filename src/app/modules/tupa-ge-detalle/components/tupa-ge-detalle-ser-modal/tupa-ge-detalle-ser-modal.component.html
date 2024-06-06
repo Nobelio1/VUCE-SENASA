@@ -14,12 +14,17 @@
       <!-- row-1 -->
       <form [formGroup]="form">
         <div class="mb-6">
-          <label class="col-span-2 mb-2 block text-sm font-medium text-gray-900 dark:text-white">Servicio:</label>
-          <input
-            type="text"
-            id="first_name"
+          <label class="col-span-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"> Servicio: </label>
+          <select
             formControlName="concepto"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            name="area"
+            (change)="selectServicio()"
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary">
+            <option value="">-- Seleccione --</option>
+            <option *ngFor="let servicio of servicios" value="{{ servicio.codigo_Servicio_Tupa }}">
+              {{ servicio.descripcion_Servicio }}
+            </option>
+          </select>
         </div>
         <!-- row-3 -->
         <div class="mb-6">
@@ -27,7 +32,9 @@
           <input
             type="number"
             id="first_name"
+            (keyup)="selectServicio()"
             formControlName="cantidad"
+            autocomplete="false"
             class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
         <!-- row-4 -->
@@ -37,7 +44,7 @@
             type="number"
             id="first_name"
             formControlName="costo"
-            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
+            class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-gray-600 dark:text-white dark:focus:border-primary dark:focus:ring-primary" />
         </div>
       </form>
       <!--footer-->

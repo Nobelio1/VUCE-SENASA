@@ -6,6 +6,7 @@ import {
   ListarArea,
   ListarProAreaIn,
   ListarProAreaOut,
+  ListaServicioIn,
   ProcedimientoArea,
 } from '../../interfaces/tupa-ge-detalle.interface';
 import { NgFor } from '@angular/common';
@@ -22,6 +23,7 @@ export class TupaGeDetalleServiciosComponent implements OnInit {
   public selectedArea: string = '';
 
   public servicio: ProcedimientoArea = {} as ProcedimientoArea;
+  public grupoServicio: ListaServicioIn = {} as ListaServicioIn;
 
   public form!: FormGroup;
 
@@ -55,6 +57,9 @@ export class TupaGeDetalleServiciosComponent implements OnInit {
   }
 
   selectedService() {
+    this.grupoServicio.p_Cod_Servicio = this.form.controls['area'].value;
+    this.grupoServicio.pproctupa = this.form.controls['procedimiento'].value;
+
     this.servicio = this.subAreas.find(
       (area) => area.codigo_Procedimiento_Tupa === this.form.controls['procedimiento'].value,
     )!;
@@ -71,7 +76,6 @@ export class TupaGeDetalleServiciosComponent implements OnInit {
         throw new Error('Error en la respuesta');
       }
       this.subAreas = data.data;
-      console.log(this.subAreas);
     });
   }
 }
