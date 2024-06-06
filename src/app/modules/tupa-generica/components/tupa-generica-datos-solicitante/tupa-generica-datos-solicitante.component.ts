@@ -7,7 +7,6 @@ import {
   ListarTipoDocumentos,
   Representante,
   RepresentateOut,
-  Solicitante,
   Solicitante2,
   SolicitanteIn,
   SolicitanteOut,
@@ -62,8 +61,6 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
       nroRazon: ['', [Validators.required]],
     });
 
-    //!------Volver perseverante, el formulario
-
     this.form2 = this.fb.group({
       nroRazon: [''],
       departamento: [''],
@@ -117,10 +114,6 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
         this.personas = data.data;
       });
 
-      // this.tupaGenericaService.listarSolicitantePorId(nroDoc, tipoDoc).subscribe((data: Solicitante) => {
-      //   this.personas = [];
-      //   this.personas.push(data);
-      // });
       this.form3.disable();
     } else {
       if (!nroRazon) {
@@ -131,9 +124,6 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
       const req: SolicitanteIn = {
         pnombre: nroRazon,
       };
-      // this.tupaGenericaService.getSolicitantePorNombre(nroRazon).subscribe((data: Solicitante[]) => {
-      //   this.personas = data.slice(1, 15);
-      // });
 
       this.tupaGenericaService.listarSoliciante(req).subscribe((data: SolicitanteOut) => {
         if (data.code !== '000') {
@@ -179,7 +169,6 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
   }
 
   toggleModal() {
-    //!---- FALTA LA FUNCIONALIDAD DE AGREGAR
     this.showModalAgregar = !this.showModalAgregar;
   }
 
@@ -191,14 +180,6 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
   }
 
   setForm(datos: Solicitante2) {
-    // let ubigeoArray: string[] = [];
-
-    // if (datos.ubigeo) {
-    //   ubigeoArray = datos.ubigeo.name.split(' ');
-    //   ubigeoArray = ubigeoArray.map((item) => item.replace('/', ''));
-    //   ubigeoArray = ubigeoArray.filter((ubi) => ubi !== '');
-    // }
-
     this.listarRepresentantes(datos.persona_Id);
 
     this.form2.controls['nroRazon'].setValue(datos.nombre_Razon_Social);

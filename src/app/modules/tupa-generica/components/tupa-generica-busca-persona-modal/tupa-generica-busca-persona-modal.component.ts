@@ -1,11 +1,11 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Solicitante, Solicitante2 } from '../../interfaces/tupa-generica.interface';
+import { Solicitante2 } from '../../interfaces/tupa-generica.interface';
 import { TupaGenericaDatosSoService } from '../../services/tupa-generica-datos-so.service';
 import { TupaGeDetalleOtroUsuarioService } from 'src/app/modules/tupa-ge-detalle/services/tupa-ge-detalle-otro-usuario.service';
 
 export interface PersonaSelect {
-  data: Solicitante;
+  data: string;
   modal: boolean;
 }
 

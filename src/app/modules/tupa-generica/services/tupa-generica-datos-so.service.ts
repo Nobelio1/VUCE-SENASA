@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Solicitante, Solicitante2, Ubigeo } from '../interfaces/tupa-generica.interface';
+import { Solicitante2, Ubigeo } from '../interfaces/tupa-generica.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({

@@ -22,49 +22,6 @@ export interface TipoDocumentos {
   descripcionCompleta: string;
 }
 
-export interface Solicitante {
-  id: string;
-  nombreRazonSocial: string;
-  type: string;
-  documentTypeId: string;
-  documentNumber: string;
-  lastName: string;
-  secondaryName: string;
-  names: string;
-  ruc: string;
-  address: string;
-  departamentoId: string;
-  provinciaId: string;
-  distritoId: string;
-  centroPobladoId: null;
-  phone: string;
-  gender: null;
-  cellphone: string;
-  email: string;
-  referen: null;
-  paisId: null;
-  dateOfBirth: Date;
-  nameRazsocComp: null;
-  addressReferen: string;
-  highDate: Date;
-  lowDate: null;
-  tradename: null;
-  state: null;
-  naturalState: string;
-  legalState: string;
-  syncState: string;
-  userCreated: null;
-  createdAt: Date;
-  userUpdated: string;
-  updatedAt: Date;
-  syncDate: Date;
-  ubigeo: Ubigeo;
-  poblado: null;
-  documentType: DocumentType;
-  ubigeoId: string;
-  ubigeoPobladoId: null;
-}
-
 export interface SolicitanteIn {
   ptidodoc?: string;
   pnumdoc?: string;
@@ -101,17 +58,6 @@ export interface Solicitante2 {
   fecha_Nacimiento: string;
   nombre_Razsoc_Comp: string;
   regi_Padr_Emp: string;
-}
-
-export interface DocumentType {
-  id: string;
-  name: string;
-  description: string;
-  state: string;
-  userCreatedAt: string;
-  userUpdatedAt: string;
-  createdAt: Date;
-  updateAt: Date;
 }
 
 export interface Ubigeo {

@@ -8,7 +8,6 @@ import {
 import { TupaGenericaDtModalComponent } from 'src/app/modules/tupa-generica/components/tupa-generica-dt-modal/tupa-generica-dt-modal.component';
 import {
   ListarTipoDocumentos,
-  Solicitante,
   Solicitante2,
   SolicitanteIn,
   SolicitanteOut,

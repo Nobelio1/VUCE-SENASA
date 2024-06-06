@@ -5,7 +5,6 @@ import {
   ListarTipoDocumentos,
   RegistroUsuario,
   RepresentateOut,
-  Solicitante,
   SolicitanteIn,
   SolicitanteOut,
 } from '../interfaces/tupa-generica.interface';
@@ -29,18 +28,6 @@ export class TupaGenericaService {
 
   listarSoliciante(solicitante: SolicitanteIn) {
     return this.http.post<SolicitanteOut>(`${this.urlService}/infoSolicitante/obtenerPersonaDocVUCE`, solicitante);
-  }
-
-  listarSolicitantePorId(documentNumber: string, documentTypeId: string) {
-    return this.http.get<Solicitante>(`${this.urlCOM}/${documentNumber}/search/${documentTypeId}`);
-  }
-
-  getSolicitantePorPersonaId(personaId: string) {
-    return this.http.get<Solicitante>(`${this.urlCOM}/${personaId}`);
-  }
-
-  getSolicitantePorNombre(name: string) {
-    return this.http.get<Solicitante[]>(`${this.urlCOM}/${name}/searchNames`);
   }
 
   getRegistroReniec(dni: string) {

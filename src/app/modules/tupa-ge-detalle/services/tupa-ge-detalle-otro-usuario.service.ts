@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Solicitante, Solicitante2 } from '../../tupa-generica/interfaces/tupa-generica.interface';
+import { Solicitante2 } from '../../tupa-generica/interfaces/tupa-generica.interface';
 
 @Injectable({
   providedIn: 'root',
