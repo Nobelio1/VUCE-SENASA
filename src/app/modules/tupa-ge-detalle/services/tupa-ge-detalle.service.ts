@@ -8,7 +8,7 @@ import { ListarArea, ListarBancos, ListarProAreaIn, ListarProAreaOut } from '../
 })
 export class TupaGeDetalleService {
   private urlService = environment.API_MASTER;
-  public url = `${this.urlService}/detalle`;
+  public url = `${this.urlService}/DetalleServicios`;
   public url2 = `${this.urlService}/conceptoPago`;
 
   constructor(private http: HttpClient) {}

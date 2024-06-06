@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {
+  AgregarUsuarioIn,
+  AgregarUsuarioOut,
   ListarTipoDocumentos,
   RegistroUsuario,
   RepresentateOut,
@@ -40,5 +42,9 @@ export class TupaGenericaService {
 
   getRepresentanteLegal(id: string) {
     return this.http.get<RepresentateOut>(`${this.urlAPI}/datos/${id}`);
+  }
+
+  agregarUsuario(usuario: AgregarUsuarioIn) {
+    return this.http.post<AgregarUsuarioOut>(`${this.urlService}/grabar/agregarPersona`, usuario);
   }
 }

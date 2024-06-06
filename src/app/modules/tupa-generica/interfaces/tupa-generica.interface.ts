@@ -70,22 +70,22 @@ export interface Ubigeo {
 export interface RegistroUsuario {
   apellidoMaterno: string;
   apellidoPaterno: string;
-  centroPoblado: null;
-  correoElectronico: null;
+  centroPoblado: string;
+  correoElectronico: string;
   direccion: string;
   documentoNumero: string;
-  documentoTipo: null;
+  documentoTipo: string;
   estadoJuridico: string;
   estadoNatural: string;
-  fechaAlta: null;
-  fechaBaja: null;
-  fechaNacimiento: null;
-  id: null;
-  nombreComercial: null;
+  fechaAlta: string;
+  fechaBaja: string;
+  fechaNacimiento: string;
+  id: string;
+  nombreComercial: string;
   nombreRazonSocial: string;
   nombres: string;
-  pais: null;
-  personaTipo: null;
+  pais: string;
+  personaTipo: string;
   departamentoId: string;
   provinciaId: string;
   distritoId: string;
@@ -93,9 +93,9 @@ export interface RegistroUsuario {
   provincia: string;
   distrito: string;
   referenciaDireccion: string;
-  ruc: null;
-  telefono: null;
-  telefonoMovil: null;
+  ruc: string;
+  telefono: string;
+  telefonoMovil: string;
   representantes: any[];
 }
 
@@ -132,4 +132,34 @@ export interface Representante {
   cargo: string;
   fecha_Desde: null;
   persona_Id: null;
+}
+
+export interface AgregarUsuarioIn {
+  //EcfcapGi
+  p_Persona_Id: string;
+  p_Nombre_Razon_Social: string;
+  p_Persona_Tipo: string;
+  p_Documento_Tipo: string;
+  p_Documento_Numero: string;
+  p_Ruc: string;
+  p_Direccion: string;
+  p_Departamento_Id: string;
+  p_Provincia_Id: string;
+  p_Distrito_Id: string;
+  p_Telefono: string;
+  p_Telefono_Movil: string;
+  p_Correo_Electronico: string;
+  p_Fecha_Nacimiento: string;
+  p_Referencia_Direccion: string;
+  p_Fecha_Alta: string;
+  p_Fecha_Baja: string;
+  p_Nombre_Comercial: string;
+  p_Estado_Juridico: string;
+  p_Sincronizacion_Estado: string;
+  p_Sincronizacion_Fecha: string;
+  p_Usuario: string;
+}
+
+export interface AgregarUsuarioOut extends Result {
+  data: string;
 }

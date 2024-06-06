@@ -14,10 +14,7 @@ import {
   TipoDocumentos,
 } from '../../interfaces/tupa-generica.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import {
-  PersonaSelect,
-  TupaGenericaBuscaPersonaModalComponent,
-} from '../tupa-generica-busca-persona-modal/tupa-generica-busca-persona-modal.component';
+import { TupaGenericaBuscaPersonaModalComponent } from '../tupa-generica-busca-persona-modal/tupa-generica-busca-persona-modal.component';
 import { TupaGenericaDatosSoService } from '../../services/tupa-generica-datos-so.service';
 import { Subscription } from 'rxjs';
 

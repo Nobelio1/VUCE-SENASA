@@ -2,8 +2,11 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
+  AgregarUsuarioIn,
+  AgregarUsuarioOut,
   ListarTipoDocumentos,
   RegistroUsuario,
+  Solicitante2,
   TipoDocumentos,
   Ubigeo,
 } from '../../interfaces/tupa-generica.interface';
@@ -31,6 +34,8 @@ export class TupaGenericaDtModalComponent implements OnInit {
   public selectedDep: string = '';
   public selectedPro: string = '';
   public selectedDis: string = '';
+
+  public usuario: RegistroUsuario = {} as RegistroUsuario;
 
   constructor(
     private tupaGenericaService: TupaGenericaService,
@@ -120,6 +125,7 @@ export class TupaGenericaDtModalComponent implements OnInit {
 
     this.tupaGenericaService.getRegistrosSunat(ruc).subscribe((data: RegistroUsuario) => {
       this.setForm(data, '04');
+      this.usuario = data;
     });
   }
 
@@ -132,6 +138,7 @@ export class TupaGenericaDtModalComponent implements OnInit {
 
     this.tupaGenericaService.getRegistroReniec(dni).subscribe((data: RegistroUsuario) => {
       this.setForm(data, '01');
+      this.usuario = data;
     });
   }
 
@@ -163,12 +170,75 @@ export class TupaGenericaDtModalComponent implements OnInit {
     this.form.controls['estadoJuridico'].setValue(data.estadoNatural === 'ACTIVO' ? '01' : '00' || '');
   }
 
-  addPerson() {
-    if (this.form.invalid) {
-      console.log('Error en el formulario');
+  agregarUsuario() {
+    const nombre: string = this.form.controls['nombre'].value;
+    const apePaterno: string = this.form.controls['apePaterno'].value;
+    const apeMaterno: string = this.form.controls['apeMaterno'].value;
+
+    if (nombre === '' || apePaterno === '' || apeMaterno === '') {
+      console.log('se deben llenar los campos');
       return;
     }
+
+    const req: AgregarUsuarioIn = {
+      p_Persona_Id: this.usuario.id,
+      p_Nombre_Razon_Social: this.usuario.nombreRazonSocial,
+      p_Persona_Tipo: this.form.controls['tipoPersona'].value,
+      p_Documento_Tipo: this.form.controls['tipoDocumento'].value,
+      p_Documento_Numero: this.usuario.documentoNumero,
+      p_Ruc: this.usuario.ruc,
+      p_Direccion: this.usuario.direccion,
+      p_Departamento_Id: this.usuario.departamentoId,
+      p_Provincia_Id: this.usuario.provinciaId,
+      p_Distrito_Id: this.usuario.distritoId,
+      p_Telefono: this.usuario.telefono,
+      p_Telefono_Movil: this.usuario.telefonoMovil,
+      p_Correo_Electronico: this.usuario.correoElectronico,
+      p_Fecha_Nacimiento: '',
+      p_Referencia_Direccion: this.usuario.referenciaDireccion,
+      p_Fecha_Alta: '',
+      p_Fecha_Baja: '',
+      p_Nombre_Comercial: this.usuario.nombreComercial,
+      p_Estado_Juridico: this.usuario.estadoJuridico,
+      p_Sincronizacion_Estado: '',
+      p_Sincronizacion_Fecha: '',
+      p_Usuario: '',
+    };
+
+    const req2: Solicitante2 = {} as Solicitante2;
+
+    this.tupaGenericaService.agregarUsuario(req).subscribe((data: AgregarUsuarioOut) => {
+      if (data.code !== '000') {
+        console.log('algo salio mal al intentar agregar un Usuario');
+        console.log(data.message);
+        return;
+      }
+      req2.persona_Id = data.data;
+    });
+
+    req2.nombre_Razon_Social = this.usuario.nombreRazonSocial;
+    req2.persona_Tipo = this.usuario.personaTipo;
+    req2.documento_Tipo = this.usuario.documentoTipo;
+    req2.documento_Numero = this.usuario.documentoNumero;
+    req2.apellido_Paterno = this.usuario.apellidoPaterno;
+    req2.apellido_Materno = this.usuario.apellidoMaterno;
+    req2.nombres = this.usuario.nombres;
+    req2.direccion = this.usuario.direccion;
+    req2.nomb_Dpto_Dpt = this.usuario.departamento;
+    req2.nomb_Prov_Tpr = this.usuario.provincia;
+    req2.nomb_Dist_Tdi = this.usuario.distrito;
+    req2.telefono = this.usuario.telefono;
+    req2.telefono_Movil = this.usuario.telefonoMovil;
+    req2.correo_Electronico = this.usuario.correoElectronico;
+    req2.direccion = this.usuario.direccion;
+
+    this.ingresandoUsuario(req2);
+
     this.eventModal.emit(false);
+  }
+
+  ingresandoUsuario(req: Solicitante2) {
+    this.tupaGenericaDatosSoService.actualizarDatos(req);
   }
 
   closeModal() {
