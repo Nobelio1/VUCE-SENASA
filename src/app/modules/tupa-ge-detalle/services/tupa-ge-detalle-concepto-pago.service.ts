@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CptPago } from '../interfaces/tupa-ge-detalle.interface';
+import { CptPago, ValidarExpedienteOut } from '../interfaces/tupa-ge-detalle.interface';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,12 @@ export class TupaGeDetalleConceptoPagoService {
 
   private elementosBorrar: number[] = [];
 
-  constructor() {}
+  private urlService = environment.API_MASTER;
+  public url2 = `${this.urlService}/conceptos`;
+
+  constructor(private http: HttpClient) {}
+
+  //?METODOS ------------------------------------------------------------
 
   actualizarListaPagos(pago: CptPago[]) {
     this.listaPagos.next(pago);
@@ -43,5 +50,11 @@ export class TupaGeDetalleConceptoPagoService {
 
   eliminarElemento(index: number) {
     this.elementosBorrar = this.elementosBorrar.filter((elem) => elem !== index);
+  }
+
+  //?PETICIONES HTTP ------------------------------------------------------------
+
+  enviarCodigoExpediente(codigo: string) {
+    return this.http.get<ValidarExpedienteOut>(`${this.url2}/validarExpediente/${codigo}`);
   }
 }

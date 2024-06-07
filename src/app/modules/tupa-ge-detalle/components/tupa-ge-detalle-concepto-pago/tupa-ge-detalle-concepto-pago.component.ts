@@ -2,9 +2,10 @@ import { TupaGeDetalleConceptoPagoService } from './../../services/tupa-ge-detal
 import { NgFor } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TupaGeDetalleTableItemComponent } from '../tupa-ge-detalle-table-item/tupa-ge-detalle-table-item.component';
-import { CptPago } from '../../interfaces/tupa-ge-detalle.interface';
+import { CptPago, Servicio } from '../../interfaces/tupa-ge-detalle.interface';
 import { TupaGeDetalleCpModalComponent } from '../tupa-ge-detalle-cp-modal/tupa-ge-detalle-cp-modal.component';
 import { Subscription } from 'rxjs';
+import { TupaGeDetalleServiciosService } from '../../services/tupa-ge-detalle-servicios.service';
 
 @Component({
   selector: 'app-tupa-ge-detalle-concepto-pago',
@@ -16,12 +17,15 @@ export class TupaGeDetalleConceptoPagoComponent implements OnInit, OnDestroy {
   public conceptoPago: CptPago[] = [];
   public montos: number[] = [];
   public montoTotal: number = 0;
-
   public showModal = false;
+  public monto: Servicio[] = [];
 
   public listaSub!: Subscription;
 
-  constructor(private tupaGeDetalleConceptoPagoService: TupaGeDetalleConceptoPagoService) {}
+  constructor(
+    private tupaGeDetalleConceptoPagoService: TupaGeDetalleConceptoPagoService,
+    private tupaGeDetalleServiciosService: TupaGeDetalleServiciosService,
+  ) {}
 
   ngOnInit(): void {
     this.listaSub = this.tupaGeDetalleConceptoPagoService.getLista.subscribe((lista: CptPago[]) => {
@@ -40,8 +44,10 @@ export class TupaGeDetalleConceptoPagoComponent implements OnInit, OnDestroy {
 
   sumaMontos() {
     this.montos = [];
-    this.conceptoPago.forEach((concepto) => {
-      this.montos.push(concepto.monto);
+    this.monto = this.tupaGeDetalleServiciosService.obtenerLista();
+
+    this.monto.forEach((element) => {
+      this.montos.push(element.costo);
     });
 
     this.montoTotal = this.montos.reduce((a, b) => a + b, 0);

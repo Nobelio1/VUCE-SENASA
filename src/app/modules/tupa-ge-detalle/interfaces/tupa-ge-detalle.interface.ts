@@ -92,3 +92,12 @@ export interface ServiciosProc {
   indicador_Otro: null;
   tipo_Servicio: string;
 }
+
+export interface ValidarExpedienteOut extends Result {
+  data: ValidarExpediente[];
+}
+
+export interface ValidarExpediente {
+  pcerrado: number;
+  pmensaje: string;
+}

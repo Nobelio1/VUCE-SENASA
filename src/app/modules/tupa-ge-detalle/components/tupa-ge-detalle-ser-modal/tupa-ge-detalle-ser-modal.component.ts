@@ -87,7 +87,6 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
 
   esRenovacion(servicio: ServiciosProc) {
     const renovacion = servicio.descripcion_Servicio.split(' ')[0];
-    console.log(renovacion);
 
     if (renovacion === 'RENOVACION') {
       this.numExp = true;
