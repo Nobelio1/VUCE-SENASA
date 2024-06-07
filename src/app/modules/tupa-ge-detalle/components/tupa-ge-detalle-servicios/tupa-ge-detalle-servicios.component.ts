@@ -78,4 +78,6 @@ export class TupaGeDetalleServiciosComponent implements OnInit {
       this.subAreas = data.data;
     });
   }
+
+
 }

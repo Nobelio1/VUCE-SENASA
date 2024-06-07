@@ -22,6 +22,8 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
   @Input() servicio: ListaServicioIn = {} as ListaServicioIn;
   @Output() eventModal = new EventEmitter<boolean>();
 
+  public numExp: boolean = false;
+
   public servicios: ServiciosProc[] = [];
   public servicioSelected: ServiciosProc = {} as ServiciosProc;
 
@@ -32,6 +34,7 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.form = this.fb.group({
       concepto: ['', [Validators.required]],
+      expediente: [''],
       cantidad: ['1', [Validators.required]],
       costo: ['', [Validators.required]],
     });
@@ -62,6 +65,8 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
       return servicio.codigo_Servicio_Tupa === this.form.controls['concepto'].value;
     })!;
 
+    this.esRenovacion(this.servicioSelected);
+
     const req: MontoIn = {
       pcodservicio: this.form.controls['concepto'].value,
       pcantidad: this.form.controls['cantidad'].value,
@@ -80,12 +85,27 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
     });
   }
 
+  esRenovacion(servicio: ServiciosProc) {
+    const renovacion = servicio.descripcion_Servicio.split(' ')[0];
+    console.log(renovacion);
+
+    if (renovacion === 'RENOVACION') {
+      this.numExp = true;
+    } else {
+      this.numExp = false;
+    }
+  }
+
   agregarLista() {
     const servicio: Servicio = {
       concepto: this.servicioSelected.descripcion_Servicio,
       cantidad: +this.form.controls['cantidad'].value,
       costo: +this.form.controls['costo'].value,
     };
+
+    if (this.numExp) {
+      servicio.pcodexpediente = this.form.controls['expediente'].value;
+    }
 
     if (this.form.invalid) {
       console.log('Falta campos por agregar');

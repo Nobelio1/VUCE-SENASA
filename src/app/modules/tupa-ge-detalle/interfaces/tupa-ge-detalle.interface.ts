@@ -14,6 +14,7 @@ export interface TupaGeDetalleInterface {
 }
 
 export interface Servicio {
+  pcodexpediente?: string;
   concepto: string;
   cantidad: number;
   costo: number;
