@@ -111,27 +111,27 @@ export interface Representante {
   documento_Numero: string;
   apellido_Paterno: string;
   apellido_Materno: string;
-  nombres: null;
-  direccion: null;
-  departamento_Id: null;
-  nomb_Dpto_Dpt: null;
-  provincia_Id: null;
-  nomb_Prov_Tpr: null;
-  distrito_Id: null;
-  dodi_Dist_Tdi: null;
-  telefono: null;
-  centro_Poblado_Id: null;
-  telefono_Movil: null;
-  correo_Electronico: null;
-  referencia: null;
-  pais_Id: null;
-  fecha_Nacimiento: null;
-  nombre_Razsoc_Comp: null;
-  estado: null;
-  estado_1: null;
+  nombres: string;
+  direccion: string;
+  departamento_Id: string;
+  nomb_Dpto_Dpt: string;
+  provincia_Id: string;
+  nomb_Prov_Tpr: string;
+  distrito_Id: string;
+  dodi_Dist_Tdi: string;
+  telefono: string;
+  centro_Poblado_Id: string;
+  telefono_Movil: string;
+  correo_Electronico: string;
+  referencia: string;
+  pais_Id: string;
+  fecha_Nacimiento: string;
+  nombre_Razsoc_Comp: string;
+  estado: string;
+  estado_1: string;
   cargo: string;
-  fecha_Desde: null;
-  persona_Id: null;
+  fecha_Desde: string;
+  persona_Id: string;
 }
 
 export interface AgregarUsuarioIn {

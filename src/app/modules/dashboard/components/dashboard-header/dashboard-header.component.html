@@ -6,17 +6,10 @@
     </div>
   </div>
 
-  <div *ngIf="tupa" class="inline-block space-x-4">
-    <button
-      class="flex-none rounded-md bg-muted px-4 py-2.5 text-xs font-semibold text-muted-foreground hover:text-foreground">
-      Download
-    </button>
-    <button class="flex-none rounded-md bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground">
-      Podcasts
-    </button>
-  </div>
   <div *ngIf="!tupa" class="inline-block space-x-4">
-    <button class="flex-none rounded-md bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground">
+    <button
+      (click)="enviarSolicitud()"
+      class="flex-none rounded-md bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground">
       Guardar
     </button>
     <button

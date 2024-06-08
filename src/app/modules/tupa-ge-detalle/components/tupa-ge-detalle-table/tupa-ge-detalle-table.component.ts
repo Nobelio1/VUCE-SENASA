@@ -7,6 +7,7 @@ import { TupaGeDetalleServiciosService } from '../../services/tupa-ge-detalle-se
 import { Subscription } from 'rxjs';
 import { TupaGeDetalleOtroUsuarioService } from '../../services/tupa-ge-detalle-otro-usuario.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Solicitante2 } from 'src/app/modules/tupa-generica/interfaces/tupa-generica.interface';
 
 @Component({
   selector: '[tupa-ge-detalle-table]',
@@ -61,6 +62,7 @@ export class TupaGeDetalleTableComponent implements OnInit, OnChanges {
   habilitarOtroUsuario() {
     if (this.form.controls['otroUsuario'].value === '1') {
       this.tupaGeDetalleOtroUsuarioService.actualizarEstado(false);
+      this.tupaGeDetalleOtroUsuarioService.actualizarDatos({} as Solicitante2);
     }
     if (this.form.controls['otroUsuario'].value === '0') {
       this.tupaGeDetalleOtroUsuarioService.actualizarEstado(true);
