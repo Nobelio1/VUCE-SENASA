@@ -11,6 +11,11 @@ export class TupaGeDetalleServiciosService {
   private listaServicios: BehaviorSubject<Servicio[]> = new BehaviorSubject([] as Servicio[]);
   public getLista: Observable<Servicio[]> = this.listaServicios.asObservable();
 
+  private procedimiento: BehaviorSubject<string> = new BehaviorSubject('');
+  public getProcedimiento: Observable<string> = this.procedimiento.asObservable();
+
+  private idProcedimiento: string = '';
+
   private urlService = environment.API_MASTER;
   public url2 = `${this.urlService}/conceptos`;
 
@@ -24,6 +29,23 @@ export class TupaGeDetalleServiciosService {
 
   obtenerLista(): Servicio[] {
     return this.listaServicios.getValue();
+  }
+
+  actualizarProcedimiento(procedimiento: string) {
+    this.procedimiento.next(procedimiento);
+  }
+
+  obtenerProcedimiento(): string {
+    return this.procedimiento.getValue();
+  }
+
+  //TODO: TEMPORAL - COMPROBANDO PERSISTENCIA
+  actualizarIdProcedimiento(id: string) {
+    this.idProcedimiento = id;
+  }
+
+  obtenerIdProcedimiento(): string {
+    return this.idProcedimiento;
   }
 
   //?PETICIONES HTTP ------------------------------------------------------------

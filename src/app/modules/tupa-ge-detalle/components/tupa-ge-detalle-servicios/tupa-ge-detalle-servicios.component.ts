@@ -11,6 +11,7 @@ import {
 } from '../../interfaces/tupa-ge-detalle.interface';
 import { NgFor } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TupaGeDetalleServiciosService } from '../../services/tupa-ge-detalle-servicios.service';
 
 @Component({
   selector: 'app-tupa-ge-detalle-servicios',
@@ -29,7 +30,11 @@ export class TupaGeDetalleServiciosComponent implements OnInit {
 
   public subAreas: ProcedimientoArea[] = [];
 
-  constructor(private tupaGeDetalleService: TupaGeDetalleService, private fb: FormBuilder) {}
+  constructor(
+    private tupaGeDetalleService: TupaGeDetalleService,
+    private fb: FormBuilder,
+    private tupaGeDetalleServiciosService: TupaGeDetalleServiciosService,
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -60,6 +65,8 @@ export class TupaGeDetalleServiciosComponent implements OnInit {
     this.grupoServicio.p_Cod_Servicio = this.form.controls['area'].value;
     this.grupoServicio.pproctupa = this.form.controls['procedimiento'].value;
 
+    this.tupaGeDetalleServiciosService.actualizarIdProcedimiento(this.form.controls['procedimiento'].value);
+
     this.servicio = this.subAreas.find(
       (area) => area.codigo_Procedimiento_Tupa === this.form.controls['procedimiento'].value,
     )!;
@@ -78,6 +85,4 @@ export class TupaGeDetalleServiciosComponent implements OnInit {
       this.subAreas = data.data;
     });
   }
-
-
 }

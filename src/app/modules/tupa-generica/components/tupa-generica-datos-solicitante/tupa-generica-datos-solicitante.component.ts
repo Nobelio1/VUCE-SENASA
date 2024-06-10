@@ -191,6 +191,11 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
     this.form2.controls['email'].setValue(datos.correo_Electronico);
   }
 
+  selectRepresentante() {
+    const id = this.form3.controls['repreLegal'].value;
+    this.tupaGenericaDatosSoService.actualizarIdRep(id);
+  }
+
   listarRepresentantes(id: string) {
     this.tupaGenericaService.getRepresentanteLegal(id).subscribe((data: RepresentateOut) => {
       if (data.code !== '000') {

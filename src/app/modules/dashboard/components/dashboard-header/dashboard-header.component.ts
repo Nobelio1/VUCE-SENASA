@@ -33,6 +33,8 @@ export class DashboardHeaderComponent implements OnInit {
   public listaServicios: Servicio[] = [];
   public otroUsuario: Solicitante2 = {} as Solicitante2;
   public conceptoPago: CptPago[] = [];
+  public idRepresentante: string = '';
+  public idProcedimiento: string = '';
 
   public resGrabaSolicitud: GuardarSolicitud = {} as GuardarSolicitud;
   public resGrabarInactivo: GrabarInactivo = {} as GrabarInactivo;
@@ -53,6 +55,8 @@ export class DashboardHeaderComponent implements OnInit {
     this.listaServicios = this.tupaGeDetalleServiciosService.obtenerLista();
     this.otroUsuario = this.tupaGeDetalleOtroUsuarioService.obtenerLista();
     this.conceptoPago = this.tupaGeDetalleConceptoPagoService.obtenerLista();
+    this.idRepresentante = this.tupaGenericaDatosSoService.obtenerIdRep();
+    this.idProcedimiento = this.tupaGeDetalleServiciosService.obtenerIdProcedimiento();
 
     const detalleRecibo: string = this.detalleRecibo(this.listaServicios);
     const detallePago: string = this.detallePago(this.conceptoPago);
@@ -61,10 +65,10 @@ export class DashboardHeaderComponent implements OnInit {
       pcentrotramite: 'OFICINA SENSANA - CENTRAL',
       pcanal: 'BPM',
       ppersonaid: this.datosSolicitante.persona_Id,
-      pprocedimientotupa: '', //Recuperar procedimiento de la lista de servicios
+      pprocedimientotupa: this.idProcedimiento,
       puserid: '', //De sesion
-      prepresentanteid: '', //Recuperar representante de la datos Solicitante
-      pcodexpediente: '', //Recuperar expediente de la listaServicios
+      prepresentanteid: this.idRepresentante ? this.idRepresentante : '',
+      pcodexpediente: this.listaServicios[0].pcodexpediente ? this.listaServicios[0].pcodexpediente : '',
       //Respuesta
       pcodsolicitud: '',
       pcodigostddoc: '',
@@ -78,13 +82,13 @@ export class DashboardHeaderComponent implements OnInit {
       pcanal: 'BPM',
       ppersonaid: this.datosSolicitante.persona_Id,
       ppersonaidotro: this.otroUsuario.persona_Id ? this.otroUsuario.persona_Id : '',
-      pprocedimientotupa: '', //Recuperar procedimiento de la lista de servicios
+      pprocedimientotupa: this.idProcedimiento,
       puserid: '', //De sesion
-      pcodexpediente: '', //Recuperar expediente de la listaServicios
+      pcodexpediente: this.listaServicios[0].pcodexpediente ? this.listaServicios[0].pcodexpediente : '',
       ppersonaidsolicitante: this.otroUsuario.persona_Id
         ? this.otroUsuario.persona_Id
         : this.datosSolicitante.persona_Id,
-      prepresentanteid: '', //Recuperar representante de la datos Solicitante
+      prepresentanteid: this.idRepresentante ? this.idRepresentante : '',
       pdetallerecibo: detalleRecibo,
       ppagorecibo: detallePago,
       pdetallevacuna: '',
@@ -98,7 +102,7 @@ export class DashboardHeaderComponent implements OnInit {
       pucmid: '',
       pcodigostddoc: this.resGrabaSolicitud.pcodigostddoc,
       puserid: '', //De sesion
-      pcodexpediente: '', //Recuperar expediente de la listaServicios
+      pcodexpediente: this.listaServicios[0].pcodexpediente ? this.listaServicios[0].pcodexpediente : '',
     };
 
     this.resActualizarRecibo = this.actualizarRecibo(actulizar);

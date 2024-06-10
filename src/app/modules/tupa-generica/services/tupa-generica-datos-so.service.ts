@@ -11,6 +11,9 @@ export class TupaGenericaDatosSoService {
   private datosSolicitante: BehaviorSubject<Solicitante2> = new BehaviorSubject({} as Solicitante2);
   public getDatos: Observable<Solicitante2> = this.datosSolicitante.asObservable();
 
+  private idRepresentante: BehaviorSubject<string> = new BehaviorSubject('');
+  public getIdRepresentante: Observable<string> = this.idRepresentante.asObservable();
+
   private urlServic2 = environment.API_MASTER2;
   public urlCOM = `${this.urlServic2}/senasa/tupaserver/api/ubigeos`;
 
@@ -24,6 +27,14 @@ export class TupaGenericaDatosSoService {
 
   obtenerLista(): Solicitante2 {
     return this.datosSolicitante.getValue();
+  }
+
+  actualizarIdRep(id: string) {
+    this.idRepresentante.next(id);
+  }
+
+  obtenerIdRep(): string {
+    return this.idRepresentante.getValue();
   }
 
   //?PETICIONES HTTP ------------------------------------------------------------
