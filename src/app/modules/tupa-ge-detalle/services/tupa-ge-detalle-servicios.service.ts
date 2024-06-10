@@ -4,6 +4,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
+export interface NombresServicio {
+  area: string;
+  proceso: string;
+  serivico: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -15,6 +21,8 @@ export class TupaGeDetalleServiciosService {
   public getProcedimiento: Observable<string> = this.procedimiento.asObservable();
 
   private idProcedimiento: string = '';
+
+  public servicio: NombresServicio = {} as NombresServicio;
 
   private urlService = environment.API_MASTER;
   public url2 = `${this.urlService}/conceptos`;
@@ -46,6 +54,10 @@ export class TupaGeDetalleServiciosService {
 
   obtenerIdProcedimiento(): string {
     return this.idProcedimiento;
+  }
+
+  obtenerServicio(): NombresServicio {
+    return this.servicio;
   }
 
   //?PETICIONES HTTP ------------------------------------------------------------

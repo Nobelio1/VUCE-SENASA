@@ -12,16 +12,21 @@ import {
 } from '../../interfaces/tupa-generica.interface';
 import { TupaGenericaService } from '../../services/tupa-generica.service';
 import { TupaGenericaDatosSoService } from '../../services/tupa-generica-datos-so.service';
+import { ModalAlertComponent } from 'src/app/shared/components/modal-alert/modal-alert.component';
 
 @Component({
   selector: 'app-tupa-generica-dt-modal',
   templateUrl: './tupa-generica-dt-modal.component.html',
   standalone: true,
-  imports: [NgIf, NgFor, ReactiveFormsModule],
+  imports: [NgIf, NgFor, ReactiveFormsModule, ModalAlertComponent],
 })
 export class TupaGenericaDtModalComponent implements OnInit {
   @Input() showModal = false;
   @Output() eventModal = new EventEmitter<boolean>();
+
+  public showModalAlert: boolean = false;
+  public title: string = '';
+  public content: string = '';
 
   public form!: FormGroup;
 
@@ -75,7 +80,10 @@ export class TupaGenericaDtModalComponent implements OnInit {
   listDocumentos() {
     this.tupaGenericaService.listTipoDocumento().subscribe((data: ListarTipoDocumentos) => {
       if (data.code !== '000') {
-        throw new Error('Error al traer la data');
+        this.showModalAlert = true;
+        this.title = 'Error';
+        this.content = 'Error al traer los tipo de documentos';
+        return;
       }
 
       this.tipoDocumentos = data.data;
@@ -120,7 +128,10 @@ export class TupaGenericaDtModalComponent implements OnInit {
     const ruc: string = this.form.controls['nroRuc'].value;
 
     if (ruc === '') {
-      return console.log('El numero ruc esta vacio o no es valido');
+      this.showModalAlert = true;
+      this.title = 'Falta llenar campos';
+      this.content = 'El numero ruc esta vacio o no es valido';
+      return;
     }
 
     this.tupaGenericaService.getRegistrosSunat(ruc).subscribe((data: RegistroUsuario) => {
@@ -133,7 +144,10 @@ export class TupaGenericaDtModalComponent implements OnInit {
     const dni: string = this.form.controls['nroDni'].value;
 
     if (dni === '') {
-      return console.log('El numero ruc esta vacio o no es valido');
+      this.showModalAlert = true;
+      this.title = 'Falta llenar campos';
+      this.content = 'El numero deldocumento esta vacio o no es valido';
+      return;
     }
 
     this.tupaGenericaService.getRegistroReniec(dni).subscribe((data: RegistroUsuario) => {
@@ -141,9 +155,6 @@ export class TupaGenericaDtModalComponent implements OnInit {
       this.usuario = data;
     });
   }
-
-  //dni: 01
-  //ruc: 04
 
   setForm(data: RegistroUsuario, tipo: string) {
     this.listarProv(data.departamentoId);
@@ -176,7 +187,9 @@ export class TupaGenericaDtModalComponent implements OnInit {
     const apeMaterno: string = this.form.controls['apeMaterno'].value;
 
     if (nombre === '' || apePaterno === '' || apeMaterno === '') {
-      console.log('se deben llenar los campos');
+      this.showModalAlert = true;
+      this.title = 'Falta llenar campos';
+      this.content = 'El nombre o apellidos no pueden estar vacios';
       return;
     }
 
@@ -209,8 +222,9 @@ export class TupaGenericaDtModalComponent implements OnInit {
 
     this.tupaGenericaService.agregarUsuario(req).subscribe((data: AgregarUsuarioOut) => {
       if (data.code !== '000') {
-        console.log('algo salio mal al intentar agregar un Usuario');
-        console.log(data.message);
+        this.showModalAlert = true;
+        this.title = 'Error';
+        this.content = 'Error al traer los datos';
         return;
       }
       req2.persona_Id = data.data;
@@ -239,6 +253,10 @@ export class TupaGenericaDtModalComponent implements OnInit {
 
   ingresandoUsuario(req: Solicitante2) {
     this.tupaGenericaDatosSoService.actualizarDatos(req);
+  }
+
+  closeModalAlert(event: boolean) {
+    this.showModalAlert = event;
   }
 
   closeModal() {

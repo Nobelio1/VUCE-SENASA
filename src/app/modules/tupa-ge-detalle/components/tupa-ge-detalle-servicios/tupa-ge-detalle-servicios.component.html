@@ -46,3 +46,8 @@
     </div>
   </div>
 </form>
+<app-modal-alert
+  [showModal]="showModalAlert"
+  (eventModal)="closeModalAlert($event)"
+  [title]="title"
+  [content]="content"></app-modal-alert>

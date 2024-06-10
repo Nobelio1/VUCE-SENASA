@@ -6,6 +6,7 @@ import {
   GrabarInactivoOut,
   GuardarSolicitud,
   GuardarSolicitudOut,
+  InfoExpendiente,
 } from './../../../tupa-generica/interfaces/guadar-solicitud.interface';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
@@ -18,16 +19,24 @@ import { CptPago, Servicio } from 'src/app/modules/tupa-ge-detalle/interfaces/tu
 import { GuardarSolicitudIn } from 'src/app/modules/tupa-generica/interfaces/guadar-solicitud.interface';
 import { GuardarSolicitudService } from 'src/app/modules/tupa-generica/services/guardar-solicitud.service';
 import { GrabarInactivoIn } from '../../../tupa-generica/interfaces/guadar-solicitud.interface';
+import { InfoExpedienteService } from 'src/app/modules/tupa-generica/services/info-expediente.service';
+import { NombresServicio } from '../../../tupa-ge-detalle/services/tupa-ge-detalle-servicios.service';
+import { ModalAlertComponent } from 'src/app/shared/components/modal-alert/modal-alert.component';
 
 @Component({
   selector: 'app-dashboard-header',
   templateUrl: './dashboard-header.component.html',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ModalAlertComponent],
 })
 export class DashboardHeaderComponent implements OnInit {
   @Input() title: string = '';
   @Input() tupa: boolean = true;
+
+  //Modal Alert
+  public showModalAlert: boolean = false;
+  public title2: string = '';
+  public content: string = '';
 
   public datosSolicitante: Solicitante2 = {} as Solicitante2;
   public listaServicios: Servicio[] = [];
@@ -46,6 +55,7 @@ export class DashboardHeaderComponent implements OnInit {
     private tupaGeDetalleServiciosService: TupaGeDetalleServiciosService,
     private tupaGeDetalleOtroUsuarioService: TupaGeDetalleOtroUsuarioService,
     private tupaGeDetalleConceptoPagoService: TupaGeDetalleConceptoPagoService,
+    private infoExpedienteService: InfoExpedienteService,
   ) {}
 
   ngOnInit(): void {}
@@ -60,9 +70,18 @@ export class DashboardHeaderComponent implements OnInit {
 
     const detalleRecibo: string = this.detalleRecibo(this.listaServicios);
     const detallePago: string = this.detallePago(this.conceptoPago);
+    let esInvaliddo: boolean = this.validarDatos(
+      detalleRecibo,
+      detallePago,
+      'OFICINA SENASA - CENTRAL',
+      this.datosSolicitante.persona_Id,
+      this.idProcedimiento,
+    );
+
+    if (esInvaliddo) return;
 
     const solicitud: GuardarSolicitudIn = {
-      pcentrotramite: 'OFICINA SENSANA - CENTRAL',
+      pcentrotramite: 'OFICINA SENASA - CENTRAL',
       pcanal: 'BPM',
       ppersonaid: this.datosSolicitante.persona_Id,
       pprocedimientotupa: this.idProcedimiento,
@@ -75,10 +94,8 @@ export class DashboardHeaderComponent implements OnInit {
       pcodorden: '',
     };
 
-    this.resGrabaSolicitud = this.grabarSolicitud(solicitud);
-
     const inactivo: GrabarInactivoIn = {
-      pcentrotramite: 'OFICINA SENSANA - CENTRAL',
+      pcentrotramite: 'OFICINA SENASA - CENTRAL',
       pcanal: 'BPM',
       ppersonaid: this.datosSolicitante.persona_Id,
       ppersonaidotro: this.otroUsuario.persona_Id ? this.otroUsuario.persona_Id : '',
@@ -95,17 +112,19 @@ export class DashboardHeaderComponent implements OnInit {
       pcodorden: '',
     };
 
-    this.resGrabarInactivo = this.grabarInactivo(inactivo);
+    if (!this.listaServicios[0].pcodexpediente) {
+      this.guardarSinCodExp(inactivo);
+    } else {
+      this.guardarConCodExp(solicitud, inactivo);
+    }
+  }
 
-    const actulizar: ActualizarReciboIn = {
-      pcodrecibo: this.resGrabarInactivo.pcodrecibo, //???????
-      pucmid: '',
-      pcodigostddoc: this.resGrabaSolicitud.pcodigostddoc,
-      puserid: '', //De sesion
-      pcodexpediente: this.listaServicios[0].pcodexpediente ? this.listaServicios[0].pcodexpediente : '',
-    };
-
-    this.resActualizarRecibo = this.actualizarRecibo(actulizar);
+  validarDatos(recibo: string, pago: string, codigo: string, personaId: string, procetupa: string): boolean {
+    if (recibo === '' || pago === '' || codigo === '' || personaId === '' || procetupa === '') {
+      this.mostrarAlerta('Error', 'Falta completar los datos');
+      return true;
+    }
+    return false;
   }
 
   grabarSolicitud(solicitud: GuardarSolicitudIn): GuardarSolicitud {
@@ -121,17 +140,19 @@ export class DashboardHeaderComponent implements OnInit {
     return {} as GuardarSolicitud;
   }
 
-  grabarInactivo(solicitud: GrabarInactivoIn): GrabarInactivo {
-    this.guardarSolicitudService.grabarInactivo(solicitud).subscribe((data: GrabarInactivoOut) => {
-      if (data.code !== '000') {
-        console.log('Error al grabar inactivo');
-        return;
-      }
+  //PAGO: UPDATE
+  grabarInactivo(solicitud: GrabarInactivoIn): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.guardarSolicitudService.grabarInactivo(solicitud).subscribe((data: GrabarInactivoOut) => {
+        if (data.code !== '000') {
+          reject('Error al grabar inactivo');
+          return;
+        }
 
-      return data.data[0];
+        this.resGrabarInactivo = data.data[0];
+        resolve();
+      });
     });
-
-    return {} as GrabarInactivo;
   }
 
   actualizarRecibo(solicitud: ActualizarReciboIn): ActualizarRecibo {
@@ -145,6 +166,47 @@ export class DashboardHeaderComponent implements OnInit {
     });
 
     return {} as ActualizarRecibo;
+  }
+
+  async guardarSinCodExp(solicitud: GrabarInactivoIn) {
+    try {
+      await this.grabarInactivo(solicitud);
+
+      this.infoExpedienteService.guardadoCompleto = false;
+
+      const nombres: NombresServicio = this.tupaGeDetalleServiciosService.obtenerServicio();
+      const fechaHora = new Date().toLocaleString();
+
+      const infoExpe: InfoExpendiente = {
+        nroExpediente: this.resGrabarInactivo.pcodexpediente,
+        fechaRegistro: fechaHora, //saber donde sale
+        oficina: 'SENSANA - CENTRAL',
+        area: nombres.area,
+        proceso: nombres.proceso,
+        servicioTupa: nombres.serivico,
+        usuario: this.datosSolicitante.nombre_Razon_Social,
+        codRecibo: this.resGrabarInactivo.pcodrecibo,
+      };
+
+      this.infoExpedienteService.actualizarDatos(infoExpe);
+    } catch (error) {
+      console.error('Error al grabar inactivo:', error);
+    }
+  }
+
+  guardarConCodExp(grabar: GuardarSolicitudIn, inactivo: GrabarInactivoIn) {
+    this.resGrabaSolicitud = this.grabarSolicitud(grabar);
+
+    const actulizar: ActualizarReciboIn = {
+      pcodrecibo: this.resGrabarInactivo.pcodrecibo, //???????
+      pucmid: '',
+      pcodigostddoc: this.resGrabaSolicitud.pcodigostddoc,
+      puserid: '', //De sesion
+      pcodexpediente: this.listaServicios[0].pcodexpediente ? this.listaServicios[0].pcodexpediente : '',
+    };
+
+    this.resActualizarRecibo = this.actualizarRecibo(actulizar);
+    //!! Sin funcionalidad el ultimo servicio
   }
 
   detalleRecibo(servicio: Servicio[]): string {
@@ -173,5 +235,15 @@ export class DashboardHeaderComponent implements OnInit {
     });
 
     return arr.join('<->');
+  }
+
+  mostrarAlerta(title: string, content: string) {
+    this.showModalAlert = true;
+    this.title2 = title;
+    this.content = content;
+  }
+
+  closeModalAlert(event: boolean) {
+    this.showModalAlert = event;
   }
 }

@@ -10,24 +10,29 @@ import {
   Servicio,
   ServiciosProc,
 } from '../../interfaces/tupa-ge-detalle.interface';
+import { ModalAlertComponent } from 'src/app/shared/components/modal-alert/modal-alert.component';
 
 @Component({
   selector: 'app-tupa-ge-detalle-ser-modal',
   templateUrl: './tupa-ge-detalle-ser-modal.component.html',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, NgFor],
+  imports: [NgIf, ReactiveFormsModule, NgFor, ModalAlertComponent],
 })
 export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
+  public form!: FormGroup;
+
   @Input() showModal = false;
-  @Input() servicio: ListaServicioIn = {} as ListaServicioIn;
   @Output() eventModal = new EventEmitter<boolean>();
 
-  public numExp: boolean = false;
+  @Input() servicio: ListaServicioIn = {} as ListaServicioIn;
 
+  public showModalAlert: boolean = false;
+  public title: string = '';
+  public content: string = '';
+
+  public numExp: boolean = false;
   public servicios: ServiciosProc[] = [];
   public servicioSelected: ServiciosProc = {} as ServiciosProc;
-
-  public form!: FormGroup;
 
   constructor(private fb: FormBuilder, private tupaGeDetalleServicioService: TupaGeDetalleServiciosService) {}
 
@@ -51,7 +56,7 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
     if (this.servicio.p_Cod_Servicio !== '' && this.servicio.pproctupa !== '') {
       this.tupaGeDetalleServicioService.listarSerivicioModal(this.servicio).subscribe((data: ListarServicioOut) => {
         if (data.code !== '000') {
-          console.log('Algo salio mal al traer los servicio');
+          this.mostrarAlerta('Error', 'Algo salio mal al traer los servicio');
           return;
         }
 
@@ -65,6 +70,8 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
       return servicio.codigo_Servicio_Tupa === this.form.controls['concepto'].value;
     })!;
 
+    this.tupaGeDetalleServicioService.servicio.serivico = this.servicioSelected.descripcion_Servicio;
+
     this.esRenovacion(this.servicioSelected);
 
     const req: MontoIn = {
@@ -77,7 +84,7 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
 
     this.tupaGeDetalleServicioService.calcularMonto(req).subscribe((data: MontoOut) => {
       if (data.code !== '000') {
-        console.log('Se produjo un error al traer el monto');
+        this.mostrarAlerta('Error', 'Algo salio mal al traer el monto');
         return;
       }
 
@@ -107,12 +114,12 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
     }
 
     if (this.form.invalid) {
-      console.log('Falta campos por agregar');
+      this.mostrarAlerta('Falta llenar campos', 'Por favor, complete los campos');
       return;
     }
 
     if (!Number.isFinite(servicio.costo)) {
-      console.log('El valor ingresado no es un numero');
+      this.mostrarAlerta('Error', 'El valor ingresado no es un numero');
       return;
     }
 
@@ -127,6 +134,16 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
     this.form.controls['costo'].setValue('');
 
     this.eventModal.emit(false);
+  }
+
+  mostrarAlerta(title: string, content: string) {
+    this.showModalAlert = true;
+    this.title = title;
+    this.content = content;
+  }
+
+  closeModalAlert(event: boolean) {
+    this.showModalAlert = event;
   }
 
   changeModal() {

@@ -64,3 +64,14 @@ export interface ActualizarRecibo {
 export interface ActualizarReciboOut extends Result {
   data: ActualizarRecibo[];
 }
+
+export interface InfoExpendiente {
+  nroExpediente: string;
+  fechaRegistro: string;
+  oficina: string;
+  area: string;
+  proceso: string;
+  servicioTupa: string;
+  usuario: string;
+  codRecibo: string;
+}

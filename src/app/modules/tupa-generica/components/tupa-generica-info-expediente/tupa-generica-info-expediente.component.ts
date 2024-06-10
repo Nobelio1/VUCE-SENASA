@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InfoExpedienteService } from '../../services/info-expediente.service';
+import { Subscription } from 'rxjs';
+import { InfoExpendiente } from '../../interfaces/guadar-solicitud.interface';
 
 @Component({
   selector: 'app-tupa-generica-info-expediente',
@@ -7,10 +10,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
   standalone: true,
   imports: [ReactiveFormsModule],
 })
-export class TupaGenericaInfoExpedienteComponent implements OnInit {
+export class TupaGenericaInfoExpedienteComponent implements OnInit, OnDestroy {
   public form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  public infoSub!: Subscription;
+  public infoActivo: InfoExpendiente = {} as InfoExpendiente;
+
+  constructor(private fb: FormBuilder, private infoExpedienteService: InfoExpedienteService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -21,8 +27,25 @@ export class TupaGenericaInfoExpedienteComponent implements OnInit {
       proceso: [''],
       servicioTupa: [''],
       usuario: [''],
+      codRecibo: [''],
     });
 
     this.form.disable();
+    this.cargarInfoExp();
+  }
+
+  ngOnDestroy(): void {
+    this.infoSub.unsubscribe();
+  }
+
+  cargarInfoExp() {
+    this.infoSub = this.infoExpedienteService.getInfo.subscribe((info) => {
+      this.infoActivo = info;
+      this.form.patchValue(this.infoActivo);
+    });
+  }
+
+  descargarRecibo() {
+    console.log('Descargar recibo');
   }
 }

@@ -1,6 +1,6 @@
 <div
   *ngIf="showModal"
-  class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
+  class="fixed inset-0 z-30 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
   <div class="relative my-6 mx-auto w-[1000px]">
     <!--content-->
     <div
@@ -79,4 +79,9 @@
     </div>
   </div>
 </div>
-<div *ngIf="showModal" class="fixed inset-0 z-40 bg-black opacity-25"></div>
+<app-modal-alert
+  [showModal]="showModalAlert"
+  (eventModal)="closeModalAlert($event)"
+  [title]="title"
+  [content]="content"></app-modal-alert>
+<div *ngIf="showModal" class="fixed inset-0 z-20 bg-black opacity-25"></div>

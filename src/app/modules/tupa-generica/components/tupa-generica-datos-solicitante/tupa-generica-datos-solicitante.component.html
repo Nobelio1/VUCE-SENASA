@@ -189,4 +189,9 @@
     [showModal]="showModalBuscar"
     (eventModal)="closeModalBuscar($event)"
     [personas]="personas"></app-tupa-generica-busca-persona-modal>
+  <app-modal-alert
+    [showModal]="showModalAlert"
+    (eventModal)="closeModalAlert($event)"
+    [title]="title"
+    [content]="content"></app-modal-alert>
 </div>

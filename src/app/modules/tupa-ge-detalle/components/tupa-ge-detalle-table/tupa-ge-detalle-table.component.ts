@@ -8,20 +8,32 @@ import { Subscription } from 'rxjs';
 import { TupaGeDetalleOtroUsuarioService } from '../../services/tupa-ge-detalle-otro-usuario.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Solicitante2 } from 'src/app/modules/tupa-generica/interfaces/tupa-generica.interface';
+import { ModalAlertComponent } from 'src/app/shared/components/modal-alert/modal-alert.component';
 
 @Component({
   selector: '[tupa-ge-detalle-table]',
   templateUrl: './tupa-ge-detalle-table.component.html',
   standalone: true,
-  imports: [NgFor, TupaGeDetalleTableItemComponent, TupaGeDetalleSerModalComponent, ReactiveFormsModule],
+  imports: [
+    NgFor,
+    TupaGeDetalleTableItemComponent,
+    TupaGeDetalleSerModalComponent,
+    ReactiveFormsModule,
+    ModalAlertComponent,
+  ],
 })
 export class TupaGeDetalleTableComponent implements OnInit, OnChanges {
   @Input() servicio: ListaServicioIn = {} as ListaServicioIn;
-
   public servicoSelect: ListaServicioIn = {} as ListaServicioIn;
-  public showModal: boolean = false;
 
   public form!: FormGroup;
+
+  public showModal: boolean = false;
+
+  //Modal Alert
+  public showModalAlert: boolean = false;
+  public title: string = '';
+  public content: string = '';
 
   public listaSub!: Subscription;
   public activeServicio: Servicio[] = [];
@@ -76,7 +88,22 @@ export class TupaGeDetalleTableComponent implements OnInit, OnChanges {
   }
 
   toggleModal() {
+    if (Object.keys(this.servicoSelect).includes('')) {
+      this.mostrarAlerta('Error', 'Seleccione un servicio');
+      return;
+    }
+
     this.showModal = !this.showModal;
+  }
+
+  mostrarAlerta(title: string, content: string) {
+    this.showModalAlert = true;
+    this.title = title;
+    this.content = content;
+  }
+
+  closeModalAlert(event: boolean) {
+    this.showModalAlert = event;
   }
 
   closeModal(event: boolean) {

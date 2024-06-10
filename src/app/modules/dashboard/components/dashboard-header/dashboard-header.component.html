@@ -21,3 +21,9 @@
     </button>
   </div>
 </div>
+
+<app-modal-alert
+  [showModal]="showModalAlert"
+  (eventModal)="closeModalAlert($event)"
+  [title]="title2"
+  [content]="content"></app-modal-alert>

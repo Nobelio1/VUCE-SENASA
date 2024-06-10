@@ -72,3 +72,9 @@
   [showModal]="showModal"
   [servicio]="servicoSelect"
   (eventModal)="closeModal($event)"></app-tupa-ge-detalle-ser-modal>
+
+<app-modal-alert
+  [showModal]="showModalAlert"
+  (eventModal)="closeModalAlert($event)"
+  [title]="title"
+  [content]="content"></app-modal-alert>

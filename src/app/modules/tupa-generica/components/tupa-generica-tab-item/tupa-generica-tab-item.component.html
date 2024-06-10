@@ -1,6 +1,6 @@
 <li class="me-2">
   <button
-    [disabled]="item.name === 'Información del expediente' ? true : false"
+    [disabled]="solicitudCompleta(item)"
     (click)="onClick()"
     [className]="
       item.active

@@ -17,6 +17,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { TupaGenericaBuscaPersonaModalComponent } from '../tupa-generica-busca-persona-modal/tupa-generica-busca-persona-modal.component';
 import { TupaGenericaDatosSoService } from '../../services/tupa-generica-datos-so.service';
 import { Subscription } from 'rxjs';
+import { ModalAlertComponent } from 'src/app/shared/components/modal-alert/modal-alert.component';
 
 @Component({
   selector: 'app-tupa-generica-datos-solicitante',
@@ -29,6 +30,7 @@ import { Subscription } from 'rxjs';
     NgFor,
     ReactiveFormsModule,
     TupaGenericaBuscaPersonaModalComponent,
+    ModalAlertComponent,
   ],
 })
 export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy {
@@ -38,6 +40,12 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
 
   public showModalAgregar = false;
   public showModalBuscar = false;
+
+  //Modal Alert
+  public showModalAlert: boolean = false;
+  public title: string = '';
+  public content: string = '';
+
   public tipoDocumentos: TipoDocumentos[] = [];
   public personas: Solicitante2[] = [];
   public representantes: Representante[] = [];
@@ -95,9 +103,14 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
 
     if (tipoBusqueda === 'id1') {
       if (!tipoDoc || !nroDoc) {
-        console.log('falta completar data');
+        this.mostrarAlerta(
+          'Falta llenar campos',
+          'Por favor, complete los campos de Tipo de Documento y Número de Documento',
+        );
         return;
       }
+
+      this.showModalBuscar = !this.showModalBuscar;
 
       const req: SolicitanteIn = {
         ptidodoc: tipoDoc,
@@ -106,7 +119,7 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
 
       this.tupaGenericaService.listarSoliciante(req).subscribe((data: SolicitanteOut) => {
         if (data.code !== '000') {
-          console.log('Se produjo error al traer la data por tipoDocumento');
+          this.mostrarAlerta('Falta llenar campos', 'Se produjo error al traer la data por tipoDocumento');
           return;
         }
         this.personas = data.data;
@@ -115,7 +128,7 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
       this.form3.disable();
     } else {
       if (!nroRazon) {
-        console.log('falta completar data');
+        this.mostrarAlerta('Falta llenar campos', 'Por favor, complete el campo de Número de Razon Social');
         return;
       }
 
@@ -125,7 +138,7 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
 
       this.tupaGenericaService.listarSoliciante(req).subscribe((data: SolicitanteOut) => {
         if (data.code !== '000') {
-          console.log('Se produjo error al traer la data por tipoDocumento');
+          this.mostrarAlerta('Falta llenar campos', 'Se produjo error al traer la data por tipoDocumento');
           return;
         }
         this.personas = data.data;
@@ -136,13 +149,13 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
 
   openModal() {
     this.buscarSolicitantePorTipo();
-    this.showModalBuscar = !this.showModalBuscar;
   }
 
   listDocumentos() {
     this.tupaGenericaService.listTipoDocumento().subscribe((data: ListarTipoDocumentos) => {
       if (data.code !== '000') {
-        throw new Error('Error al traer la data');
+        this.mostrarAlerta('Error', 'Error al traer la data');
+        return;
       }
 
       this.tipoDocumentos = data.data;
@@ -199,12 +212,22 @@ export class TupaGenericaDatosSolicitanteComponent implements OnInit, OnDestroy 
   listarRepresentantes(id: string) {
     this.tupaGenericaService.getRepresentanteLegal(id).subscribe((data: RepresentateOut) => {
       if (data.code !== '000') {
-        console.log('Hubo un error al traer a los representantes');
+        this.mostrarAlerta('Error', 'Hubo un error al traer a los representantes');
         return;
       }
 
       this.representantes = data.data;
     });
+  }
+
+  mostrarAlerta(title: string, content: string) {
+    this.showModalAlert = true;
+    this.title = title;
+    this.content = content;
+  }
+
+  closeModalAlert(event: boolean) {
+    this.showModalAlert = event;
   }
 
   closeModalBuscar(event: boolean) {

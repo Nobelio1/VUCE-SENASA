@@ -1,0 +1,29 @@
+<div
+  *ngIf="showModal"
+  class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
+  <div class="relative my-6 mx-auto w-[600px]">
+    <!--content-->
+    <div
+      class="relative flex w-full flex-col rounded-lg border-0 bg-slate-100 px-4 shadow-lg outline-none focus:outline-none dark:bg-neutral-900">
+      <!--header-->
+      <h6
+        class="mb-2 border-b border-dashed border-b-gray-600 px-2 py-4 text-lg font-bold text-gray-900 dark:text-white">
+        {{ title }}
+      </h6>
+      <!--body-->
+      <p class="my-4 px-4">
+        <span class="text-gray-900 dark:text-white">{{ content }}</span>
+      </p>
+      <!--footer-->
+      <div class="flex items-center justify-end rounded-b pb-4">
+        <button
+          class="w-full rounded-lg border border-primary bg-transparent px-5 py-2.5 text-center text-sm font-medium text-primary text-white ring-primary/50 focus:outline-none focus:ring-4 hover:bg-primary hover:text-white sm:w-auto md:top-7"
+          type="button"
+          (click)="closeModal()">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showModal" class="fixed inset-0 z-40 bg-black opacity-25"></div>

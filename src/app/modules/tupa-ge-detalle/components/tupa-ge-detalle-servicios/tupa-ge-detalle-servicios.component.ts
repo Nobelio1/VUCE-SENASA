@@ -12,14 +12,20 @@ import {
 import { NgFor } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TupaGeDetalleServiciosService } from '../../services/tupa-ge-detalle-servicios.service';
+import { ModalAlertComponent } from 'src/app/shared/components/modal-alert/modal-alert.component';
 
 @Component({
   selector: 'app-tupa-ge-detalle-servicios',
   templateUrl: './tupa-ge-detalle-servicios.component.html',
   standalone: true,
-  imports: [TupaGeDetalleTableComponent, NgFor, FormsModule, ReactiveFormsModule],
+  imports: [TupaGeDetalleTableComponent, NgFor, FormsModule, ReactiveFormsModule, ModalAlertComponent],
 })
 export class TupaGeDetalleServiciosComponent implements OnInit {
+  //Modal Alert
+  public showModalAlert: boolean = false;
+  public title: string = '';
+  public content: string = '';
+
   public areas: Area[] = [];
   public selectedArea: string = '';
 
@@ -50,12 +56,16 @@ export class TupaGeDetalleServiciosComponent implements OnInit {
 
   onAreaChange() {
     this.listSubArea(this.form.controls['area'].value);
+    const areaSelect: Area = this.areas.find((area) => area.codigo_Area_Gestion === this.form.controls['area'].value)!;
+
+    this.tupaGeDetalleServiciosService.servicio.area = areaSelect.descripcion_Area_Gestion;
   }
 
   listarArea() {
     this.tupaGeDetalleService.listArea().subscribe((data: ListarArea) => {
       if (data.code !== '000') {
-        throw new Error('Error al conectarse con el servicio');
+        this.mostrarAlerta('Error', 'Error al conectarse con el servicio');
+        return;
       }
       this.areas = data.data;
     });
@@ -70,6 +80,8 @@ export class TupaGeDetalleServiciosComponent implements OnInit {
     this.servicio = this.subAreas.find(
       (area) => area.codigo_Procedimiento_Tupa === this.form.controls['procedimiento'].value,
     )!;
+
+    this.tupaGeDetalleServiciosService.servicio.proceso = this.servicio.descripcion_Procedimieto_Tupa;
   }
 
   listSubArea(id: string) {
@@ -80,9 +92,20 @@ export class TupaGeDetalleServiciosComponent implements OnInit {
 
     this.tupaGeDetalleService.listProcedimientoPorAreas(resq).subscribe((data: ListarProAreaOut) => {
       if (data.code !== '000') {
-        throw new Error('Error en la respuesta');
+        this.mostrarAlerta('Error', 'Error al traer el procedimiento');
+        return;
       }
       this.subAreas = data.data;
     });
+  }
+
+  mostrarAlerta(title: string, content: string) {
+    this.showModalAlert = true;
+    this.title = title;
+    this.content = content;
+  }
+
+  closeModalAlert(event: boolean) {
+    this.showModalAlert = event;
   }
 }
