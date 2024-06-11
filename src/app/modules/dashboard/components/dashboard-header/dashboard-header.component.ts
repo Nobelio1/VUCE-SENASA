@@ -22,6 +22,7 @@ import { GrabarInactivoIn } from '../../../tupa-generica/interfaces/guadar-solic
 import { InfoExpedienteService } from 'src/app/modules/tupa-generica/services/info-expediente.service';
 import { NombresServicio } from '../../../tupa-ge-detalle/services/tupa-ge-detalle-servicios.service';
 import { ModalAlertComponent } from 'src/app/shared/components/modal-alert/modal-alert.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-header',
@@ -32,6 +33,7 @@ import { ModalAlertComponent } from 'src/app/shared/components/modal-alert/modal
 export class DashboardHeaderComponent implements OnInit {
   @Input() title: string = '';
   @Input() tupa: boolean = true;
+  public guardado: boolean = false;
 
   //Modal Alert
   public showModalAlert: boolean = false;
@@ -56,6 +58,7 @@ export class DashboardHeaderComponent implements OnInit {
     private tupaGeDetalleOtroUsuarioService: TupaGeDetalleOtroUsuarioService,
     private tupaGeDetalleConceptoPagoService: TupaGeDetalleConceptoPagoService,
     private infoExpedienteService: InfoExpedienteService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {}
@@ -189,6 +192,7 @@ export class DashboardHeaderComponent implements OnInit {
       };
 
       this.infoExpedienteService.actualizarDatos(infoExpe);
+      this.guardado = !this.guardado;
     } catch (error) {
       console.error('Error al grabar inactivo:', error);
     }
@@ -206,6 +210,7 @@ export class DashboardHeaderComponent implements OnInit {
     };
 
     this.resActualizarRecibo = this.actualizarRecibo(actulizar);
+    this.guardado = !this.guardado;
     //!! Sin funcionalidad el ultimo servicio
   }
 
