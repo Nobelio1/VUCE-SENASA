@@ -12,6 +12,7 @@ export class TupaGeDetalleConceptoPagoService {
   public getLista: Observable<CptPago[]> = this.listaPagos.asObservable();
 
   private elementosBorrar: number[] = [];
+  private montoValido: boolean = true;
 
   private urlService = environment.API_MASTER;
   public url2 = `${this.urlService}/conceptos`;
@@ -50,6 +51,14 @@ export class TupaGeDetalleConceptoPagoService {
 
   eliminarElemento(index: number) {
     this.elementosBorrar = this.elementosBorrar.filter((elem) => elem !== index);
+  }
+
+  actualizarMontoValido(monto: boolean) {
+    this.montoValido = monto;
+  }
+
+  obtenerMontoValido(): boolean {
+    return this.montoValido;
   }
 
   //?PETICIONES HTTP ------------------------------------------------------------

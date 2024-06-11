@@ -14,6 +14,7 @@
       Guardar
     </button>
     <button
+      (click)="finalizarProceso()"
       class="flex-none rounded-md bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground disabled:opacity-60 hover:text-foreground"
       [disabled]="!guardado">
       Finalizar proceso

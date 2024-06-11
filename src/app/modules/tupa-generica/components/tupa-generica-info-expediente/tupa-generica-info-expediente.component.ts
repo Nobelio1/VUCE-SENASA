@@ -46,6 +46,13 @@ export class TupaGenericaInfoExpedienteComponent implements OnInit, OnDestroy {
   }
 
   descargarRecibo() {
-    console.log('Descargar recibo');
+    this.infoExpedienteService.descargarRecibo(this.form.controls['codRecibo'].value).subscribe((data) => {
+      const url = window.URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'reciboPago.pdf';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
   }
 }

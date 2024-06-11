@@ -51,6 +51,18 @@ export class TupaGeDetalleConceptoPagoComponent implements OnInit, OnDestroy {
     });
 
     this.montoTotal = this.montos.reduce((a, b) => a + b, 0);
+
+    let montoValido: number = 0;
+
+    this.conceptoPago.forEach((element) => {
+      montoValido += element.monto;
+    });
+
+    if (montoValido < this.montoTotal) {
+      this.tupaGeDetalleConceptoPagoService.actualizarMontoValido(false);
+    } else {
+      this.tupaGeDetalleConceptoPagoService.actualizarMontoValido(true);
+    }
   }
 
   toggleModal() {

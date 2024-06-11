@@ -126,9 +126,9 @@ export class TupaGeDetalleSerModalComponent implements OnInit, OnChanges {
     const listaActual = this.tupaGeDetalleServicioService.obtenerLista();
     listaActual.push(servicio);
 
-    const nuevaLista: Servicio[] = [];
-    nuevaLista.push(servicio);
-    this.tupaGeDetalleServicioService.actualizarServicio(nuevaLista);
+    // const nuevaLista: Servicio[] = [];
+    // nuevaLista.push(servicio);
+    this.tupaGeDetalleServicioService.actualizarServicio(listaActual);
 
     this.form.controls['cantidad'].setValue('');
     this.form.controls['costo'].setValue('');

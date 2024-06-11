@@ -81,7 +81,14 @@ export class DashboardHeaderComponent implements OnInit {
       this.idProcedimiento,
     );
 
+    let montoValido: boolean = this.montoValido();
+
     if (esInvaliddo) return;
+
+    if (!montoValido) {
+      this.mostrarAlerta('Error', 'El monto ingresado es menos al monto total');
+      return;
+    }
 
     const solicitud: GuardarSolicitudIn = {
       pcentrotramite: 'OFICINA SENASA - CENTRAL',
@@ -128,6 +135,10 @@ export class DashboardHeaderComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  montoValido(): boolean {
+    return this.tupaGeDetalleConceptoPagoService.obtenerMontoValido();
   }
 
   grabarSolicitud(solicitud: GuardarSolicitudIn): GuardarSolicitud {
@@ -252,5 +263,9 @@ export class DashboardHeaderComponent implements OnInit {
 
   closeModalAlert(event: boolean) {
     this.showModalAlert = event;
+  }
+
+  finalizarProceso() {
+    this.router.navigate(['/dashboard/registrar-requisitos']);
   }
 }
