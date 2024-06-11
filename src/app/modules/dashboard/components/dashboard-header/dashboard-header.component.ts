@@ -191,6 +191,8 @@ export class DashboardHeaderComponent implements OnInit {
         codRecibo: this.resGrabarInactivo.pcodrecibo,
       };
 
+      localStorage.setItem('nombreSolicitante', JSON.stringify(infoExpe.usuario));
+
       this.infoExpedienteService.actualizarDatos(infoExpe);
       this.guardado = !this.guardado;
     } catch (error) {
