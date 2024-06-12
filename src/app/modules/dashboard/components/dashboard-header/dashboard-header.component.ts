@@ -23,12 +23,13 @@ import { InfoExpedienteService } from 'src/app/modules/tupa-generica/services/in
 import { NombresServicio } from '../../../tupa-ge-detalle/services/tupa-ge-detalle-servicios.service';
 import { ModalAlertComponent } from 'src/app/shared/components/modal-alert/modal-alert.component';
 import { Router } from '@angular/router';
+import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-dashboard-header',
   templateUrl: './dashboard-header.component.html',
   standalone: true,
-  imports: [CommonModule, ModalAlertComponent],
+  imports: [CommonModule, ModalAlertComponent, SpinnerComponent],
 })
 export class DashboardHeaderComponent implements OnInit {
   @Input() title: string = '';
@@ -39,6 +40,9 @@ export class DashboardHeaderComponent implements OnInit {
   public showModalAlert: boolean = false;
   public title2: string = '';
   public content: string = '';
+
+  public loadingContent: string = 'Cargando...';
+  public loading: boolean = false;
 
   public datosSolicitante: Solicitante2 = {} as Solicitante2;
   public listaServicios: Servicio[] = [];
@@ -157,14 +161,17 @@ export class DashboardHeaderComponent implements OnInit {
   //PAGO: UPDATE
   grabarInactivo(solicitud: GrabarInactivoIn): Promise<void> {
     return new Promise<void>((resolve, reject) => {
+      this.contextLoading('Guardando solicitud');
       this.guardarSolicitudService.grabarInactivo(solicitud).subscribe((data: GrabarInactivoOut) => {
         if (data.code !== '000') {
+          this.contextLoading('');
+
           reject('Error al grabar inactivo');
           return;
         }
-
         this.resGrabarInactivo = data.data[0];
         resolve();
+        this.contextLoading(''); //revisar si va antes o despues del resolver()
       });
     });
   }
@@ -253,6 +260,11 @@ export class DashboardHeaderComponent implements OnInit {
     });
 
     return arr.join('<->');
+  }
+
+  contextLoading(content: string) {
+    this.loading = !this.loading;
+    this.loadingContent = content;
   }
 
   mostrarAlerta(title: string, content: string) {

@@ -251,9 +251,12 @@
     </form>
   </div>
 </div>
+<div *ngIf="showModal" class="fixed inset-0 z-20 bg-black opacity-25"></div>
+
+<!-- Modal -->
 <app-modal-alert
   [showModal]="showModalAlert"
   (eventModal)="closeModalAlert($event)"
   [title]="title"
   [content]="content"></app-modal-alert>
-<div *ngIf="showModal" class="fixed inset-0 z-20 bg-black opacity-25"></div>
+<app-spinner [content]="loadingContent" [show]="loading"></app-spinner>

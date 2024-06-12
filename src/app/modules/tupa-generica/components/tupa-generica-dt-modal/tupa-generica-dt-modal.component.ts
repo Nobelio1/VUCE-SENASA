@@ -13,12 +13,13 @@ import {
 import { TupaGenericaService } from '../../services/tupa-generica.service';
 import { TupaGenericaDatosSoService } from '../../services/tupa-generica-datos-so.service';
 import { ModalAlertComponent } from 'src/app/shared/components/modal-alert/modal-alert.component';
+import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-tupa-generica-dt-modal',
   templateUrl: './tupa-generica-dt-modal.component.html',
   standalone: true,
-  imports: [NgIf, NgFor, ReactiveFormsModule, ModalAlertComponent],
+  imports: [NgIf, NgFor, ReactiveFormsModule, ModalAlertComponent, SpinnerComponent],
 })
 export class TupaGenericaDtModalComponent implements OnInit {
   @Input() showModal = false;
@@ -27,6 +28,9 @@ export class TupaGenericaDtModalComponent implements OnInit {
   public showModalAlert: boolean = false;
   public title: string = '';
   public content: string = '';
+
+  public loadingContent: string = 'Cargando...';
+  public loading: boolean = false;
 
   public form!: FormGroup;
 
@@ -134,9 +138,18 @@ export class TupaGenericaDtModalComponent implements OnInit {
       return;
     }
 
-    this.tupaGenericaService.getRegistrosSunat(ruc).subscribe((data: RegistroUsuario) => {
-      this.setForm(data, '04');
-      this.usuario = data;
+    this.contextLoading('Obteniendo datos desde SUNAT...Espere un momento...');
+
+    this.tupaGenericaService.getRegistrosSunat(ruc).subscribe({
+      next: (data: RegistroUsuario) => {
+        this.setForm(data, '04');
+        this.contextLoading('');
+        this.usuario = data;
+      },
+      error: (error) => {
+        this.contextLoading('');
+        this.mostrarAlerta('Error', 'Error al leer el WS SUNAT');
+      },
     });
   }
 
@@ -150,9 +163,18 @@ export class TupaGenericaDtModalComponent implements OnInit {
       return;
     }
 
-    this.tupaGenericaService.getRegistroReniec(dni).subscribe((data: RegistroUsuario) => {
-      this.setForm(data, '01');
-      this.usuario = data;
+    this.contextLoading('Obteniendo datos desde RENIEC...Espere un momento...');
+
+    this.tupaGenericaService.getRegistroReniec(dni).subscribe({
+      next: (data: RegistroUsuario) => {
+        this.setForm(data, '01');
+        this.contextLoading('');
+        this.usuario = data;
+      },
+      error: (error) => {
+        this.contextLoading('');
+        this.mostrarAlerta('Error', 'Error al leer el WS RENIEC');
+      },
     });
   }
 
@@ -253,6 +275,17 @@ export class TupaGenericaDtModalComponent implements OnInit {
 
   ingresandoUsuario(req: Solicitante2) {
     this.tupaGenericaDatosSoService.actualizarDatos(req);
+  }
+
+  mostrarAlerta(title: string, content: string) {
+    this.showModalAlert = true;
+    this.title = title;
+    this.content = content;
+  }
+
+  contextLoading(content: string) {
+    this.loading = !this.loading;
+    this.loadingContent = content;
   }
 
   closeModalAlert(event: boolean) {

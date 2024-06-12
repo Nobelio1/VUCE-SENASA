@@ -38,7 +38,7 @@ export class TupaGeDetalleCpModalComponent implements OnInit {
       tipoPago: ['', [Validators.required]],
       banco: ['', [Validators.required]],
       nroCuenta: ['', [Validators.required]],
-      nroOperacion: ['', [Validators.required, Validators.minLength(8)]],
+      nroOperacion: ['', [Validators.required, Validators.pattern('^[0-9]*$')]], //todo: Falta configurar para que solo acepte numeros
       fechaDeposito: ['', [Validators.required]],
       monto: ['', [Validators.required]],
     });
