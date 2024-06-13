@@ -1,0 +1,35 @@
+<div class="mb-4 flex justify-between">
+  <div class="inline-block">
+    <h3 class="font-semibold text-foreground">{{ this.title }}</h3>
+    <div class="text-md space-x-1 font-medium text-muted-foreground">
+      <span>EXPEDIENTE N° 2020202020203</span>
+    </div>
+  </div>
+
+  <div class="inline-block space-x-4">
+    <button
+      class="flex-none rounded-md bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground disabled:opacity-60 hover:text-foreground">
+      Archivar
+    </button>
+    <button
+      class="flex-none rounded-md bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground disabled:opacity-60 hover:text-foreground">
+      Revisión Doc. Conforme
+    </button>
+    <button
+      class="flex-none rounded-md bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground disabled:opacity-60 hover:text-foreground">
+      Ejecución de inspección
+    </button>
+    <button
+      class="flex-none rounded-md bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground disabled:opacity-60 hover:text-foreground">
+      Cerrar
+    </button>
+  </div>
+</div>
+
+<!-- Modal -->
+<app-modal-alert
+  [showModal]="showModalAlert"
+  (eventModal)="closeModalAlert($event)"
+  [title]="title2"
+  [content]="content"></app-modal-alert>
+<app-spinner [content]="loadingContent" [show]="loading"></app-spinner>

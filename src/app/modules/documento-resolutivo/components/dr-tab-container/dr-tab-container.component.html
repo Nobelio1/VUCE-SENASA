@@ -1,0 +1,7 @@
+<app-dr-tab-header [tabs]="this.tabs" (eventSelected)="this.onSelect($event)"></app-dr-tab-header>
+<div class="text-white">
+  <app-dr-info-expendiente *ngIf="this.currentTabKey === tabs[0].id" />
+  <app-dr-observaciones *ngIf="this.currentTabKey === tabs[1].id"/>
+  <app-dr-dev-doc-resolutivos *ngIf="this.currentTabKey === tabs[2].id"/>
+  <app-dr-trazabilidad *ngIf="this.currentTabKey === tabs[3].id"/>
+</div>
